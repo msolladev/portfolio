@@ -20,6 +20,10 @@ ARG NEXT_PUBLIC_SITE_URL=https://tunombre.dev
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
 ENV NEXT_TELEMETRY_DISABLED=1
 
+# <-- Añadido: pasar API key de Resend al build
+ARG RESEND_API_KEY
+ENV RESEND_API_KEY=$RESEND_API_KEY
+
 RUN pnpm run build
 
 # ─── Stage 3: runner ──────────────────────────────────────
@@ -34,7 +38,7 @@ RUN addgroup --system --gid 1001 nodejs && \
 
 # Standalone output de Next.js
 COPY --from=builder /app/public          ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./ 
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static     ./.next/static
 
 USER nextjs
