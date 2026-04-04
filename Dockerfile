@@ -15,11 +15,6 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Variable de build (opcional)
-ARG RESEND_API_KEY
-ENV NEXT_TELEMETRY_DISABLED=1
-
-# Se usa RESEND_API_KEY en build, si no está, fallará
 RUN pnpm run build
 
 # ─── Stage 3: runner ──────────────────────────────────────
