@@ -18,27 +18,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Node.js
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: pnpm
 
-      # Instala pnpm y lo deja en PATH
       - name: Install pnpm
         uses: pnpm/action-setup@v3
         with:
           version: latest
 
-      # Instala dependencias
       - name: Install deps
         run: pnpm install --frozen-lockfile
 
-      # Type-check y Lint
       - name: Type-check
         run: pnpm type-check
 
       - name: Lint
-        run: pnpm lint
+        run: pnpm lint -- --no-interactive
 
   # ── 2. Build & push imagen Docker ──────────────────────
   build:
