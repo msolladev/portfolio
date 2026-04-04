@@ -15,8 +15,16 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Ejecutamos build usando .env.build
-RUN npx dotenv -e .env.build -- pnpm run build
+# ARG solo para build temporal (puede ser vacía en CI real)
+ARG NEXT_PUBLIC_SITE_URL
+ARG RESEND_API_KEY
+ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
+ENV RESEND_API_KEY=$RESEND_API_KEY
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# Build de Next.js
+RUN pnpm run build
 
 # ─── Stage 3: runner ──────────────────────────────────────
 FROM node:20-alpine AS runner
