@@ -49,7 +49,7 @@ export function Hero() {
           maxWidth: "14ch",
         }}
       >
-        Construyo productos que{" "}
+        Construyo soluciones que{" "}
         <RotatingWord words={WORDS} />
       </motion.h1>
 
