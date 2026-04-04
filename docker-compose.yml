@@ -1,11 +1,6 @@
 services:
   portfolio:
-    build:
-      context: .
-      args:
-        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://msolla.dev}
-        RESEND_API_KEY: ${RESEND_API_KEY}
-    image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/portfolio:latest
+    image: portfolio:latest
     container_name: portfolio
     restart: unless-stopped
     ports:

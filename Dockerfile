@@ -15,15 +15,11 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Variables de build (no secretos — usa ARG para inyectar en CI)
-ARG NEXT_PUBLIC_SITE_URL=https://tunombre.dev
-ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
+# Variable de build (opcional)
+ARG RESEND_API_KEY
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# <-- Añadido: pasar API key de Resend al build
-ARG RESEND_API_KEY
-ENV RESEND_API_KEY=$RESEND_API_KEY
-
+# Se usa RESEND_API_KEY en build, si no está, fallará
 RUN pnpm run build
 
 # ─── Stage 3: runner ──────────────────────────────────────
