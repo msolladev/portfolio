@@ -89,6 +89,8 @@ jobs:
             # Pull imagen nueva
             docker pull ghcr.io/${{ github.repository_owner }}/portfolio:latest
 
+            docker network create web || true
+
             # Recrear el contenedor con zero-downtime básico
             cd ~/portfolio
             docker compose up -d --force-recreate --no-build
