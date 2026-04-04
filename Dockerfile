@@ -12,15 +12,11 @@ FROM node:20-alpine AS builder
 RUN corepack enable && corepack prepare pnpm@latest --activate
 WORKDIR /app
 
-# Copiamos dependencias
 COPY --from=deps /app/node_modules ./node_modules
-
-# Copiamos el código fuente y el .env
 COPY . .
-COPY .env .env
 
-# Ejecutamos build
-RUN pnpm run build
+# Ejecutamos build usando .env.build
+RUN npx dotenv -e .env.build -- pnpm run build
 
 # ─── Stage 3: runner ──────────────────────────────────────
 FROM node:20-alpine AS runner
