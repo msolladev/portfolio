@@ -7,8 +7,8 @@ import { Footer } from "@/components/layout/Footer";
 type Status = "idle" | "sending" | "ok" | "error";
 
 export default function ContactPage() {
-  const [status, setStatus] = useState<Status>("idle");
-  const [form, setForm]     = useState({ name: "", email: "", message: "" });
+  const [status, setStatus]     = useState<Status>("idle");
+  const [form, setForm]         = useState({ name: "", email: "", message: "", website: "" });
   const [errorMsg, setErrorMsg] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -105,9 +105,22 @@ export default function ContactPage() {
           </div>
         ) : (
           <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+
+            {/* Honeypot — invisible para humanos, trampa para bots */}
+            <input
+              type="text"
+              name="website"
+              autoComplete="off"
+              tabIndex={-1}
+              aria-hidden="true"
+              style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }}
+              value={form.website}
+              onChange={handleChange}
+            />
+
             {[
-              { name: "name",    label: "Nombre",  type: "text",  placeholder: "Tu nombre" },
-              { name: "email",   label: "Email",   type: "email", placeholder: "tu@email.com" },
+              { name: "name",  label: "Nombre", type: "text",  placeholder: "Tu nombre"    },
+              { name: "email", label: "Email",  type: "email", placeholder: "tu@email.com" },
             ].map(({ name, label, type, placeholder }) => (
               <div key={name}>
                 <label
