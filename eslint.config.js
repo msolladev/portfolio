@@ -1,8 +1,11 @@
 // eslint.config.js
-module.exports = {
-  root: true,
-  extends: ["next/core-web-vitals"],
-  rules: {
-    // aquí puedes añadir tus reglas personalizadas si quieres
-  },
-};
+import { defineConfig } from "eslint/config";
+
+export default defineConfig([
+	{
+		rules: {
+			semi: "error",
+			"prefer-const": "error",
+		},
+	},
+]);
