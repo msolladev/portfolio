@@ -17,7 +17,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 // ─── Metadata base (SEO) ──────────────────────────────────
 // TODO: reemplaza con tus datos reales
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://tunombre.dev";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://msolla.dev";
 const FULL_NAME = "Miguel Solla";
 const TITLE     = `${FULL_NAME} — Fullstack Developer`;
 const DESC      = "Fullstack developer con más de 13 años de experiencia profesional construyendo productos web que escalan. React, Next.js, Node.js, arquitecturas modernas.";
@@ -81,8 +81,8 @@ const jsonLd = {
   jobTitle: "Fullstack Developer",
   description: DESC,
   sameAs: [
-    "https://github.com/tuusuario",      // TODO
-    "https://linkedin.com/in/tuusuario", // TODO
+    //"https://github.com/msolladev",      // TODO
+    "https://www.linkedin.com/in/miguel-solla/",
   ],
 };
 

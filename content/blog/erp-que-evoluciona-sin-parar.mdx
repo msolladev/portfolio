@@ -1,0 +1,53 @@
+---
+title: "Cómo gestionar un ERP que evoluciona sin parar sin que el código se convierta en un caos"
+description: "Cuando una aplicación empieza como plataforma de comunicación y acaba convirtiéndose en un ERP con contabilidad, las decisiones técnicas del primer día pesan cada vez más."
+date: "2026-01-03"
+tags: ["arquitectura", "erp", "php", "gestión", "reflexión"]
+readTime: "11 min"
+---
+
+Hay proyectos que nacen con un alcance claro y lo mantienen. Y hay proyectos que empiezan siendo una cosa y acaban siendo algo mucho más grande, creciendo de forma orgánica, respondiendo a necesidades reales que van apareciendo con el uso. Estos últimos son, en mi experiencia, los más interesantes de trabajar y también los que plantean los retos técnicos más exigentes.
+
+Llevo varios años en uno de ellos. Lo que empezó como una plataforma de comunicación para una correduría de seguros — centralizar pólizas, eliminar la dependencia de PDF y Excel para la gestión del día a día — es hoy un ERP en construcción que apunta hacia un sistema completo de contabilidad. Un crecimiento real, fruto de que el producto funciona y de que los usuarios confían en él para hacer su trabajo.
+
+Gestionar esa evolución técnicamente es uno de los aprendizajes más valiosos que he tenido. Esta es mi reflexión sobre ello.
+
+## Cuando el sistema supera sus premisas iniciales
+
+Cuando el proyecto empezó, todos los datos debían poder editarse siempre. Era una plataforma de comunicación — la flexibilidad era un requisito natural, y tenía todo el sentido. Las pólizas se cargaban, se consultaban, se modificaban según las necesidades del momento.
+
+Cuando el sistema empezó a incorporar lógica de ERP, esa premisa evolucionó. Los datos que entran en el ciclo económico — recibos pagados, pólizas incluidas en repartos de comisiones, liquidaciones cerradas — necesitan quedar protegidos para garantizar la integridad del sistema. No es una limitación, es una garantía.
+
+Ese cambio de paradigma es técnicamente manejable. El reto más interesante es el humano: acompañar a los usuarios en ese cambio de expectativa, que lleva tiempo y requiere comunicación constante. Es parte del trabajo, y es una parte que no debe subestimarse.
+
+## El momento en que el sistema pide más estructura
+
+En cualquier proyecto que crece con fuerza llega un momento en que la arquitectura inicial, perfectamente válida para el alcance original, empieza a pedir más. No porque esté mal construida, sino porque el sistema ha evolucionado más allá de lo que nadie podía anticipar al principio.
+
+En este proyecto ese momento llegó cuando las notificaciones, los permisos por workspace y la lógica de ERP empezaron a crecer en paralelo. Cada una de esas piezas tiene su complejidad propia, y gestionarlas bien sobre una base que no las contemplaba desde el principio requiere más cuidado y más tiempo del que requeriría sobre una arquitectura diseñada específicamente para ellas.
+
+Es un reto común en proyectos exitosos. El éxito genera demanda, la demanda genera nuevos requisitos, y los nuevos requisitos presionan sobre decisiones que se tomaron cuando el sistema era más simple. No hay nada de malo en ello — es la señal de que el producto tiene valor real.
+
+## Las notificaciones como ejemplo
+
+Las notificaciones son un buen ejemplo de cómo un requisito que parece acotado se vuelve transversal cuando el sistema madura.
+
+Al principio eran comunicaciones puntuales en casos muy concretos. A medida que el sistema ha crecido, muchas acciones necesitan generar avisos contextuales — dependiendo del workspace, del rol, del tipo de acción y del estado del dato. Es lógica de negocio real, no complejidad artificial.
+
+Implementar eso bien en un sistema que ya tiene tamaño es más laborioso que hacerlo desde cero con esa necesidad clara desde el principio. Pero es perfectamente viable, y el resultado cuando está bien hecho aporta mucho valor al usuario.
+
+## Lo que este tipo de proyectos enseña
+
+Trabajar en un sistema que evoluciona sin parar enseña algo que los proyectos acotados no enseñan: a tomar decisiones técnicas sabiendo que el sistema va a seguir creciendo, y a gestionar la deuda técnica acumulada sin detener el desarrollo.
+
+Si pudiera aplicar alguna lección desde el principio en proyectos similares, sería intentar cerrar los módulos completamente antes de abrir los siguientes. La tendencia natural en proyectos con mucha demanda es tener todo avanzado pero nada completamente terminado. Es comprensible — siempre hay algo urgente que añadir — pero tiene un coste en consistencia que se nota con el tiempo.
+
+También aprendí el valor de invertir en herramientas de validación temprana. En entornos donde el cliente necesita ver las cosas en funcionamiento para poder opinar — algo muy razonable cuando el software va a cambiar procesos que llevan años funcionando de otra forma — los mockups y prototipos pueden ahorrar muchas iteraciones. Requiere un cambio de hábito, pero cuando se adopta acelera enormemente el proceso de toma de decisiones.
+
+## Una reflexión final
+
+Los proyectos que crecen de forma orgánica son los que más valor generan, precisamente porque responden a necesidades reales que van apareciendo con el uso. Pero también son los que más exigen técnicamente, porque cada nueva capa de funcionalidad se apoya en todo lo que había antes.
+
+Gestionarlo bien no es evitar que el sistema crezca — es exactamente lo contrario. Es construir de forma que ese crecimiento sea sostenible, que cada nueva funcionalidad sea más fácil de añadir que la anterior, y que el sistema siga siendo fiable y mantenible a medida que se vuelve más complejo.
+
+Es un trabajo continuo. Y es, en el fondo, de lo más interesante que puede hacer un developer.

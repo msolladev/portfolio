@@ -1,0 +1,71 @@
+---
+title: "El sistema de notificaciones que nadie diseña bien desde el principio"
+description: "Las notificaciones parecen un requisito secundario hasta que el sistema crece y se convierten en uno de los problemas más complejos de resolver bien. Lecciones desde un sistema real."
+date: "2026-01-08"
+tags: ["arquitectura", "notificaciones", "diseño", "backend", "php"]
+readTime: "9 min"
+---
+
+Las notificaciones son uno de esos requisitos que en la fase inicial de un proyecto parecen triviales. "Cuando pase X, avisamos a Y por email." Dos horas de trabajo, un par de plantillas, listo.
+
+El problema aparece cuando el sistema crece. Cuando las acciones que deben notificarse se multiplican, cuando los destinatarios dependen del contexto, cuando hay varios canales, cuando los usuarios empiezan a quejarse de demasiado ruido o de no haberse enterado de algo importante. En ese momento, lo que parecía trivial se convierte en uno de los sistemas más complejos de la aplicación.
+
+Lo sé porque llevo tiempo trabajando en ello.
+
+## Cómo empieza siempre
+
+El patrón es casi universal: las primeras notificaciones se implementan de forma puntual, resolviendo el caso concreto que hay encima de la mesa. Un email al administrador cuando ocurre algo crítico. Un aviso en el dashboard cuando hay una tarea pendiente. Cada uno implementado de forma independiente, sin pensar en el sistema completo.
+
+Funciona perfectamente para esos primeros casos. El problema es que esos primeros casos generan precedente. Cuando llega el siguiente requisito de notificación, se añade de la misma forma. Y el siguiente. Y el siguiente.
+
+Sin darse cuenta, la lógica de notificaciones está distribuida por todo el código, cada implementación con sus propias reglas, y añadir o modificar cualquier cosa requiere entender un sistema que nunca fue diseñado como tal.
+
+## El error de configurar por usuario individual
+
+Uno de los aprendizajes más claros que he tenido trabajando en un sistema de notificaciones real es que configurar los envíos usuario a usuario es un camino que no escala.
+
+Parece la opción más precisa — defines exactamente quién recibe qué. Pero en cuanto el equipo crece, o cambia la estructura organizativa, o hay rotación de personas, el mantenimiento se vuelve una carga constante. Cada cambio organizativo requiere revisar y actualizar configuraciones individuales. Y cuando algo falla, es difícil entender por qué ese usuario concreto recibe o no recibe una notificación concreta.
+
+La alternativa más robusta es configurar por roles. Quién dispara una notificación y quién la recibe se define a nivel de rol, no de persona. Cuando alguien cambia de rol o entra alguien nuevo, las notificaciones se ajustan solas. El sistema refleja la estructura real de la organización en lugar de una fotografía congelada de quién era quién cuando se configuró.
+
+Sobre esa base de roles, cada usuario debería poder ajustar sus preferencias individuales — quitarse de canales concretos, agrupar notificaciones, elegir frecuencia. Pero la base es el rol, no el individuo.
+
+## El problema del ruido
+
+Hay una tensión fundamental en cualquier sistema de notificaciones: entre informar y molestar.
+
+Un sistema que notifica demasiado educa a los usuarios a ignorar las notificaciones. Cuando todo es urgente, nada lo es. He visto casos donde una sola acción del usuario genera tres emails distintos con información solapada. El resultado no es que el usuario esté mejor informado — es que aprende a no abrir esos emails.
+
+La solución no es notificar menos por defecto, sino dar al usuario control sobre cómo recibe la información. El mecanismo más útil que veo claramente es la agrupación: si un usuario debería recibir cinco actualizaciones en una hora sobre el mismo tipo de evento, debería poder configurar que prefiere un resumen diario en lugar de cinco interrupciones en tiempo real.
+
+Eso requiere que el sistema almacene las notificaciones pendientes de agrupar, ejecute un proceso periódico que las consolide y las envíe, y permita configurar esa preferencia por tipo de evento y por canal. No es trivial de implementar, pero el impacto en la experiencia del usuario es enorme.
+
+## El problema inverso: notificaciones que no llegan
+
+El otro extremo también existe, y es más frustrante porque es más difícil de diagnosticar.
+
+El usuario dice que no recibió la notificación. Revisas el sistema y sí se envió. El email llegó al servidor de correo del destinatario, o la notificación se marcó como entregada en el dashboard. El problema no está en tu sistema — está en el email que fue a spam, o en el dashboard que el usuario no consulta con la frecuencia que debería, o en que la notificación llegó en un momento de mucho volumen y pasó desapercibida.
+
+Esto refuerza la importancia de tener múltiples canales y de permitir que cada usuario elija cuáles usa. Un email que va a spam es un problema; un email que va a spam y no hay ningún otro canal de aviso es un fallo de diseño.
+
+## Lo que un buen sistema de notificaciones necesita desde el principio
+
+Si tuviera que definir los pilares de un sistema de notificaciones bien diseñado, serían estos.
+
+Un modelo centralizado donde todas las notificaciones del sistema estén definidas en un único lugar, con su tipo, sus condiciones de disparo, sus canales y sus destinatarios por rol. No lógica de notificación distribuida por el código.
+
+Configuración por roles con ajustes individuales. La base es el rol organizativo, y sobre esa base cada usuario puede personalizar su experiencia dentro de los límites que el sistema permita.
+
+Soporte para agrupación y frecuencia. Tiempo real para lo urgente, resúmenes periódicos para lo que puede esperar. Que el usuario elija.
+
+Trazabilidad completa. Saber no solo que una notificación se envió, sino cuándo, por qué canal, si fue entregada y si fue abierta. Sin eso, cualquier incidencia es un punto ciego.
+
+Y múltiples canales desde el principio. Email y notificación en app como mínimo, con la arquitectura preparada para añadir más sin reescribir el sistema.
+
+## Una reflexión final
+
+Las notificaciones no son un requisito secundario. Son la interfaz entre el sistema y las personas que lo usan cuando no están mirando la pantalla. Diseñarlas bien desde el principio es tan importante como diseñar bien cualquier otra parte del sistema.
+
+El problema es que su importancia no es evidente hasta que algo falla. Y para entonces, el coste de hacerlo bien es mucho mayor que si se hubiera pensado desde el principio.
+
+Es una lección que se aprende una vez y no se olvida.

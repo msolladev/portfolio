@@ -1,0 +1,57 @@
+---
+title: "Lo que aprendí gestionando permisos complejos en una plataforma real"
+description: "Diseñar un sistema de permisos que parezca sencillo para el usuario pero que por debajo gestione workspaces, roles por cliente y herencia de accesos es uno de los retos más subestimados del desarrollo."
+date: "2026-04-05"
+tags: ["arquitectura", "permisos", "backend", "php"]
+readTime: "7 min"
+---
+
+Cuando alguien dice "necesito un sistema de permisos", la respuesta instintiva suele ser: roles de usuario, una tabla en la base de datos, un middleware que comprueba si puedes o no puedes. Dos semanas de trabajo y listo.
+
+Llevo años trabajando en una plataforma donde los permisos son el núcleo del negocio, y puedo decir con total seguridad que esa estimación inicial no sobrevive al primer contacto con la realidad.
+
+## El contexto
+
+La plataforma gestiona la relación entre brokers de seguros y sus clientes. Cada broker tiene sus propios usuarios, y cada usuario puede tener un rol distinto según el cliente con el que esté trabajando en ese momento.
+
+Esto significa que una misma persona puede ser administrador en un cliente, tener acceso de solo lectura en otro, y no tener acceso en absoluto a un tercero. Todo dentro de la misma sesión, en la misma plataforma.
+
+Es un sistema de workspaces. Y como en cualquier sistema de workspaces bien diseñado, el contexto lo cambia todo.
+
+## La complejidad que nadie anticipa
+
+El primer nivel de complejidad es el que cualquiera imagina: usuarios, roles, clientes. Una tabla de roles con sus privilegios asociados, una tabla que relaciona usuario, rol y cliente. Hasta aquí, manejable.
+
+El segundo nivel es donde las cosas se complican. Los clientes tienen compañías asociadas. Y la regla de negocio es bidireccional: si alguien es manager de un cliente, obtiene acceso automáticamente a todas sus compañías. Pero si alguien tiene acceso solo a una compañía concreta, debe obtener acceso al cliente padre — aunque únicamente en el contexto de esa compañía.
+
+Esta herencia bidireccional parece sencilla de enunciar. Implementarla de forma que sea consistente, que no genere accesos fantasma y que sea mantenible cuando el modelo de negocio evoluciona, es otra historia.
+
+## El problema de la interfaz
+
+El mayor aprendizaje no fue técnico. Fue de diseño de producto.
+
+Un sistema con tantas dimensiones — usuarios, clientes, compañías, roles, contextos — es muy difícil de representar de forma que un usuario no técnico lo entienda a primera vista. Y en este caso, los usuarios que gestionan permisos no son desarrolladores: son managers de brokers que necesitan hacer su trabajo sin leer un manual.
+
+Intentamos construir una interfaz tipo "bolsa de permisos": una vista donde un usuario con privilegios suficientes pudiera ver de un vistazo todos sus usuarios, todos sus clientes y compañías, y gestionar quién tiene acceso a qué y con qué rol.
+
+El problema fue el rendimiento. No es solo mostrar los usuarios que ya tienen acceso — eso es trivial. Es mostrar el universo completo de posibilidades: qué usuarios podrían recibir acceso, a qué clientes y compañías, y en qué rol en cada caso. Eso es un producto cartesiano, y con volúmenes de datos reales, las consultas se volvían lentas.
+
+Pero el problema de rendimiento tenía solución con optimización de queries e índices. El problema de comprensibilidad era más difícil: aunque la interfaz fuera rápida, los usuarios necesitaban tiempo para entender qué estaban viendo la primera vez.
+
+## Lo que aprendí
+
+**Los permisos son lógica de negocio, no infraestructura.** El error más común es tratarlos como un problema técnico genérico que se resuelve con una librería o un patrón estándar. En cuanto el modelo de negocio tiene matices — y siempre los tiene — necesitas un diseño a medida que refleje exactamente esas reglas, no una abstracción genérica que las approxime.
+
+**La herencia de permisos hay que documentarla desde el día uno.** Las reglas bidireccionales que parecen obvias cuando las diseñas se vuelven opacas seis meses después cuando alguien tiene que añadir un caso nuevo. Sin documentación explícita de cada regla y su justificación de negocio, cada cambio es una caja negra.
+
+**El rendimiento de las consultas de permisos importa más de lo que parece.** Los permisos se comprueban constantemente — en cada request, en cada carga de interfaz, en cada acción del usuario. Una consulta que tarda 200ms puede parecer irrelevante hasta que se ejecuta veinte veces por página.
+
+**La interfaz de gestión de permisos es un producto en sí mismo.** No es un panel de administración secundario. Es la herramienta que determina si los usuarios con privilegios pueden hacer su trabajo o no. Merece el mismo nivel de atención de diseño que el resto de la aplicación.
+
+## Una reflexión final
+
+Los sistemas de permisos complejos son uno de esos problemas que parecen resueltos hasta que no lo están. La primera versión siempre parece suficiente. El modelo de negocio siempre evoluciona. Y cada evolución revela un caso que la arquitectura inicial no contempló.
+
+La única forma de gestionarlo bien a largo plazo es construir desde el principio con la asunción de que las reglas van a cambiar, y diseñar el sistema para que esos cambios sean quirúrgicos y no una refactorización completa.
+
+Todavía estamos aprendiendo en ese proyecto. Pero cada iteración deja el sistema más claro, más rápido y más fácil de gestionar. Eso, para un problema de esta complejidad, ya es un éxito.

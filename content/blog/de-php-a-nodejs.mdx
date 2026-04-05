@@ -1,0 +1,55 @@
+---
+title: "De PHP a Node.js: por qué me estoy moviendo y cómo lo estoy haciendo"
+description: "Una transición honesta después de más de una década en PHP. Sin fingir que ya domino el nuevo stack y sin romantizar el proceso."
+date: "2026-03-26"
+tags: ["php", "node.js", "nest.js", "carrera", "aprendizaje"]
+readTime: "6 min"
+---
+
+Voy a ser directo desde el principio: no me estoy moviendo a Node.js porque me apasione especialmente. Me estoy moviendo porque el mercado laboral lo pide, y tengo claro que ignorar eso sería una decisión equivocada.
+
+Si fuera puramente por preferencia técnica, estaría invirtiendo ese tiempo en .NET Core. Pero las ofertas de trabajo cuentan su propia historia, y la historia dice que JavaScript en el backend abre más puertas hoy que C# en muchos contextos. Así que aquí estoy.
+
+Esta es mi experiencia real haciendo esa transición, con lo bueno, lo malo y lo que todavía no acabo de entender.
+
+## Por qué no me quedo en PHP
+
+No es que PHP sea malo. Laravel es un framework maduro, con un ecosistema excelente y una comunidad enorme. He construido cosas complejas con él y funciona bien.
+
+El problema no es técnico. Es de posicionamiento. El mercado en el que quiero trabajar — remoto, productos digitales, equipos modernos — ha virado hacia JavaScript de forma clara. No es una tendencia nueva, pero se ha consolidado. Y cuando evalúas dónde invertir tu tiempo de aprendizaje, el mercado laboral es un factor que no puedes ignorar.
+
+JavaScript tiene ventajas reales que reconozco: la asincronía nativa es poderosa cuando se entiende bien, y poder compartir código y tipos entre frontend y backend elimina una categoría entera de errores. Pero en rendimiento puro y en madurez del ecosistema para ciertos dominios, no veo que sea diferencial respecto a PHP moderno. Es un cambio de ecosistema, no un salto cualitativo.
+
+## Por qué NestJS y no Express directamente
+
+Cuando empecé a investigar el ecosistema de Node.js para backend, Express era la opción obvia por su ubicuidad. Pero cuanto más lo estudiaba, más reconocía un patrón: cada proyecto serio con Express acaba desarrollando las mismas cosas. Un sistema de inyección de dependencias, una forma de estructurar módulos, manejo centralizado de errores, validación de entrada, configuración de entorno.
+
+NestJS resuelve todo eso desde el primer día, con decisiones ya tomadas y mantenidas por un equipo dedicado. Es la misma razón por la que en PHP elegí Laravel sobre PHP nativo para proyectos con ambición: no porque no sepa hacerlo sin framework, sino porque no tiene sentido rehacerlo cada vez.
+
+La analogía con Laravel no es casual. NestJS toma muchas ideas del mundo de Angular y de frameworks como Spring en Java — módulos, decoradores, inyección de dependencias — y las trae al ecosistema de Node. Para alguien que viene de un framework estructurado como Laravel, la curva de entrada es más suave de lo que esperaba.
+
+## Lo que me está costando
+
+La asincronía es lo que más me cuesta entender de verdad. No a nivel teórico — el concepto de promesas y async/await lo manejo. Sino a nivel de intuición: saber cuándo algo va a ser un problema de concurrencia antes de que explote, entender qué está pasando realmente bajo el capó cuando el event loop procesa las operaciones. En PHP el modelo síncrono es predecible. Aquí hay que desarrollar un sexto sentido que todavía no tengo.
+
+Los decoradores son el otro punto de fricción. Veo su utilidad — definir una columna de base de datos con `@Column()` directamente en la propiedad es cómodo y expresivo. Pero NestJS tiene tanto decoradores en el modelo como migraciones separadas, y ambos deben ser coherentes entre sí. En Laravel solo existe la migración: el esquema está en un único sitio y no hay riesgo de que modelo y migración cuenten historias distintas. Puede ser pura costumbre. Pero es una fricción real.
+
+En el frontend, la sintaxis de componentes — tanto React como Vue — no me gusta especialmente. Lo veo como un peaje necesario por la versatilidad que dan los componentes reactivos, y lo acepto. Pero no voy a fingir que me parece elegante.
+
+## Cómo lo estoy haciendo
+
+Siguiendo un curso estructurado de NestJS para tener la base bien asentada, y construyendo mi portfolio en Next.js — que es JavaScript en producción real, con decisiones reales y problemas reales. Cuando termine el curso, el siguiente paso es un proyecto propio pequeño donde aplicar todo junto.
+
+No tengo prisa por declarar que domino el stack. He visto suficientes CVs donde alguien lista tecnologías que conoce superficialmente, y no quiero ser esa persona. Prefiero tardar más y llegar con criterio.
+
+## Lo que me ha sorprendido
+
+El ecosistema de npm es enorme, quizás demasiado. Encontrar la librería adecuada para algo concreto a veces requiere evaluar cinco opciones donde en PHP habría una o dos claras. Es una riqueza que tiene su coste en tiempo de decisión.
+
+Y NestJS específicamente tiene una documentación excelente. Mejor de lo que esperaba. Eso acelera mucho el aprendizaje cuando te quedas atascado.
+
+## Una nota honesta
+
+Esta transición me está enseñando algo que ya sabía en teoría pero que es más fácil olvidar cuando llevas años siendo el experto en tu stack: ser principiante en algo es incómodo, y ese malestar es exactamente la señal de que estás aprendiendo.
+
+No hay forma de acortar esa fase. Solo atravesarla.

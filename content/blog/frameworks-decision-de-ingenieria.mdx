@@ -1,0 +1,61 @@
+---
+title: "Los frameworks no son una muleta: son una decisión de ingeniería"
+description: "Después de más de una década usando frameworks en proyectos reales, mi posición es clara: no usarlos es reinventar la rueda. Pero hay matices que vale la pena entender."
+date: "2026-03-19"
+tags: ["arquitectura", "php", "javascript", "opinión"]
+readTime: "6 min"
+---
+
+Una de las discusiones más recurrentes en equipos de desarrollo es si usar un framework es una decisión inteligente o una dependencia innecesaria. Llevo más de una década escuchando argumentos en ambos sentidos, y mi posición es clara: no usarlos, en la mayoría de casos, es reinventar la rueda. Pero hay matices que vale la pena entender.
+
+Y mi conclusión después de todo ese tiempo es clara: si no sabes de dónde viene un problema en un framework que llevas usando meses, el problema no es del framework: debes aprender a usarlo correctamente.
+
+## El cliente que quería su propio framework
+
+El caso más ilustrativo que he vivido fue un cliente que llegó con una web en Visual Basic que quería migrar a PHP. Hasta ahí, normal. Lo curioso fue la propuesta: usar Laravel, o bien un framework propio que él mismo había desarrollado.
+
+Su framework. Desarrollado por él. Para uso propio.
+
+Le recomendé Laravel sin dudarlo. No porque sea perfecto, sino por razones muy concretas: es un estándar ampliamente adoptado, tiene un ecosistema enorme de herramientas ya resueltas, y lo más importante — si algún día necesita contratar a otro developer, va a encontrar a cientos de personas que lo conocen. Con un framework casero, ese developer no existe.
+
+El cliente aceptó, con una condición: no usar Eloquent de forma convencional. Quería reutilizar las queries SQL raw que tenía en su código de Visual Basic. Lo entendí, y lo respetamos.
+
+¿Funcionó? Sí, bastante bien. ¿Cuál fue el cuello de botella obvio? Las mismas queries sin optimizar que venían del código original. El framework no era el problema. Nunca lo fue.
+
+## El argumento del "bug misterioso"
+
+Es una objeción que escucho con cierta frecuencia: "si tienes un bug en el framework, dependes de que otros lo arreglen y no sabes de dónde viene".
+
+Entiendo el razonamiento. Pero en más de una década trabajando con frameworks, los bugs reales del framework que no tenían solución han sido prácticamente inexistentes.
+
+Lo que sí he visto, muchas veces, es código mal escrito encima de un framework bien hecho. Y cuando algo falla, es tentador buscar el origen fuera antes de mirarse a uno mismo.
+
+Además hay algo que parece obvio pero vale la pena decirlo: cualquier bug relevante en un framework con miles de usuarios activos ya lo ha encontrado alguien antes que tú. Stack Overflow, GitHub Issues, la documentación oficial — el ecosistema de un framework maduro es precisamente eso, un ecosistema. No estás solo.
+
+## Cuándo sí tiene sentido prescindir de un framework
+
+No soy dogmático en esto. Hay escenarios donde un framework es excesivo o directamente contraproducente.
+
+El más claro es el proyecto ultra pequeño. En uno de los ecommerces en los que trabajé, el cliente necesitaba una herramienta auxiliar para gestionar códigos de producto: un login, una lista de items, y poder añadir o borrar. Nada más. Lo hice en PHP nativo leyendo directamente de la base de datos de Prestashop. Montar Laravel para eso habría sido absurdo — una carga innecesaria para algo que cabía en tres archivos.
+
+En el otro extremo están los sistemas de grandes corporaciones o gobiernos que ya tienen sus propias librerías internas de seguridad, enrutamiento o autenticación, desarrolladas y auditadas durante años. Ahí el framework externo puede chocar con lo que ya existe y crear más problemas de los que resuelve.
+
+Pero estos casos son la excepción, no la norma. Para el 95% de los proyectos que he visto en consultoría, la pregunta no era si usar un framework, sino cuál.
+
+## El problema de los ecosistemas jóvenes
+
+Hay un matiz importante que a menudo se ignora: no todos los frameworks merecen el mismo nivel de compromiso, y el momento en que los adoptas importa.
+
+En PHP, el salto de Symfony a Laravel como estándar de facto fue gradual. Cuando llegué a Laravel ya había comunidad, documentación, paquetes estables y suficiente masa crítica como para apostar por él. No llegué el primer día.
+
+En JavaScript la situación es diferente. Salen frameworks nuevos cada pocos meses, muchos con propuestas genuinamente interesantes. Pero la mayoría desaparecen en uno o dos años. Comprometerse demasiado pronto con algo que no ha demostrado que va a quedarse es un riesgo real, tanto para un proyecto como para tu propia curva de aprendizaje.
+
+Mi posición es esperar a que haya señales claras de madurez y adopción antes de apostar fuerte. No ser el primero, pero tampoco el último.
+
+## La decisión real
+
+Usar o no usar un framework no es una cuestión de purismo técnico ni de miedo a depender de terceros. Es una decisión de ingeniería que debería responder a preguntas concretas: ¿cuánto tiempo tengo? ¿qué tamaño va a tener esto? ¿quién lo va a mantener después de mí? ¿cuántos developers necesito que puedan incorporarse sin fricción?
+
+Reinventar el enrutamiento, la gestión de sesiones, la validación de formularios o las migraciones de base de datos no es demostrar que sabes programar. Es perder tiempo que podrías invertir en resolver el problema real del cliente.
+
+Los frameworks existen precisamente porque esos problemas ya están resueltos. Usarlos bien es una habilidad. Ignorarlos sin una razón sólida, un error.

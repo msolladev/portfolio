@@ -35,9 +35,9 @@ const COMMANDS: Record<string, string[]> = {
     "2024 → hoy    Freelance — proyectos de alto impacto",
   ],
   contact: [
-    "Email:    hola@tunombre.dev",
-    "LinkedIn: linkedin.com/in/tuusuario",
-    "GitHub:   github.com/tuusuario",
+    "Email:    hola@msolla.dev",
+    "LinkedIn: linkedin.com/in/miguel-solla",
+    //"GitHub:   github.com/msolladev",
     "",
     "¿Tienes un proyecto? → /contacto",
   ],

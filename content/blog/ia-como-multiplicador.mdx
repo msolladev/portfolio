@@ -1,0 +1,63 @@
+---
+title: "IA como multiplicador, no como sustituto: una visión desde las trincheras"
+description: "Uso IA a diario y me ha ahorrado tiempo real. Pero la narrativa de que va a sustituir a los developers, o de que cualquiera puede usarla sin saber programar, me parece profundamente equivocada."
+date: "2026-04-06"
+tags: ["ia", "herramientas", "opinión", "carrera"]
+readTime: "10 min"
+---
+
+Uso inteligencia artificial a diario en mi trabajo. GitHub Copilot, Claude Code, Gemini, Ollama, OpenAI — los tengo integrados en mi flujo de trabajo y no volvería a trabajar sin ellos. Me han ahorrado tiempo real en tareas reales.
+
+Y precisamente por eso, la narrativa que rodea a la IA en el mundo del desarrollo me parece tan frustrante. Porque oscila entre dos extremos igual de equivocados: los que dicen que va a sustituir a los programadores en dos años (o dos meses, o dos semanas), y los que la descartan como un juguete que solo genera código malo.
+
+La realidad es más aburrida y más interesante a la vez.
+
+## Lo que la IA hace bien
+
+Hace unos meses desarrollé un pequeño framework PHP desde cero, por curiosidad y para entender mejor cómo funcionan por dentro las herramientas que uso. La IA fue fundamental en ese proceso: me ayudó con la estructura base, el scaffolding inicial y la arquitectura general. Y en dos partes específicas — el sistema de enrutamiento y la inyección de dependencias automatizada — creo honestamente que sin IA no hubiera llegado al mismo resultado en el mismo tiempo, o quizás no hubiera llegado.
+
+Eso es la IA en su mejor versión: un colaborador que te ayuda a resolver problemas que están en el límite de tu conocimiento actual, que te muestra caminos que no habías considerado y que acelera las partes mecánicas para que puedas concentrarte en las decisiones que importan.
+
+También es extraordinariamente útil para cosas menos glamurosas: generar tests, escribir documentación, hacer code review de tu propio código, explorar alternativas de implementación rápidamente, o entender código heredado que no has escrito tú.
+
+## El problema del prompt vago
+
+En LinkedIn veo constantemente el mismo patrón: alguien anuncia que tiene su aplicación "al 95% hecha con Claude" y busca un developer que "solo" le haga el backend. O posts donde el prompt de partida era algo como "hazme una web de gestión de propiedades inmobiliarias sin errores".
+
+Esto no es usar IA. Es pedirle a alguien que no conoces que tome todas las decisiones importantes de tu proyecto sin ningún contexto, ninguna restricción y ningún criterio de calidad.
+
+El resultado predecible es código que parece funcionar hasta que no funciona, arquitecturas que no escalan, decisiones técnicas que nadie entiende y deuda técnica acumulada desde el primer día.
+
+Para usar la IA bien en desarrollo necesitas saber exactamente qué le estás pidiendo, por qué, y cómo vas a evaluar si lo que te devuelve es correcto. Eso requiere conocimiento técnico real. No puedes delegar el criterio.
+
+Un buen prompt no es una frase. Es contexto, restricciones, arquitectura existente, casos límite a considerar y criterios de aceptación. Y para escribir eso, tienes que saber de lo que estás hablando.
+
+## El caso de los juniors
+
+Este es el punto donde tengo una posición más clara y más impopular: creo que los developers en etapa de formación que usan IA como muleta desde el principio se están perjudicando seriamente.
+
+Un ejemplo concreto: la IA tiende a usar `useEffect` para casi todo en React y Next.js, porque es lo que aprendió de millones de artículos en Internet. La propia documentación oficial de React lleva años diciendo que hay que evitarlo en la medida de lo posible. La IA no aplica buenas prácticas actualizadas si no la obligas explícitamente — y a veces ni así.
+
+Un junior que aprende con IA aprende los patrones que la IA reproduce, que son los patrones más comunes en Internet, que no siempre son los mejores. Y lo hace sin entender por qué funcionan, lo que significa que cuando algo falla no sabe dónde mirar.
+
+Pero hay algo más fundamental: ¿qué pasa el día que te quedas sin acceso? ¿Qué pasa si la herramienta falla, o el contexto es demasiado específico para que la IA ayude, o simplemente no tienes conexión o has agotado tus tokens para ese periodo? Deberías ser capaz de hacer tu trabajo sin IA. Siempre.
+
+Mi visión es que el orden correcto es primero dominar el oficio, y luego incorporar la IA como lo que es: un becario muy capaz al que hay que guiar constantemente. A los becarios siempre ha habido que darles contexto, corregirles, enseñarles los estándares del equipo y revisar su trabajo. Con la IA es exactamente igual — solo que va más rápido y no se cansa.
+
+## Sobre la sustitución
+
+La idea de que la IA va a sustituir a los desarrolladores parte de un malentendido sobre qué hace un developer.
+
+Un developer no es alguien que escribe código. Es alguien que entiende un problema, lo descompone en partes manejables, toma decisiones de arquitectura con las restricciones del contexto, anticipa cómo va a evolucionar el sistema y es responsable de lo que construye. El código es el medio, no el fin.
+
+La IA puede escribir código. No puede ser responsable de nada. No entiende el negocio detrás del software, no conoce las restricciones no escritas del equipo, no sabe qué decisión técnica de hace seis meses hace que la solución obvia hoy sea un problema mañana.
+
+Puede que en algún momento futuro eso cambie. Hoy no es así. Y mientras no lo sea, alguien tiene que saber lo suficiente para dirigir, evaluar y corregir lo que la IA produce. Ese alguien es el developer.
+
+## En resumen
+
+Uso IA todos los días y seguiré haciéndolo. Me hace más productivo, me ayuda a explorar ideas más rápido y me ha permitido llegar a soluciones que solo no hubiera alcanzado igual de rápido.
+
+Pero soy yo quien decide qué construir, cómo estructurarlo y si lo que me devuelve es aceptable o no. La IA no toma esas decisiones. Las ejecuta, a veces muy bien y a veces muy mal, según lo bien que yo sepa dirigirla.
+
+Eso no es sustitución. Es una herramienta. Una herramienta muy buena, que como todas, requiere saber usarla.

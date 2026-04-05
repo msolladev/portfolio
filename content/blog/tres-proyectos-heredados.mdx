@@ -1,0 +1,57 @@
+---
+title: "Tres proyectos heredados y lo que me enseñaron sobre el código que otros escribieron"
+description: "Heredar código ajeno es una de las experiencias más formativas que puede tener un developer. Tres proyectos, tres lecciones que todavía aplico."
+date: "2026-01-05"
+tags: ["código heredado", "arquitectura", "consultoría", "reflexión"]
+readTime: "12 min"
+---
+
+Hay una experiencia que ningún curso enseña y que cambia para siempre la forma en que escribes código: abrir por primera vez un proyecto que desarrolló otra persona, sin documentación, sin contexto, y tener que entender qué hace, por qué lo hace así y cómo añadir algo nuevo sin romper lo que ya funciona.
+
+En mis años de consultoría heredé tres proyectos que recuerdo especialmente. No por los detalles técnicos, que el tiempo ha ido diluyendo, sino por las sensaciones y por lo que me dejaron.
+
+## La app de descuentos
+
+Era el más caótico de los tres. Una aplicación móvil desarrollada en Cordova con un backend en CakePHP donde los controllers mezclaban lógica del panel de gestión web con los endpoints que servían a la app. El proyecto había pasado ya por varias manos antes de llegar a nosotros, y cada par de manos había dejado su huella de formas no siempre compatibles entre sí.
+
+Lo que hizo la situación especialmente difícil fue que en un momento del proyecto el cliente metió a un desarrollador frontend para tocar el diseño, en paralelo a nuestro trabajo. Sin coordinación, sin repositorio compartido, sin comunicación directa entre nosotros. Nos pisábamos constantemente sin saberlo hasta que algo dejaba de funcionar.
+
+Abrir ese proyecto por primera vez fue desconcertante. No había una lógica clara de organización, las convenciones cambiaban de un archivo a otro, y entender el flujo de cualquier funcionalidad requería saltar entre capas de código que no habían sido diseñadas para convivir.
+
+## La plataforma de la productora audiovisual
+
+Este fue el más interesante de los tres, tanto por la complejidad del dominio como por cómo estaba construido. Una plataforma en AWS donde distintas compañías subían contenido de producciones audiovisuales — contratos, fotografías en RAW, brutos de grabación de capítulos completos que podían superar los cien gigabytes — con un sistema de permisos que controlaba qué empresa veía qué. Colas de mensajería para gestionar los estados de las subidas, chunks para permitir subir ficheros de varios cientos de gigabytes sin problemas, ...
+
+No había documentación. Pero tuvimos algo que en los otros dos proyectos no tuvimos: un par de llamadas de una hora con los desarrolladores originales, que nos explicaron por encima la arquitectura y las decisiones que habían tomado. Una hora no es mucho para un sistema de esa complejidad, pero es infinitamente mejor que nada. Esas dos llamadas nos ahorraron semanas de exploración a ciegas.
+
+A nivel arquitectura, Terraform y Ansible configuraban un sistema donde había 2 máquinas ECS sirviendo el front y una el back y un balanceador de carga decidía a dónde iba el tráfico, o si había que levantar y bajar máquinas adicionales en momentos puntuales. Estaba montado excepcionalmente bien, pero no teníamos capacidad para gestionar toda esa arquitectura que no usabamos, además con un framework y CMS que desconocíamos.
+
+## La escuela digital
+
+El tercero era un ecosistema de varias piezas conectadas: un WordPress donde los alumnos compraban los cursos, un backend administrativo para gestión de facturas, colegios y profesores, y la integración con una plataforma externa de e-learning donde ocurría la formación real.
+
+La complejidad aquí no era el código en sí, sino la cantidad de sistemas que tenían que hablar entre sí y la cantidad de casos límite que esa comunicación generaba. Sin documentación de cómo estaban conectados, entender qué pasaba cuando algo fallaba requería seguir el hilo a través de tres sistemas distintos.
+
+Además, este era uno de los casos done el cliente era especialmente complejo, con expectativas poco realistas.
+
+## La regla que aprendimos
+
+En los tres casos adoptamos la misma filosofía desde el principio: lo que hay y funciona no se toca, solo se añade. Es una regla que parece conservadora pero que en código heredado sin documentación es la única forma de no introducir regresiones en funcionalidades que ni siquiera sabes que existen.
+
+El problema es que los clientes siempre terminan presionando para cambiar cosas que ya funcionan. A veces son cambios pequeños, a veces son cambios grandes. Y cada vez que cedíamos a esa presión sin el tiempo suficiente para entender bien el impacto, algo se rompía en algún sitio inesperado.
+
+## Lo que me llevé
+
+La lección más importante que me dejaron estos tres proyectos es una que sigo encontrando difícil de aplicar en el día a día: escribir código claro y sin deuda técnica cuesta más tiempo al principio, pero cuando el proyecto crece acelera mucho los desarrollos posteriores.
+
+El problema es que esa inversión inicial es invisible para el cliente. Lo que el cliente ve es que estás tardando más en entregar la primera versión. Lo que no ve es que dentro de un año, cuando el proyecto haya crecido, los cambios serán rápidos y predecibles en lugar de arriesgados y lentos.
+
+Y cuando ese momento llega y los cambios son lentos y arriesgados, la conclusión que suele sacar el cliente no es "deberíamos haber invertido más al principio". La conclusión suele ser que los desarrolladores son caros y difíciles de gestionar.
+
+Es una conversación que he tenido demasiadas veces. Y la única forma de evitarla es tenerla antes de empezar el proyecto, no después de que el problema ya existe.
+
+## Una nota sobre la documentación
+
+El proyecto de la productora me enseñó el valor de algo tan simple como una hora de explicación de quien construyó el sistema. No hace falta una documentación perfecta ni exhaustiva (aunque sería la mejor opción). Hace falta suficiente contexto para que la siguiente persona que llegue al proyecto no empiece completamente a ciegas.
+
+Desde entonces intento dejar ese contexto en los proyectos en los que trabajo. No siempre es posible, no siempre hay tiempo. Pero cuando lo hay, lo hago pensando en la persona que va a abrir ese código después de mí. Que a veces, unos años más tarde, puedo ser yo mismo.
