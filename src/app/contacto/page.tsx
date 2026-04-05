@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
+import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 type Status = "idle" | "sending" | "ok" | "error";
 
@@ -10,6 +12,14 @@ export default function ContactPage() {
   const [status, setStatus]     = useState<Status>("idle");
   const [form, setForm]         = useState({ name: "", email: "", message: "", website: "" });
   const [errorMsg, setErrorMsg] = useState("");
+
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setStatus("idle");
+    setForm({ name: "", email: "", message: "", website: "" });
+    setErrorMsg("");
+  }, [pathname]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
