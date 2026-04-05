@@ -6,6 +6,8 @@ import Link from "next/link";
 const WORDS = ["escalan.", "perduran.", "importan."];
 
 export function Hero() {
+  const yearsOfExperience = new Date().getFullYear() - 2012 - (new Date().getMonth() < 8 ? 1 : 0);
+
   return (
     <section
       style={{
@@ -32,7 +34,7 @@ export function Hero() {
           marginBottom: "1.5rem",
         }}
       >
-        Fullstack Developer · 13 años de experiencia
+        Fullstack Developer · {yearsOfExperience} años de experiencia
       </motion.p>
 
       {/* Headline */}
