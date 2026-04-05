@@ -88,7 +88,7 @@ export function ContactForm() {
       <p style={{ color: "var(--text-soft)", marginBottom: "3rem", lineHeight: 1.7 }}>
         Si tienes una oportunidad interesante, quieres hablar sobre tecnología
         o simplemente conectar, estoy al otro lado.
-        Respondo en menos de 48 horas.
+        Respondo lo antes posible.
       </p>
 
       {status === "ok" ? (
