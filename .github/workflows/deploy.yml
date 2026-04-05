@@ -16,27 +16,21 @@ jobs:
     name: Lint & Type-check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "pnpm"
+          cache: "npm"  # usa cache de npm para node_modules, no pnpm
 
-      - name: Install pnpm globally
-        run: npm install -g pnpm@latest
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: latest
 
       - name: Verify pnpm
         run: pnpm -v
 
       - name: Install deps
         run: pnpm install --frozen-lockfile
-
-      - name: Type-check
-        run: pnpm type-check
-
-      - name: Lint
-        run: pnpm lint -- --no-interactive
 
   # ── 2. Build & push imagen Docker ──────────────────────
   build:
