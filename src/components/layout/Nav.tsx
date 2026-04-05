@@ -6,11 +6,14 @@ import { motion } from "framer-motion";
 import { clsx } from "clsx";
 
 const LINKS = [
-  { href: "/",         label: "inicio"   },
+  { href: "/", label: "inicio" },
   { href: "/sobre-mi", label: "sobre mí" },
-  { href: "/blog",     label: "blog"     },
+  { href: "/blog", label: "blog" },
   { href: "/contacto", label: "contacto" },
+  { href: "https://rxresume.msolla.dev/miguelangelss4/miguel-solla", label: "currículum" },
 ];
+
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "";
 
 export function Nav() {
   const pathname = usePathname();
@@ -33,7 +36,7 @@ export function Nav() {
         style={{
           maxWidth: "1100px",
           margin: "0 auto",
-          padding: "0 1.5rem",
+          padding: "0 0",
           height: "60px",
           display: "flex",
           alignItems: "center",
@@ -57,6 +60,7 @@ export function Nav() {
         <nav style={{ display: "flex", gap: "2rem" }}>
           {LINKS.map(({ href, label }) => {
             const active = pathname === href;
+            const isExternal = !href.startsWith(BASE_URL) && href.startsWith("http");
             return (
               <Link
                 key={href}
@@ -69,6 +73,10 @@ export function Nav() {
                   fontFamily: "var(--font-mono)",
                   letterSpacing: "0.03em",
                 }}
+                {...(isExternal && {
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                })}
               >
                 {label}
               </Link>
