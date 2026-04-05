@@ -38,6 +38,10 @@ body {
   padding: 5rem 0 8rem;
 }
 
+.page-content-narrow{
+  max-width: 720px;
+}
+
 /* ─── Scrollbar custom ───────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
