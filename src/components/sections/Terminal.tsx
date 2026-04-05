@@ -7,7 +7,6 @@ import { yearsOfExperience } from "@/lib/yearsOfExperience";
 // ─── Comandos disponibles ─────────────────────────────────
 type Line = { type: "input" | "output" | "error"; text: string };
 
-
 const PROMPT = "visitor@portfolio:~$";
 
 export function Terminal() {
@@ -71,32 +70,51 @@ export function Terminal() {
   };
 
   const [lines, setLines] = useState<Line[]>([
-    { type: "output", text: 'Conectado como visitor@msolla.dev — Escribe "help" para ver los comandos disponibles.' },
+    {
+      type: "output",
+      text:
+        'Conectado como visitor@msolla.dev — Escribe "help" para ver los comandos disponibles.',
+    },
   ]);
 
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([]);
   const [histIdx, setHistIdx] = useState(-1);
+
   const bottomRef = useRef<HTMLDivElement>(null);
+  const terminalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const NAVBAR_OFFSET = 70;
 
   const run = (raw: string) => {
     const cmd = raw.trim().toLowerCase();
     if (!cmd) return;
 
-    const newLines: Line[] = [...lines, { type: "input", text: `${PROMPT} ${cmd}` }];
+    const newLines: Line[] = [
+      ...lines,
+      { type: "input", text: `${PROMPT} ${cmd}` },
+    ];
+
     setHistory((h) => [cmd, ...h]);
     setHistIdx(-1);
 
     if (cmd === "clear") {
-      setLines([{ type: "output", text: 'Terminal limpiada. Escribe "help" para empezar.' }]);
+      setLines([
+        {
+          type: "output",
+          text: 'Terminal limpiada. Escribe "help" para empezar.',
+        },
+      ]);
       setInput("");
       return;
     }
 
     const result = COMMANDS[cmd];
     if (result) {
-      result.forEach((t) => newLines.push({ type: "output", text: t }));
+      result.forEach((t) =>
+        newLines.push({ type: "output", text: t })
+      );
     } else {
       newLines.push({
         type: "error",
@@ -106,37 +124,71 @@ export function Terminal() {
 
     setLines(newLines);
     setInput("");
-    setTimeout(() => bottomRef.current?.scrollIntoView({ behavior: "smooth" }), 0);
+
+    requestAnimationFrame(() => {
+      // Scroll interno (como siempre)
+      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+
+      // Scroll de window CONTROLADO (independiente del viewport)
+      if (terminalRef.current) {
+        const top =
+          terminalRef.current.getBoundingClientRect().top +
+          window.scrollY -
+          NAVBAR_OFFSET;
+
+        window.scrollTo({
+          top,
+          behavior: "smooth",
+        });
+      }
+    });
   };
 
   const handleKey = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") { run(input); return; }
+    if (e.key === "Enter") {
+      run(input);
+      return;
+    }
     if (e.key === "ArrowUp") {
       const idx = histIdx + 1;
-      if (idx < history.length) { setHistIdx(idx); setInput(history[idx]); }
+      if (idx < history.length) {
+        setHistIdx(idx);
+        setInput(history[idx]);
+      }
       return;
     }
     if (e.key === "ArrowDown") {
       const idx = histIdx - 1;
-      if (idx < 0) { setHistIdx(-1); setInput(""); }
-      else { setHistIdx(idx); setInput(history[idx]); }
+      if (idx < 0) {
+        setHistIdx(-1);
+        setInput("");
+      } else {
+        setHistIdx(idx);
+        setInput(history[idx]);
+      }
     }
   };
 
   function renderLine(text: string) {
-    const urlRegex = /(https?:\/\/[^\s]+|[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\/[^\s]*)/g;
+    const urlRegex =
+      /(https?:\/\/[^\s]+|[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\/[^\s]*)/g;
     const parts = text.split(urlRegex);
 
     return parts.map((part, i) => {
       if (urlRegex.test(part)) {
-        const href = part.startsWith("http") ? part : `https://${part}`;
+        const href = part.startsWith("http")
+          ? part
+          : `https://${part}`;
         return (
           <a
             key={i}
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            style={{ color: "var(--accent)", textDecoration: "underline" }}
+            style={{
+              color: "var(--accent)",
+              textDecoration: "underline",
+            }}
           >
             {part}
           </a>
@@ -162,6 +214,7 @@ export function Terminal() {
       </p>
 
       <motion.div
+        ref={terminalRef}
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
@@ -218,16 +271,18 @@ export function Terminal() {
           <AnimatePresence initial={false}>
             {lines.map((line, i) => (
               <motion.div
-                suppressHydrationWarning 
+                suppressHydrationWarning
                 key={i}
                 initial={{ opacity: 0, x: -6 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.18 }}
                 style={{
                   color:
-                    line.type === "input" ? "var(--accent)" :
-                      line.type === "error" ? "#ff5f57" :
-                        "var(--text-soft)",
+                    line.type === "input"
+                      ? "var(--accent)"
+                      : line.type === "error"
+                      ? "#ff5f57"
+                      : "var(--text-soft)",
                   whiteSpace: "pre",
                 }}
               >
@@ -235,6 +290,7 @@ export function Terminal() {
               </motion.div>
             ))}
           </AnimatePresence>
+
           <div ref={bottomRef} />
 
           {/* Input row */}
