@@ -16,21 +16,26 @@ jobs:
     name: Lint & Type-check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "npm"  # usa cache de npm para node_modules, no pnpm
 
       - name: Install pnpm
         uses: pnpm/action-setup@v3
         with:
           version: latest
 
-      - name: Verify pnpm
-        run: pnpm -v
-
       - name: Install deps
         run: pnpm install --frozen-lockfile
+
+      - name: Type-check
+        run: pnpm type-check
+
+      - name: Lint
+        run: pnpm lint -- --no-interactive
 
   # ── 2. Build & push imagen Docker ──────────────────────
   build:
@@ -70,9 +75,9 @@ jobs:
       - name: SSH deploy
         uses: appleboy/ssh-action@v1
         with:
-          host:     ${{ secrets.VPS_HOST }}
+          host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
-          key:      ${{ secrets.VPS_SSH_KEY }}
+          key: ${{ secrets.VPS_SSH_KEY }}
           script: |
             set -e
 
