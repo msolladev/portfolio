@@ -73,7 +73,7 @@ export function Terminal() {
   const [lines, setLines] = useState<Line[]>([
     { type: "output", text: 'Conectado como visitor@msolla.dev — Escribe "help" para ver los comandos disponibles.' },
   ]);
-  
+
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([]);
   const [histIdx, setHistIdx] = useState(-1);
@@ -218,6 +218,7 @@ export function Terminal() {
           <AnimatePresence initial={false}>
             {lines.map((line, i) => (
               <motion.div
+                suppressHydrationWarning 
                 key={i}
                 initial={{ opacity: 0, x: -6 }}
                 animate={{ opacity: 1, x: 0 }}

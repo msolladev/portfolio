@@ -11,6 +11,7 @@ export function Hero() {
     <section className="page-content">
       {/* Eyebrow */}
       <motion.p
+        suppressHydrationWarning
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1, duration: 0.5 }}
@@ -46,6 +47,7 @@ export function Hero() {
 
       {/* Subline */}
       <motion.p
+        suppressHydrationWarning
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.35, duration: 0.5 }}

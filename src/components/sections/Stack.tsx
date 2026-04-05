@@ -61,7 +61,7 @@ export function Stack() {
             <p style={{ fontWeight: 700, fontSize: "1rem", marginBottom: "0.25rem" }}>
               {label}
             </p>
-            <p style={{ fontSize: "0.78rem", color: "var(--text-soft)", fontFamily: "var(--font-mono)" }}>
+            <p suppressHydrationWarning style={{ fontSize: "0.78rem", color: "var(--text-soft)", fontFamily: "var(--font-mono)" }}>
               {years}
             </p>
           </motion.div>
