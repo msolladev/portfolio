@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   portfolio:
-    image: portfolio:latest
+    image: ghcr.io/msolladev/portfolio:latest
     container_name: portfolio
     restart: unless-stopped
     ports:
