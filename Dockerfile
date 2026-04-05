@@ -14,6 +14,7 @@ WORKDIR /app
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+COPY next-sitemap.config.js ./
 
 # ARG solo para build temporal (puede ser vacía en CI real)
 ARG NEXT_PUBLIC_SITE_URL

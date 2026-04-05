@@ -81,20 +81,18 @@ jobs:
           script: |
             set -e
 
-            # Login al registry
-            echo ${{ secrets.GITHUB_TOKEN }} | \
-              docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            # Login al registry con PAT dedicado
+            echo "${{ secrets.GHCR_PAT }}" | \
+              docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
 
             # Pull imagen nueva
             docker pull ghcr.io/${{ github.repository_owner }}/portfolio:latest
 
             docker network create web || true
 
-            # Recrear el contenedor con zero-downtime básico
             cd ~/portfolio
             docker compose up -d --force-recreate --no-build
 
-            # Limpieza de imágenes antiguas
             docker image prune -f
 
             echo "✅ Deploy completado"
