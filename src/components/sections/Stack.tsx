@@ -3,22 +3,22 @@
 import { yearsOfExperience } from "@/lib/yearsOfExperience";
 import { motion } from "framer-motion";
 
-const STACK = [
-  { label: "PHP",                  years: `${yearsOfExperience} años` },
-  { label: "MySQL / MariaDB",      years: `${yearsOfExperience} años` },
-  { label: "Laravel",              years: "7 años"                    },
-  { label: "WordPress",            years: "6 años"                    },
-  { label: "Bootstrap / jQuery",   years: `${yearsOfExperience} años` },
-  { label: "Symfony / CakePHP",    years: "5 años"                    },
-  { label: "Prestashop",           years: "4 años"                    },
-  { label: "Android (Java/Kotlin + XML)",years: "3 años"                    },
-  { label: ".NET Core",            years: "4 años"                    },
-  { label: "NestJS / React / Next.js / Vue", years: "Aprendizaje activo" },
-  { label: "PostgreSQL",           years: "Aprendizaje activo"        },
-  { label: "SwiftUI",              years: "Exploración puntual"       },
-];
-
 export function Stack() {
+  const STACK = [
+    { label: "PHP",                  years: `${yearsOfExperience} años` },
+    { label: "MySQL / MariaDB",      years: `${yearsOfExperience} años` },
+    { label: "Laravel",              years: "7 años"                    },
+    { label: "WordPress",            years: "6 años"                    },
+    { label: "Bootstrap / jQuery",   years: `${yearsOfExperience} años` },
+    { label: "Symfony / CakePHP",    years: "5 años"                    },
+    { label: "Prestashop",           years: "4 años"                    },
+    { label: "Android (Java/Kotlin + XML)",years: "3 años"                    },
+    { label: ".NET Core",            years: "4 años"                    },
+    { label: "NestJS / React / Next.js / Vue", years: "Aprendizaje activo" },
+    { label: "PostgreSQL",           years: "Aprendizaje activo"        },
+    { label: "SwiftUI",              years: "Exploración puntual"       },
+  ];
+
   return (
     <section className="page-content">
       <p
