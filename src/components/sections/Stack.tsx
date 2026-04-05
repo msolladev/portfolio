@@ -1,27 +1,26 @@
 "use client";
 
+import { yearsOfExperience } from "@/lib/yearsOfExperience";
 import { motion } from "framer-motion";
 
 const STACK = [
-  { label: "React",       years: "9 años"  },
-  { label: "Next.js",     years: "5 años"  },
-  { label: "TypeScript",  years: "7 años"  },
-  { label: "Node.js",     years: "11 años" },
-  { label: "PostgreSQL",  years: "10 años" },
-  { label: "Docker",      years: "8 años"  },
-  { label: "Redis",       years: "7 años"  },
-  { label: "Linux",       years: "13 años" },
+  { label: "PHP",                  years: `${yearsOfExperience} años` },
+  { label: "MySQL / MariaDB",      years: `${yearsOfExperience} años` },
+  { label: "Laravel",              years: "7 años"                    },
+  { label: "WordPress",            years: "6 años"                    },
+  { label: "Bootstrap / jQuery",   years: `${yearsOfExperience} años` },
+  { label: "Symfony / CakePHP",    years: "5 años"                    },
+  { label: "Prestashop",           years: "4 años"                    },
+  { label: "Android (Java/Kotlin + XML)",years: "3 años"                    },
+  { label: ".NET Core",            years: "4 años"                    },
+  { label: "NestJS / React / Next.js / Vue", years: "Aprendizaje activo" },
+  { label: "PostgreSQL",           years: "Aprendizaje activo"        },
+  { label: "SwiftUI",              years: "Exploración puntual"       },
 ];
 
 export function Stack() {
   return (
-    <section
-      style={{
-        maxWidth: "1100px",
-        margin: "0 auto",
-        padding: "2rem 1.5rem 8rem",
-      }}
-    >
+    <section className="page-content">
       <p
         style={{
           fontFamily: "var(--font-mono)",

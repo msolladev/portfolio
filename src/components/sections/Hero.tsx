@@ -1,25 +1,14 @@
 "use client";
 
+import { yearsOfExperience } from "@/lib/yearsOfExperience";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
 const WORDS = ["escalan.", "perduran.", "importan."];
 
 export function Hero() {
-  const yearsOfExperience = new Date().getFullYear() - 2012 - (new Date().getMonth() < 8 ? 1 : 0);
-
   return (
-    <section
-      style={{
-        minHeight: "92vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        maxWidth: "1100px",
-        margin: "0 auto",
-        padding: "6rem 1.5rem 4rem",
-      }}
-    >
+    <section className="page-content">
       {/* Eyebrow */}
       <motion.p
         initial={{ opacity: 0, y: 10 }}
@@ -68,8 +57,8 @@ export function Hero() {
           lineHeight: 1.6,
         }}
       >
-        React · Next.js · Node.js · TypeScript · PostgreSQL.
-        De la arquitectura al pixel, con criterio técnico y sin rodeos.
+        PHP · Laravel · WordPress y ecosistema frontend clásico.
+        {yearsOfExperience} años construyendo productos reales. Transicionando hacia Node.js.
       </motion.p>
 
       {/* CTAs */}

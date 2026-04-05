@@ -19,21 +19,21 @@ export function Footer() {
     >
       <span>© {year} Miguel Solla</span>
       <div style={{ display: "flex", gap: "1.5rem" }}>
-        <Link
-          href="https://github.com/tuusuario"
+        {/* <Link
+          href="https://github.com/msolladev"
           target="_blank"
           rel="noopener noreferrer"
           style={{ color: "var(--text-soft)", transition: "color var(--transition)" }}
         >
-          github
-        </Link>
+          Github
+        </Link> */}
         <Link
-          href="https://linkedin.com/in/tuusuario"
+          href="https://www.linkedin.com/in/miguel-solla/"
           target="_blank"
           rel="noopener noreferrer"
           style={{ color: "var(--text-soft)", transition: "color var(--transition)" }}
         >
-          linkedin
+          LinkedIn
         </Link>
       </div>
     </footer>

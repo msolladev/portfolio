@@ -1,0 +1,1 @@
+export const yearsOfExperience = new Date().getFullYear() - 2012 - (new Date().getMonth() < 8 ? 1 : 0);

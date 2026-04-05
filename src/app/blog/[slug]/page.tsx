@@ -39,13 +39,7 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <>
       <Nav />
-      <main
-        style={{
-          maxWidth: "720px",
-          margin: "0 auto",
-          padding: "5rem 1.5rem 8rem",
-        }}
-      >
+      <main className="page-content-narrow">
         {/* Meta */}
         <div
           style={{

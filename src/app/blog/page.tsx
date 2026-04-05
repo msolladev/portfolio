@@ -15,13 +15,7 @@ export default function BlogPage() {
   return (
     <>
       <Nav />
-      <main
-        style={{
-          maxWidth: "760px",
-          margin: "0 auto",
-          padding: "5rem 1.5rem 8rem",
-        }}
-      >
+      <main className="page-content-narrow">
         <p
           style={{
             fontFamily: "var(--font-mono)",

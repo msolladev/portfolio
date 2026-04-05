@@ -13,7 +13,7 @@ export default function HomePage() {
   return (
     <>
       <Nav />
-      <main>
+      <main className="page-content">
         <Hero />
         <Terminal />
         <Stack />

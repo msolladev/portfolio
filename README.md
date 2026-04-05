@@ -141,7 +141,7 @@ A partir de aquí, cada `git push` a `main`:
 - [ ] Actualiza los links de GitHub y LinkedIn
 - [ ] Añade tu email real en `api/contact/route.ts`
 - [ ] Verifica tu dominio en [Resend](https://resend.com)
-- [ ] Genera `public/og-image.png` (1200×630px)
+- [ ] Genera `public/img/og-image.png` (1200×630px)
 - [ ] Ajusta el color `--accent` en `globals.css`
 - [ ] Actualiza los años de experiencia en `Terminal.tsx` y `Stack.tsx`
 - [ ] Escribe tu primer post en `content/blog/`

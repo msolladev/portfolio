@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, KeyboardEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { yearsOfExperience } from "@/lib/yearsOfExperience";
 
 // ─── Comandos disponibles ─────────────────────────────────
 type Line = { type: "input" | "output" | "error"; text: string };
@@ -11,35 +12,57 @@ const COMMANDS: Record<string, string[]> = {
     "Comandos disponibles:",
     "  whoami      → quién soy",
     "  skills      → stack tecnológico",
-    "  experience  → resumen de experiencia",
+    "  experience  → trayectoria profesional",
+    "  education   → formación",
     "  contact     → cómo contactarme",
     "  clear       → limpiar terminal",
+    "  now         → qué estoy haciendo ahora",
   ],
   whoami: [
     "Miguel Solla — Fullstack Developer",
-    "13 años construyendo productos reales.",
-    "Especializado en React, Next.js y Node.js.",
-    "Me interesa la arquitectura tanto como el pixel.",
+    `${yearsOfExperience} años construyendo productos reales.`,
+    "Backend sólido en PHP y Laravel, con experiencia en Android y .NET Core.",
+    "Actualmente explorando el ecosistema Node.js.",
+    "Me interesa tanto la arquitectura como el impacto real del software.",
   ],
   skills: [
-    "Frontend:   React · Next.js · TypeScript · Framer Motion",
-    "Backend:    Node.js · Express · NestJS · tRPC",
-    "Data:       PostgreSQL · Redis · Prisma · Drizzle",
-    "Infra:      Docker · Nginx · GitHub Actions · Linux",
-    "Craft:      Testing · Clean Code · Performance · SEO",
+    "Backend:    PHP · Laravel · Symfony · CakePHP · .NET Core",
+    "CMS/Ecomm: WordPress · PrestaShop · WooCommerce",
+    "Frontend:   Bootstrap · jQuery · HTML5 · CSS3",
+    "Mobile:     Android (Java + Kotlin)",
+    "Infra:      Git · Docker · Linux · Nginx",
+    "Aprendiendo: Node.js · NestJS · React · Next.js · Vue · PostgreSQL",
   ],
   experience: [
-    "2012 → 2016   Junior / Mid — agencias y startups",
-    "2016 → 2020   Senior — productos SaaS B2B",
-    "2020 → 2024   Lead / Arquitecto — equipos de 6-12 devs",
-    "2024 → hoy    Freelance — proyectos de alto impacto",
+    "2012 → hoy   Extra Software — Senior Developer",
+    "             WordPress, PrestaShop, Laravel, Android, .NET Core",
+    "             Consultoría y proyectos para múltiples clientes",
+    "",
+    "2023 → hoy   HWI Group — Senior Developer",
+    "             Arquitectura e implantación de plataforma web",
+    "             ERP para correduría de seguros",
+  ],
+  education: [
+    "2012  CFGS Desarrollo de Aplicaciones Informáticas — IES Teide IV",
+    "2009  CFGM Explotación de Sistemas Informáticos — IES Teide IV",
+    "2018  Máster Executive Diseño y Programación Web 3.0 — U. Nebrija",
+    "2016  Desarrollo Apps Web, Android e iOS — INEM",
+    "2013  Desarrollo de Aplicaciones Android — Teide IV / INEM",
+  ],
+  now: [
+    "Estado actual:",
+    "",
+    "  Trabajando en:  Plataforma ERP para correduría de seguros",
+    "  Aprendiendo:    Node.js · NestJS · React · Next.js",
+    "  Abierto a:      Posición fullstack en remoto o híbrido (Alcalá de Henares)",
+    "",
+    "  → msolla.dev/contacto",
   ],
   contact: [
-    "Email:    hola@msolla.dev",
     "LinkedIn: linkedin.com/in/miguel-solla",
-    //"GitHub:   github.com/msolladev",
+    "Web:      msolla.dev/contacto",
     "",
-    "¿Tienes un proyecto? → /contacto",
+    "¿Tienes una oportunidad interesante? → msolla.dev/contacto · linkedin.com/in/miguel-solla",
   ],
 };
 
@@ -47,13 +70,13 @@ const PROMPT = "visitor@portfolio:~$";
 
 export function Terminal() {
   const [lines, setLines] = useState<Line[]>([
-    { type: "output", text: 'Bienvenido. Escribe "help" para empezar.' },
+    { type: "output", text: 'Conectado como visitor@msolla.dev — Escribe "help" para ver los comandos disponibles.' },
   ]);
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([]);
   const [histIdx, setHistIdx] = useState(-1);
   const bottomRef = useRef<HTMLDivElement>(null);
-  const inputRef  = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const run = (raw: string) => {
     const cmd = raw.trim().toLowerCase();
@@ -98,14 +121,31 @@ export function Terminal() {
     }
   };
 
+  function renderLine(text: string) {
+    const urlRegex = /(https?:\/\/[^\s]+|[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\/[^\s]*)/g;
+    const parts = text.split(urlRegex);
+
+    return parts.map((part, i) => {
+      if (urlRegex.test(part)) {
+        const href = part.startsWith("http") ? part : `https://${part}`;
+        return (
+          <a
+            key={i}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "var(--accent)", textDecoration: "underline" }}
+          >
+            {part}
+          </a>
+        );
+      }
+      return part;
+    });
+  }
+
   return (
-    <section
-      style={{
-        maxWidth: "1100px",
-        margin: "0 auto",
-        padding: "4rem 1.5rem",
-      }}
-    >
+    <section className="page-content">
       <p
         style={{
           fontFamily: "var(--font-mono)",
@@ -147,7 +187,7 @@ export function Terminal() {
             flexShrink: 0,
           }}
         >
-          {["#ff5f57","#febc2e","#28c840"].map((c) => (
+          {["#ff5f57", "#febc2e", "#28c840"].map((c) => (
             <div key={c} style={{ width: 12, height: 12, borderRadius: "50%", background: c }} />
           ))}
           <span
@@ -182,13 +222,13 @@ export function Terminal() {
                 transition={{ duration: 0.18 }}
                 style={{
                   color:
-                    line.type === "input"  ? "var(--accent)"   :
-                    line.type === "error"  ? "#ff5f57"          :
-                    "var(--text-soft)",
+                    line.type === "input" ? "var(--accent)" :
+                      line.type === "error" ? "#ff5f57" :
+                        "var(--text-soft)",
                   whiteSpace: "pre",
                 }}
               >
-                {line.text || "\u00A0"}
+                {renderLine(line.text)}
               </motion.div>
             ))}
           </AnimatePresence>
