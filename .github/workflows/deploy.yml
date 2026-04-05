@@ -35,7 +35,7 @@ jobs:
         run: pnpm type-check
 
       - name: Lint
-        run: npx eslint . --ext .ts,.tsx,.js,.jsx --max-warnings=0
+        run: pnpm lint
 
   # ── 2. Build & push imagen Docker ──────────────────────
   build:
