@@ -68,18 +68,11 @@ export default async function BlogPostPage({ params }: Props) {
           {post.title}
         </h1>
 
-        <p
-          style={{
-            fontSize: "1.1rem",
-            color: "var(--text-soft)",
-            marginBottom: "3rem",
-            lineHeight: 1.7,
-          }}
-        >
+        <p className="text-[1.1rem] text-[var(--text-soft)] mb-12 sm:mb-6 leading-[1.7]">
           {post.description}
         </p>
 
-        <hr style={{ border: "none", borderTop: "1px solid var(--border)", marginBottom: "3rem" }} />
+        <hr className="border-0 border-t border-[var(--border)] mb-12 sm:mb-6" />
 
         {/* MDX content */}
         <article

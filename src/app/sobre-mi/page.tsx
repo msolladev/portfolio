@@ -73,16 +73,8 @@ export default function AboutPage() {
 
         {/* Disponibilidad actual */}
         <div
-          style={{
-            marginTop: "4rem",
-            padding: "1.5rem",
-            border: "1px solid var(--border)",
-            borderRadius: "var(--radius)",
-            background: "var(--surface)",
-            display: "flex",
-            alignItems: "center",
-            gap: "1rem",
-          }}
+          className="mt-16 sm:!mt-8 p-4 sm:p-6 border border-[var(--border)] rounded-[var(--radius)] bg-[var(--surface)] flex items-center gap-3 sm:gap-4"
+          style={{ marginTop: "calc(var(--spacing) * 8)" }}
         >
           <span
             style={{

@@ -32,14 +32,7 @@ export function Hero() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.6 }}
-        style={{
-          fontSize: "clamp(2.8rem, 7vw, 6rem)",
-          fontWeight: 800,
-          lineHeight: 1.05,
-          letterSpacing: "-0.03em",
-          marginBottom: "2rem",
-          maxWidth: "14ch",
-        }}
+        className="text-[clamp(2.8rem,7vw,6rem)] font-extrabold leading-[1.05] tracking-[-0.03em] mb-8 max-w-[14ch]"
       >
         Construyo soluciones que{" "}
         <RotatingWord words={WORDS} />
@@ -51,16 +44,9 @@ export function Hero() {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.35, duration: 0.5 }}
-        style={{
-          fontSize: "1.15rem",
-          color: "var(--text-soft)",
-          maxWidth: "52ch",
-          marginBottom: "3rem",
-          lineHeight: 1.6,
-        }}
+        className="text-[1.15rem] sm:text-[1rem] text-[var(--text-soft)]  mb-12 leading-[1.6]"
       >
-        PHP · Laravel · WordPress y ecosistema frontend clásico.
-        {yearsOfExperience} años construyendo productos reales. Transicionando hacia Node.js.
+        PHP · Laravel · WordPress y ecosistema frontend clásico. {yearsOfExperience} años construyendo productos reales. Transicionando hacia Node.js.
       </motion.p>
 
       {/* CTAs */}

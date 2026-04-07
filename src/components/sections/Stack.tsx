@@ -35,6 +35,7 @@ export function Stack() {
       </p>
 
       <div
+        className="stack-grid"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))",

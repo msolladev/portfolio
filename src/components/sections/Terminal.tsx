@@ -272,6 +272,7 @@ export function Terminal() {
             {lines.map((line, i) => (
               <motion.div
                 suppressHydrationWarning
+                className="terminal-line"
                 key={i}
                 initial={{ opacity: 0, x: -6 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -281,8 +282,8 @@ export function Terminal() {
                     line.type === "input"
                       ? "var(--accent)"
                       : line.type === "error"
-                      ? "#ff5f57"
-                      : "var(--text-soft)",
+                        ? "#ff5f57"
+                        : "var(--text-soft)",
                   whiteSpace: "pre",
                 }}
               >
