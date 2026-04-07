@@ -1,0 +1,61 @@
+---
+title: "El código que parecía bueno: cómo aprendí a evaluar un proyecto heredado"
+description: "Me preguntaron si un sistema existente era reutilizable o había que empezar de cero. Dije que se podía trabajar con él. Me equivoqué, y la razón por la que me equivoqué es la parte interesante."
+date: "2026-04-07"
+tags: ["legacy", "arquitectura", "consultoría", "reflexión"]
+readTime: "7 min"
+---
+
+En algún momento de mi etapa en consultoría llegó un proyecto de documentación interna. El encargo era concreto: evaluar si el sistema existente era una base sólida sobre la que construir, o si era mejor descartarlo y empezar desde cero. La empresa había invertido tiempo y dinero en él, así que la pregunta importaba.
+
+Lo miré. Era rápido. La estructura interna tenía una separación que recordaba al patrón MVC antes de que ese término fuera de uso común — carpetas distintas para la lógica, la presentación y los datos, una intuición arquitectónica que alguien había tenido hace años sin ponerle nombre. Parecía que alguien había pensado antes de programar. Eso no siempre ocurre en el software que llega heredado.
+
+Mi respuesta fue que sí, que se podía trabajar con él. Luego empezaron a salir las setas.
+
+## Lo que no vi a primera vista
+
+El problema no era la estructura en el papel. Era lo que había dentro de esa estructura.
+
+El sistema hacía un uso intensivo de heredocs dinámicas — bloques de texto literal con interpolación de variables incrustada, generados en tiempo de ejecución para construir partes de la interfaz. Funcionaba. Era incluso ingenioso para la época en que se escribió. Pero seguir el flujo de un cambio cualquiera requería rastrear qué se estaba generando, dónde, con qué datos y bajo qué condiciones, sin que hubiera una forma clara de hacerlo sin leer todo el bloque.
+
+Modificar el comportamiento en un punto concreto significaba entender primero todo lo que ese heredoc estaba construyendo. Y si querías cambiar algo que afectaba a varios sitios, tenías que encontrarlos todos — porque no había forma de buscarlos sistemáticamente.
+
+La separación de capas que parecía limpia desde fuera era, por dentro, una separación de conveniencia. Las responsabilidades no estaban separadas porque alguien hubiera diseñado las abstracciones correctas. Estaban separadas porque alguien había decidido poner las cosas en carpetas distintas. No es lo mismo.
+
+Y sobre todo eso, no había ningún tipo de documentación. Ni técnica para el desarrollador que tuviera que mantenerlo, ni de usuario que explicara qué hacía el sistema o cómo. Lo que no estaba escrito en el código no estaba en ningún sitio. En un sistema bien diseñado, la falta de documentación es una molestia. En un sistema donde el código ya es difícil de seguir por sí solo, es el último empujón hacia la opacidad total.
+
+## Lo que conseguimos sacar adelante
+
+No fue un fracaso total, y eso también vale la pena contarlo con precisión.
+
+La lógica funcional del sistema era la parte más manejable. Con esfuerzo, pudimos modificar el comportamiento donde era necesario y construir encima de ella. La API que añadimos era una abstracción completa: todo lo que el sistema podía hacer a través de su interfaz, podía hacerse también a través de la API. Eso era exactamente lo que necesitábamos para integrarlo con nuestras aplicaciones.
+
+Lo que apenas conseguimos tocar fue la interfaz. Y ahí estaba el verdadero problema: toda ella se generaba con componentes dinámicos construidos sobre librerías que ya nadie en el equipo conocía, sin documentación útil y sin forma clara de rastrear qué generaba qué. Seguir el flujo de un elemento visual cualquiera requería leer bloques enteros de código generativo para entender qué acabaría apareciendo en pantalla. Hacer un cambio de interfaz pequeño tenía un coste desproporcionado respecto a lo que producía. La interfaz fue, de largo, lo que menos cambió — no por falta de necesidad, sino porque el coste de tocarla era demasiado alto para lo que el proyecto tenía disponible.
+
+## Por qué me equivoqué
+
+Me equivoqué porque medí las cosas equivocadas.
+
+Miré la velocidad de ejecución. Miré la separación aparente de responsabilidades. Miré que alguien había pensado en arquitectura. Esas son señales positivas en un sistema, y son las señales que uno busca cuando hace una evaluación rápida.
+
+Lo que no medí fue la maleabilidad. No me hice las preguntas correctas: ¿cuánto cuesta añadir una nueva función que no existía? ¿Cuánto cuesta cambiar el comportamiento de algo que ya existe? ¿Cuánto tiempo necesita alguien que no escribió este código para entender lo que está pasando en un flujo cualquiera?
+
+La velocidad de ejecución no importa si el sistema no puede crecer. La separación en carpetas no importa si las abstracciones internas no se sostienen. Un sistema puede rendir bien en producción y ser intocable a la vez — no son cosas que se excluyan.
+
+La calidad de un sistema heredado no se mide en cómo está hecho. Se mide en cómo responde cuando necesitas cambiarlo.
+
+## Qué haría diferente hoy
+
+Antes de dar una respuesta sobre si un sistema es viable, haría un spike explícito y pequeño: intentaría hacer, de verdad, uno de los cambios concretos que están previstos. No simularlo mentalmente. No inferirlo de la estructura. Hacerlo.
+
+Si ese cambio pequeño y acotado es difícil de seguir, difícil de ejecutar o produce incertidumbre sobre qué más puede haberse roto, eso ya es información definitiva. No hace falta evaluar el sistema entero — con ver cómo responde a una modificación controlada es suficiente para saber lo que hay.
+
+También preguntaría por el historial real de cambios antes de decidir. ¿Cuántas veces se ha modificado este sistema en el último año? ¿Qué tardaron esas modificaciones? ¿Hay algo que se intentó y se descartó por dificultad? Esas respuestas dicen más sobre la maleabilidad real que cualquier revisión del código en frío.
+
+## Una nota sobre el código "adelantado a su tiempo"
+
+Hay una trampa particular en los sistemas que parecen haber anticipado buenas prácticas antes de que fueran comunes. Generan una simpatía inicial que nubla el juicio.
+
+Aquel sistema tenía algo que en su momento era inusual. Eso era real. Pero las buenas intenciones de quien lo escribió no cambiaban lo que había salido por el otro lado — un sistema que era difícil de seguir y difícil de modificar. El mérito histórico de haber intuido algo correcto no convierte el resultado en buen código.
+
+Hay que separar las dos cosas. Y en una evaluación técnica, solo una de ellas importa.

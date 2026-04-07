@@ -76,6 +76,7 @@ export default async function BlogPostPage({ params }: Props) {
 
         {/* MDX content */}
         <article
+          className="prose"
           style={{
             color: "var(--text-soft)",
             lineHeight: 1.8,
