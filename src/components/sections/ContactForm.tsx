@@ -132,6 +132,7 @@ export function ContactForm() {
                   color: "var(--text-soft)",
                   marginBottom: "0.4rem",
                   letterSpacing: "0.06em",
+                  cursor: "pointer",
                 }}
               >
                 {label}
