@@ -10,16 +10,16 @@ export const metadata: Metadata = {
   description: "Artículos técnicos sobre desarrollo web, arquitectura y criterio de ingeniería.",
 };
 
-const PER_PAGE_OPTIONS = [ 5, 10, 20 ];
+const PER_PAGE_OPTIONS = [5, 10, 20];
 const DEFAULT_PER_PAGE = 5;
 // perPage === 0 means "show all"
 
 interface Props {
-  searchParams: Promise<{ page?: string; perPage?: string }>;
+  searchParams: Promise<{ page?: string; perPage?: string; order?: string }>;
 }
 
 export default async function BlogPage({ searchParams }: Props) {
-  const { page, perPage: perPageParam } = await searchParams;
+  const { page, perPage: perPageParam, order } = await searchParams;
 
   const perPageNum = Number(perPageParam);
   const showAll = perPageNum === 0;
@@ -29,7 +29,12 @@ export default async function BlogPage({ searchParams }: Props) {
       ? perPageNum
       : DEFAULT_PER_PAGE;
 
-  const allPosts = getAllPosts();
+  const orderAsc = order === "asc";
+  const allPosts = (() => {
+    const posts = getAllPosts(); // already sorted desc
+    return orderAsc ? [...posts].reverse() : posts;
+  })();
+
   const totalPages = showAll ? 1 : Math.max(1, Math.ceil(allPosts.length / perPage));
   const current = showAll ? 1 : Math.min(Math.max(1, Number(page) || 1), totalPages);
   const posts = showAll ? allPosts : allPosts.slice((current - 1) * perPage, current * perPage);
@@ -73,6 +78,7 @@ export default async function BlogPage({ searchParams }: Props) {
               totalPages={totalPages}
               perPage={perPage}
               perPageOptions={PER_PAGE_OPTIONS}
+              order={orderAsc ? "asc" : "desc"}
             />
 
             <ol style={{ listStyle: "none", padding: 0, margin: 0 }}>
@@ -125,6 +131,7 @@ export default async function BlogPage({ searchParams }: Props) {
               totalPages={totalPages}
               perPage={perPage}
               perPageOptions={PER_PAGE_OPTIONS}
+              order={orderAsc ? "asc" : "desc"}
             />
           </>
         )}

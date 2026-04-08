@@ -132,6 +132,14 @@ pre {
   75%      { transform: translate(-1%, 3%); }
 }
 
+button:hover, a:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+button.active{
+  color: var(--accent) !important;
+}
+
 .prose{
   h1, h2, h3, h4, h5, h6{
     color: white;

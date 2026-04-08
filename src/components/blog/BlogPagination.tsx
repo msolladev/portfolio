@@ -8,10 +8,11 @@ interface Props {
     totalPages: number;
     perPage: number; // 0 = show all
     perPageOptions: number[];
+    order: "asc" | "desc";
 }
 
-function buildUrl(page: number, perPage: number): string {
-    return `/blog?page=${page}&perPage=${perPage}`;
+function buildUrl(page: number, perPage: number, order: string): string {
+    return `/blog?page=${page}&perPage=${perPage}&order=${order}`;
 }
 
 function buildPageList(current: number, total: number): (number | "…")[] {
@@ -35,126 +36,101 @@ function buildPageList(current: number, total: number): (number | "…")[] {
     return result;
 }
 
-const linkStyle = (active: boolean): React.CSSProperties => ({
-    color: active ? "var(--accent)" : "var(--text-soft)",
-    fontWeight: active ? 700 : 400,
-    minWidth: "1.5rem",
-    textAlign: "center" as const,
-    display: "inline-block",
-});
+const btnBase = "font-mono text-[0.85rem] bg-transparent border-0 p-2 cursor-pointer text-[var(--text-soft)] transition-colors";
+const btnActive = "text-[var(--accent)] font-bold cursor-default active";
+const btnInactive = "hover:text-[var(--text)] cursor-pointer";
 
-const mutedStyle: React.CSSProperties = {
-    color: "var(--muted)",
-    minWidth: "1.5rem",
-    textAlign: "center",
-    display: "inline-block",
-};
+const pageBase = "font-mono text-[0.85rem] min-w-[1.5rem] text-center p-2 inline-block transition-colors";
+const pageActive = "text-[var(--accent)] font-bold active";
+const pageInactive = "text-[var(--text-soft)] hover:text-[var(--text)]";
+const pageMuted = "text-[var(--muted)] min-w-[1.5rem] text-center inline-block";
 
 export function BlogPagination({
     currentPage,
     totalPages,
     perPage,
     perPageOptions,
+    order,
 }: Props) {
     const router = useRouter();
     const pages = buildPageList(currentPage, totalPages);
 
     return (
-        <div
-            style={{
-                marginTop: "3rem",
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.85rem",
-            }}
-        >
-            {/* Per-page selector */}
-            <div
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.75rem",
-                    marginBottom: "1.5rem",
-                    color: "var(--text-soft)",
-                }}
-            >
-                <span>por página:</span>
-                {perPageOptions.map((n) => (
+        <div className="mt-12 font-mono text-[0.85rem]">
+            {/* Controls row */}
+            <div className="flex flex-wrap items-center gap-4 mb-6 text-[var(--text-soft)]">
+                {/* Per-page selector */}
+                <div className="flex items-center gap-1">
+                    <span>por página:</span>
+                    {perPageOptions.map((n) => (
+                        <button
+                            key={n}
+                            onClick={() => router.push(`/blog?page=1&perPage=${n}&order=${order}`)}
+                            className={`${btnBase} ${n === perPage ? btnActive : btnInactive}`}
+                            aria-current={n === perPage ? "true" : undefined}
+                        >
+                            {n}
+                        </button>
+                    ))}
                     <button
-                        key={n}
-                        onClick={() => router.push(`/blog?page=1&perPage=${n}`)}
-                        style={{
-                            color: n === perPage ? "var(--accent)" : "var(--text-soft)",
-                            fontFamily: "var(--font-mono)",
-                            fontSize: "0.85rem",
-                            fontWeight: n === perPage ? 700 : 400,
-                            background: "none",
-                            border: "none",
-                            cursor: n === perPage ? "default" : "pointer",
-                            padding: 0,
-                        }}
-                        aria-current={n === perPage ? "true" : undefined}
+                        onClick={() => router.push(`/blog?page=1&perPage=0&order=${order}`)}
+                        className={`${btnBase} ${perPage === 0 ? btnActive : btnInactive}`}
+                        aria-current={perPage === 0 ? "true" : undefined}
                     >
-                        {n}
+                        todos
                     </button>
-                ))}
-                <button
-                    onClick={() => router.push(`/blog?page=1&perPage=0`)}
-                    style={{
-                        color: perPage === 0 ? "var(--accent)" : "var(--text-soft)",
-                        fontFamily: "var(--font-mono)",
-                        fontSize: "0.85rem",
-                        fontWeight: perPage === 0 ? 700 : 400,
-                        background: "none",
-                        border: "none",
-                        cursor: perPage === 0 ? "default" : "pointer",
-                        padding: 0,
-                    }}
-                    aria-current={perPage === 0 ? "true" : undefined}
-                >
-                    todos
-                </button>
+                </div>
+                |
+                {/* Order selector */}
+                <div className="flex items-center gap-1">
+                    <span className="p-2">orden:</span>
+                    <button
+                        onClick={() => router.push(`/blog?page=1&perPage=${perPage}&order=desc`)}
+                        className={`${btnBase} ${order === "desc" ? btnActive : btnInactive}`}
+                        aria-current={order === "desc" ? "true" : undefined}
+                    >
+                        recientes
+                    </button>
+                    <button
+                        onClick={() => router.push(`/blog?page=1&perPage=${perPage}&order=asc`)}
+                        className={`${btnBase} ${order === "asc" ? btnActive : btnInactive}`}
+                        aria-current={order === "asc" ? "true" : undefined}
+                    >
+                        antiguos
+                    </button>
+                </div>
             </div>
 
             {/* Page number navigation */}
             {totalPages > 1 && (
-                <nav
-                    aria-label="Paginación"
-                    style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "0.6rem",
-                        flexWrap: "wrap",
-                    }}
-                >
+                <nav aria-label="Paginación" className="flex flex-wrap items-center gap-[0.6rem]">
                     {/* Primera */}
                     {currentPage > 1 ? (
-                        <Link href={buildUrl(1, perPage)} style={linkStyle(false)} title="Primera página">
+                        <Link href={buildUrl(1, perPage, order)} className={`${pageBase} ${pageInactive}`} title="Primera página">
                             «
                         </Link>
                     ) : (
-                        <span style={mutedStyle}>«</span>
+                        <span className={pageMuted}>«</span>
                     )}
 
                     {/* Anterior */}
                     {currentPage > 1 ? (
-                        <Link href={buildUrl(currentPage - 1, perPage)} style={linkStyle(false)}>
+                        <Link href={buildUrl(currentPage - 1, perPage, order)} className={`${pageBase} ${pageInactive}`}>
                             ← ant
                         </Link>
                     ) : (
-                        <span style={mutedStyle}>← ant</span>
+                        <span className={pageMuted}>← ant</span>
                     )}
 
                     {/* Números */}
                     {pages.map((p, i) =>
                         p === "…" ? (
-                            <span key={`ellipsis-${i}`} style={{ color: "var(--text-soft)" }}>
-                                …
-                            </span>
+                            <span key={`ellipsis-${i}`} className="text-[var(--text-soft)]">…</span>
                         ) : (
                             <Link
                                 key={p}
-                                href={buildUrl(p, perPage)}
-                                style={linkStyle(p === currentPage)}
+                                href={buildUrl(p, perPage, order)}
+                                className={`${pageBase} ${p === currentPage ? pageActive : pageInactive}`}
                                 aria-current={p === currentPage ? "page" : undefined}
                             >
                                 {p}
@@ -164,23 +140,24 @@ export function BlogPagination({
 
                     {/* Siguiente */}
                     {currentPage < totalPages ? (
-                        <Link href={buildUrl(currentPage + 1, perPage)} style={linkStyle(false)}>
+                        <Link href={buildUrl(currentPage + 1, perPage, order)} className={`${pageBase} ${pageInactive}`}>
                             sig →
                         </Link>
                     ) : (
-                        <span style={mutedStyle}>sig →</span>
+                        <span className={pageMuted}>sig →</span>
                     )}
 
                     {/* Última */}
                     {currentPage < totalPages ? (
-                        <Link href={buildUrl(totalPages, perPage)} style={linkStyle(false)} title="Última página">
+                        <Link href={buildUrl(totalPages, perPage, order)} className={`${pageBase} ${pageInactive}`} title="Última página">
                             »
                         </Link>
                     ) : (
-                        <span style={mutedStyle}>»</span>
+                        <span className={pageMuted}>»</span>
                     )}
                 </nav>
             )}
         </div>
     );
 }
+
