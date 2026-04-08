@@ -9,6 +9,7 @@ export interface PostMeta {
   date:        string;
   tags:        string[];
   readTime:    string;
+  content:     string; // Make content required
 }
 
 export interface Post extends PostMeta {
@@ -17,7 +18,7 @@ export interface Post extends PostMeta {
 
 const POSTS_DIR = path.join(process.cwd(), "content/blog");
 
-export function getAllPosts(): PostMeta[] {
+export function getAllPosts(): Post[] {
   if (!fs.existsSync(POSTS_DIR)) return [];
 
   return fs
@@ -26,8 +27,8 @@ export function getAllPosts(): PostMeta[] {
     .map((file) => {
       const slug    = file.replace(/\.mdx$/, "");
       const raw     = fs.readFileSync(path.join(POSTS_DIR, file), "utf-8");
-      const { data } = matter(raw);
-      return { slug, ...data } as PostMeta;
+      const { data, content } = matter(raw);
+      return { slug, content: content || "", ...data } as Post;
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
