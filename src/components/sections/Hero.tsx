@@ -8,7 +8,7 @@ const WORDS = ["escalan.", "perduran.", "importan."];
 
 export function Hero() {
   return (
-    <section className="page-content">
+    <section className="">
       {/* Eyebrow */}
       <motion.p
         suppressHydrationWarning

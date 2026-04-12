@@ -199,7 +199,7 @@ export function Terminal() {
   }
 
   return (
-    <section className="page-content">
+    <section className="">
       <p
         style={{
           fontFamily: "var(--font-mono)",

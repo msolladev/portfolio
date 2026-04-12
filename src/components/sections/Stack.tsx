@@ -20,7 +20,7 @@ export function Stack() {
   ];
 
   return (
-    <section className="page-content">
+    <section className="">
       <p
         style={{
           fontFamily: "var(--font-mono)",

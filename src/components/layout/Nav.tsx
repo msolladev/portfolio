@@ -51,7 +51,7 @@ export function Nav() {
         <div className="max-w-[1100px] mx-auto h-[60px] flex items-center justify-between">
           <Link
             href="/"
-            className="text-[0.9rem] tracking-[0.05em] text-[var(--accent)] font-mono ps-4"
+            className="text-[0.9rem] tracking-[0.05em] text-[var(--accent)] font-mono sm:ps-0 ps-4"
           >
             ~/Miguel Solla
           </Link>
