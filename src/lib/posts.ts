@@ -30,7 +30,13 @@ export function getAllPosts(): Post[] {
       const { data, content } = matter(raw);
       return { slug, content: content || "", ...data } as Post;
     })
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    .sort((a, b) => {
+      const parseDate = (dateStr: string) => {
+          const [year, month, day] = dateStr.split("-").map(Number);
+          return new Date(year, month - 1, day).getTime();
+      };
+      return parseDate(b.date) - parseDate(a.date);
+    });
 }
 
 export function getPost(slug: string): Post {

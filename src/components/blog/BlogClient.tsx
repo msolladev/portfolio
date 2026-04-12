@@ -73,7 +73,16 @@ export function BlogClient({ allPosts }: Props) {
     }, [query, allPosts]);
 
     const sortedPosts = useMemo(() => {
-        return order === "asc" ? [...filtered].sort((a, b) => a.title.localeCompare(b.title)) : [...filtered].sort((a, b) => b.title.localeCompare(a.title));
+        const parseDate = (dateStr: string) => {
+            const [year, month, day] = dateStr.split("-").map(Number);
+            return new Date(year, month - 1, day).getTime();
+        };
+
+        return [...filtered].sort((a, b) => {
+            const dateA = parseDate(a.date);
+            const dateB = parseDate(b.date);
+            return order === "asc" ? dateA - dateB : dateB - dateA;
+        });
     }, [filtered, order]);
 
     const showAll = perPage === 0;
@@ -148,7 +157,7 @@ export function BlogClient({ allPosts }: Props) {
                             const bodyFragments = extractBodyFragments(post.content, query);
 
                             return (
-                            <li key={post.slug} className="border-b border-border py-8 last:border-none last:pb-0">
+                                <li key={post.slug} className="border-b border-border py-8 last:border-none last:pb-0">
                                     <div className="flex gap-4 mb-2 font-mono text-[0.78rem] text-soft">
                                         <time>{post.date}</time>
                                         <span>·</span>

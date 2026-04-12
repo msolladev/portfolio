@@ -73,9 +73,9 @@ export function BlogPagination({
                 <div className="flex items-center gap-1">
                     <span>orden:</span>
                     <button onClick={() => onOrderChange("asc")}
-                        className={order === "asc" ? btnOn : btn}>asc</button>
+                        className={order === "asc" ? btnOn : btn}>antiguos</button>
                     <button onClick={() => onOrderChange("desc")}
-                        className={order === "desc" ? btnOn : btn}>desc</button>
+                        className={order === "desc" ? btnOn : btn}>recientes</button>
                 </div>
             </div>
 
