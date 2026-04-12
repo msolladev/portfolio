@@ -39,7 +39,7 @@ export default function BlogPage() {
             marginBottom: "3rem",
           }}
         >
-          Pensamientos en voz alta.
+          Pensamtos en voz alta.
         </h1>
 
         <BlogClient allPosts={allPosts} />
