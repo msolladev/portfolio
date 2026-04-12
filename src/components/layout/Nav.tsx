@@ -45,7 +45,7 @@ export function Nav() {
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="fixed top-0 left-0 w-full z-[100] border-b backdrop-blur bg-[rgba(10,10,10,0.85)] border-[var(--border)]"
+        className="fixed top-0 left-0 w-full z-[100] border-b bg-[rgba(10,10,10,0.95)] border-[var(--border)]"
       >
         <div className="max-w-[1100px] mx-auto h-[60px] flex items-center justify-between">
           <Link
