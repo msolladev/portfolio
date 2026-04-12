@@ -1,0 +1,71 @@
+---
+title: "El hype de los microservicios: cuándo tienen sentido y cuándo son un problema"
+description: "Los microservicios son una arquitectura poderosa. También son una de las decisiones técnicas más mal aplicadas de los últimos años. La diferencia está en entender para qué sirven realmente."
+date: "2026-04-12"
+tags: ["arquitectura", "microservicios", "opinión", "backend"]
+slug: "hype-microservicios-cuando-tienen-sentido"
+---
+
+Hay pocas decisiones arquitectónicas que generen más debate en el sector que los microservicios. Por un lado, empresas como Netflix, Amazon o Google los usan a escala planetaria y los han convertido en sinónimo de arquitectura moderna. Por otro, hay una cantidad enorme de equipos que los han adoptado y han acabado con una complejidad que no podían gestionar, sin haber resuelto ninguno de los problemas que querían resolver.
+
+La verdad, como casi siempre, está en el medio y en entender qué problema resuelven realmente antes de decidir si los necesitas.
+
+## Qué son y para qué sirven de verdad
+
+Un microservicio es, en esencia, una unidad de funcionalidad independiente con su propio ciclo de despliegue, su propia base de datos (idealmente) y su propia responsabilidad bien definida. En lugar de tener todo el sistema en un único bloque, lo divides en partes que pueden escalar, desplegarse y fallar de forma independiente.
+
+Eso tiene ventajas reales en contextos concretos. Si tienes una aplicación con millones de usuarios simultáneos y partes con cargas de trabajo muy distintas, poder escalar solo lo que necesita escalar — y no todo el sistema — tiene mucho sentido. Si tienes varias aplicaciones dentro del mismo entorno empresarial que comparten funcionalidades comunes, extraer esas funcionalidades a servicios compartidos evita duplicar código y mantener varias implementaciones del mismo problema.
+
+Pero esas ventajas tienen un precio, y ese precio es alto.
+
+## El precio real que nadie menciona
+
+Cuando alguien argumenta a favor de microservicios, habla de escalabilidad, de resiliencia, de equipos independientes. Lo que rara vez se menciona con la misma claridad son los costes.
+
+El primero es la latencia. En un monolito, dos módulos que necesitan comunicarse lo hacen en memoria. En una arquitectura de microservicios, esa comunicación se convierte en una llamada de red. Si una funcionalidad necesita orquestar varios servicios de forma secuencial — porque el resultado de uno es la entrada del siguiente y no puedes paralelizarlos — la latencia se acumula. Puedes ganar en concurrencia y perder exactamente lo mismo en tiempo de respuesta.
+
+El segundo es la depuración. En un monolito, seguir el rastro de un error es relativamente lineal. En un sistema distribuido, ese error puede estar en cualquiera de los servicios involucrados, en la comunicación entre ellos, o en la orquestación. Debugear en paralelo varios microservicios es un nivel de complejidad cualitativamente diferente.
+
+El tercero es la consistencia de datos. Antes, lo que en un monolito era un simple JOIN entre dos tablas, en microservicios con bases de datos independientes se convierte en un problema de sincronización. Hay técnicas para gestionarlo — el patrón Saga para transacciones distribuidas, o la sincronización mediante eventos con herramientas como Kafka o RabbitMQ — pero añaden capas de complejidad que hay que entender y mantener.
+
+El cuarto, y quizás el más subestimado, es la resiliencia parcial. Se vende como ventaja: si un microservicio cae, el resto sigue funcionando. Eso es cierto. Pero si todos tus microservicios apuntan a la misma base de datos — lo que sería un error arquitectónico grave, pero en la práctica pasa — y es esa la que falla cae todo igualmente. La resiliencia real requiere un diseño cuidadoso en cada capa, no solo en la arquitectura de servicios.
+
+## Cuándo tiene sentido dar el paso
+
+No todo proyecto necesita microservicios. De hecho, la mayoría no los necesita.
+
+Tiene sentido planteárselos cuando hay una concurrencia elevada y partes del sistema con cargas de trabajo muy distintas que necesitan escalar de forma independiente. Una red social orientada a millones de usuarios concurrentes, donde la mayoría de interacciones son pequeñas y frecuentes — un like, un comentario, un scroll — es un caso de uso real. Un SaaS pesado con miles de usuarios que lanza procesos asíncronos de larga duración con notificaciones de estado también lo es.
+
+Tiene sentido cuando hay funcionalidades compartidas entre varias aplicaciones del mismo entorno. Si tienes cuatro o cinco aplicaciones donde todas necesitan gestión documental, autenticación o generación de notificaciones, extraer esas piezas a servicios independientes evita duplicar trabajo y centraliza el mantenimiento. Si esa parte falla, falla en un único punto y el resto de las aplicaciones pueden seguir operando.
+
+Lo que no tiene sentido es adoptar microservicios porque es lo que usa Netflix, porque lo enseñan en el bootcamp de turno, o porque suena más moderno que monolito.
+
+## El monolito no está muerto
+
+Un monolito bien estructurado, modular, con buenas prácticas desde el primer día, puede escalar perfectamente para la gran mayoría de proyectos reales. Los casos donde necesitas miles de peticiones por segundo de forma sostenida son menos habituales de lo que la industria da a entender.
+
+Realmente son pocos los proyectos que van a encontrarse con esa escala, especialmente en el entorno empresarial español, donde la mayoría son aplicaciones de gestión, plataformas B2B o sistemas internos con cientos o pocos miles de usuarios. Para ese contexto, un monolito modular bien construido es más fácil de desarrollar, de desplegar, de depurar y de mantener.
+
+La modularidad importa mucho en ambas arquitecturas. Un monolito sin estructura es un problema. Un monolito bien dividido en módulos con responsabilidades claras puede convivir perfectamente con microservicios específicos para funcionalidades concretas — que es exactamente el camino más sensato en muchos proyectos que crecen.
+
+## Migrar de monolito a microservicios
+
+Si el monolito está bien construido y orientado desde el principio a que se puedan ir extrayendo piezas, la migración progresiva es viable y razonable. No hay que reescribir todo a la vez.
+
+Hay una pieza que, en mi experiencia, merece atención especial: la autenticación. Si el sistema de autenticación está enterrado en el monolito con acoplamiento fuerte, extraerlo después puede ser bastante complicado dependiendo de las prácticas con las que se construyó. Empezar con un microservicio de autenticación desde el principio — o extraerlo en una fase temprana — facilita mucho el camino posterior.
+
+## El perfil que esto exige
+
+Los microservicios han subido la vara técnica del sector y eso en general es positivo. Exigen conocimientos de infraestructura, de comunicación distribuida, de observabilidad, de gestión de fallos — cosas que antes eran territorio de equipos especializados y ahora forman parte del trabajo cotidiano de muchos equipos de desarrollo.
+
+El lado negativo es que esa exigencia ha generado también cierta mitificación. Hay programadores que creen que un monolito es, por definición, deuda técnica. Y hay empresas que se mueven hacia microservicios sin tener el equipo, la experiencia ni el problema que justifique ese movimiento.
+
+Una arquitectura no es mejor o peor en abstracto. Es más o menos adecuada para un contexto concreto. Y elegir bien requiere entender ese contexto antes de decidir.
+
+## Una regla práctica
+
+Si tienes menos de dos personas con experiencia sólida en arquitecturas distribuidas en el equipo, los microservicios van a crear más problemas de los que resuelven. Cada programador no debería gestionar más de cinco o seis servicios si quiere hacerlo bien.
+
+Si tu mayor problema hoy no es la escala ni la concurrencia, sino entregar funcionalidad de forma consistente, un monolito modular bien construido es probablemente la decisión más inteligente que puedes tomar.
+
+Los microservicios no son el futuro inevitable del desarrollo de software. Son una herramienta. Y como toda herramienta, su valor depende de usarla cuando el problema lo justifica.
