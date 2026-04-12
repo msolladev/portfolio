@@ -21,6 +21,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: post.title,
       description: post.description,
       openGraph: { title: post.title, description: post.description },
+      alternates: { canonical: `${process.env.NEXT_PUBLIC_SITE_URL}/blog/${post.slug}` },
+      keywords: post.tags,
     };
   } catch {
     return { title: "Post no encontrado" };

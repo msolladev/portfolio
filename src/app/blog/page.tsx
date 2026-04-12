@@ -7,6 +7,8 @@ import { BlogClient } from "@/components/blog/BlogClient";
 export const metadata: Metadata = {
   title: "Blog",
   description: "Artículos técnicos sobre desarrollo web, arquitectura y criterio de ingeniería.",
+  alternates: { canonical: `${process.env.NEXT_PUBLIC_SITE_URL}/blog` },
+  keywords: ["blog técnico", "artículos desarrollo web", "programación", "arquitectura software", "PHP", "Laravel", "Node.js", "mi experiencia", "opiniones técnicas", "carrera como developer", "consejos para developers"],
 };
 
 export default function BlogPage() {

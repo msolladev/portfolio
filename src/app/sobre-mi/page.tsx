@@ -5,6 +5,8 @@ import { Footer } from "@/components/layout/Footer";
 export const metadata: Metadata = {
   title: "Sobre mí",
   description: "Desarrollador fullstack desde 2012. Mi trayectoria, cómo trabajo y qué busco en mi próximo proyecto.",
+  alternates: { canonical: `${process.env.NEXT_PUBLIC_SITE_URL}/sobre-mi` },
+  keywords: ["Miguel Solla", "sobre mí", "desarrollador fullstack", "experiencia profesional", "PHP", "Laravel", "Alcalá de Henares"],
 };
 
 export default function AboutPage() {

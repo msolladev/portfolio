@@ -84,6 +84,9 @@ export const metadata: Metadata = {
     icon: "/img/favicon/favicon.ico",
     apple: "/img/favicon/apple-touch-icon.png",
   },
+  alternates: {
+    canonical: SITE_URL,
+  },
 };
 
 // ─── Schema JSON-LD ──────────────────────────────────────
