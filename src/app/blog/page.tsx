@@ -17,7 +17,7 @@ export default function BlogPage() {
   return (
     <>
       <Nav />
-      <main className="page-content" style={{ maxWidth: "720px" }}>
+      <main className="page-content-narrow">
         <p
           style={{
             fontFamily: "var(--font-mono)",
@@ -33,13 +33,13 @@ export default function BlogPage() {
 
         <h1
           style={{
-            fontSize: "clamp(2rem, 5vw, 3rem)",
+            fontSize: "clamp(1.5rem, 5vw, 3rem)",
             fontWeight: 800,
             letterSpacing: "-0.03em",
-            marginBottom: "3rem",
+            marginBottom: "clamp(1rem, 5vw, 3rem)",
           }}
         >
-          Pensamtos en voz alta.
+          Pensamientos en voz alta.
         </h1>
 
         <BlogClient allPosts={allPosts} />

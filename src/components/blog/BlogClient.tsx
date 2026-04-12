@@ -110,7 +110,7 @@ export function BlogClient({ allPosts }: Props) {
     return (
         <>
             {/* Buscador */}
-            <div className="relative mb-8">
+            <div className="relative mb-8" style={{ marginBottom: "calc(var(--spacing) * 1)" }}    >
                 <input
                     type="text"
                     placeholder="Buscar artículos..."
