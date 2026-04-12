@@ -180,7 +180,7 @@ export function BlogClient({ allPosts }: Props) {
                                             ))} ...
                                         </p>
                                     )}
-                                    <div className="flex gap-2 mt-2">
+                                    <div className="flex flex-wrap gap-2 mt-2 items-center">
                                         {post.tags.map((tag, index) => (
                                             <span
                                                 key={index}
