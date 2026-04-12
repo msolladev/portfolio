@@ -1,0 +1,85 @@
+---
+title: "El futuro del desarrollo web: hacia dónde vamos"
+description: "Tendencias reales, hype que no va a ningún sitio, y lo que creo que va a cambiar de verdad en los próximos años. Una visión desde las trincheras."
+date: "2026-04-11"
+tags: ["tendencias", "ia", "arquitectura", "carrera", "opinión"]
+slug: "futuro-del-desarrollo-web"
+---
+
+Cada año aparece una lista de tendencias en desarrollo web que promete revolucionarlo todo. La mayoría de esas listas mezcla tecnologías con recorrido real con hype que desaparece en doce meses. Después de más de una década en el sector, he aprendido a distinguir entre ambas cosas con bastante escepticismo.
+
+Esta es mi visión honesta de hacia dónde vamos. Con lo que creo que tiene futuro real, lo que creo que está sobrevalorado, y lo que nadie dice en voz alta.
+
+## La IA: la única tendencia que merece el primer puesto
+
+Si hay una tendencia que ha cambiado el sector de forma real e irreversible en los últimos años, es la inteligencia artificial. No como concepto abstracto, sino como herramienta concreta que ya forma parte del flujo de trabajo diario de muchos equipos.
+
+Lo que viene después es más interesante todavía. Hay potencial real para que la IA cambie fundamentalmente cómo se programa — convertirnos más en gestores de agentes que en escritores de código. Pero para que eso ocurra de verdad, le falta mucho recorrido: mejor comprensión del contexto, entendimiento real de las reglas de negocio y cómo interactúan entre ellas, y mucha menos tendencia a inventarse cosas con seguridad.
+
+Lo que ya está ocurriendo y va a seguir ocurriendo es el auge de la ejecución de modelos en local. En los últimos meses está emergiendo con fuerza la capacidad de manejar agentes e inteligencias artificiales sin depender de servicios externos. Saber hacer eso bien — prompting avanzado, integración con herramientas mediante MCPs, gestión de agentes — va a ser un diferencial enorme para los programadores que lo dominen.
+
+## El ecosistema frontend: inestabilidad como norma
+
+El entorno de JavaScript en el frontend es, a la vez, uno de los más ricos y uno de los más agotadores del sector. Salen frameworks nuevos constantemente — Svelte, Solid, Astro, Qwik — muchos con propuestas técnicas genuinamente interesantes. El problema es que es imposible seguirles el ritmo, y la mayoría no llegan a consolidarse antes de que aparezca el siguiente.
+
+React sigue dominando por la inercia de su ecosistema y por la cantidad de empresas que tienen código en producción que no van a reescribir. El único que creo que puede plantar cara de forma seria es la combinación Vue + Astro, aunque con casos de uso diferentes — no es tanto una batalla por el mismo territorio como una expansión hacia zonas que React no cubre tan bien.
+
+Esta inestabilidad es uno de los argumentos más sólidos para no apostar fuerte por tecnologías frontend nuevas hasta que lleven suficiente tiempo en el mercado demostrando que van a quedarse.
+
+## PHP no está muerto, y probablemente nos sobreviva a todos
+
+PHP lleva treinta años muriendo. Y mientras tanto, sostiene aproximadamente el 70% de internet.
+
+La narrativa de que PHP es lento, inseguro o limitado es en gran parte falsa, especialmente desde la versión 8. PHP tiene cosas que JavaScript no tiene — los traits para simular herencia múltiple, por ejemplo, que en JS solo se puede conseguir de forma muy verbosa y limitada con los mixins. Laravel y Symfony son frameworks extraordinariamente potentes. Y más recientemente, Laravel Native permite desarrollar aplicaciones móviles nativas directamente desde PHP.
+
+La tendencia a abandonarlo existe, pero está más impulsada por una narrativa de mercado que por limitaciones técnicas reales. Los programadores más jóvenes lo rechazan por el mantra de que está muerto, sin haberlo probado en serio. Mientras tanto, WordPress y Prestashop siguen siendo la base de millones de negocios reales.
+
+Mi opinión es que PHP y Laravel tienen mucho más que ofrecer de lo que el mercado actual les reconoce, y que podrían ofrecer muchas cosas con una curva de entrada menor que el entorno Node.js para ciertos tipos de proyectos. Probablemente sobrevivirá a React.
+
+## Las herramientas no-code y low-code: una oportunidad disfrazada de amenaza
+
+Mucha gente del sector ve las herramientas no-code y low-code como una amenaza. Yo las veo como una oportunidad.
+
+La realidad es que estas herramientas, usadas sin criterio técnico, producen resultados terribles. WordPress en manos de alguien sin conocimientos produce webs lentas, inseguras y difíciles de mantener. Exactamente igual que la IA mal usada produce código que parece funcionar hasta que no funciona.
+
+Pero usadas correctamente, abren un modelo de trabajo interesante: un programador con criterio construye una base sólida, bien estructurada y segura, y el cliente puede operar sobre ella de forma autónoma — publicar contenido, añadir productos, gestionar su tienda — sin necesitar intervención técnica para el día a día. Eso tiene valor real y es perfectamente vendible.
+
+## La IA en los productos: moda antes que valor
+
+Hay una tendencia a meter inteligencia artificial en todos los productos web como si fuera un requisito de modernidad. Chatbots, recomendaciones automáticas, generación de contenido, asistentes virtuales en todas partes.
+
+Como consumidor, cuando veo IA integrada en un producto ya me he cansado. Especialmente cuando noto que la han metido para sustituir a una persona y el resultado es peor — en atención al cliente es donde más se nota. La IA sigue fallando demasiado en contextos de negocio específicos, y el usuario lo percibe.
+
+El valor real de la IA en productos llegará cuando esté suficientemente madura para resolver problemas concretos mejor que las alternativas actuales, no cuando se añada por moda o por presión de marketing.
+
+## CSS: el lenguaje que se está convirtiendo en otra cosa
+
+CSS lleva años incorporando funcionalidades que antes requerían JavaScript obligatoriamente. Container queries, cascade layers, el nuevo sistema de colores, animaciones cada vez más complejas, variables nativas, lógica condicional.
+
+En algún momento va a ser difícil seguir llamándolo simplemente hoja de estilos. Se está convirtiendo en algo cualitativamente diferente, y eso tiene implicaciones reales para cómo se trabaja en frontend — cada vez menos dependencia de JavaScript para cosas que antes no había otra forma de hacer.
+
+## Lo que está sobrevalorado: la arquitectura hexagonal
+
+Voy a ser directo en algo que pocas veces se dice: creo que la arquitectura hexagonal está sobrevalorada para la mayoría de proyectos reales.
+
+En teoría suena muy bien — separación clara de capas, independencia del dominio respecto a la infraestructura, testabilidad total. En la práctica, cuando te pones a desarrollar, es una cantidad enorme de trabajo extra cuya compensación no es tan clara como en otras arquitecturas. He intentado aprenderla varias veces y en cada ocasión la relación entre el esfuerzo invertido y el beneficio obtenido no me ha convencido.
+
+Hay arquitecturas donde esa ecuación sí sale positiva claramente — MVC, monolito modular, microservicios bien aplicados. La hexagonal no es una de ellas para la mayoría de contextos que yo manejo.
+
+## El futuro del trabajo remoto: un error en marcha
+
+Hay una tendencia clara hacia eliminar el trabajo cien por cien remoto. Cada vez más empresas están pasando a modelos híbridos con menos días remotos, y todo apunta a que en los próximos años va a haber presión para volver a la presencialidad total. Creo que es un error.
+
+Al menos en entornos como Madrid, el trabajo remoto de verdad — no el híbrido con tres días obligatorios en oficina — resuelve problemas reales: contribuye a revertir la España vaciada, reduce desplazamientos y contaminación, devuelve tiempo de vida a las personas y mejora la conciliación. Especialmente importante en la coyuntura socio económica de los últimos años, donde las empresas insisten en colocar oficinas en las zonas más caras de la ciudad, pero pagar salarios que empujan a sus trabajadores a varias decenas de kilómetros de distancia.
+
+El trabajo presencial, por mucho que las empresas insistan en los beneficios de equipo y cultura, en la práctica se percibe como una obligación. Porque lo es.
+
+## El perfil que va a ganar valor y el que va a perder
+
+Saber usar la IA en profundidad — prompting avanzado, integración con herramientas, gestión de agentes en local — va a ser un diferencial enorme en los próximos años.
+
+Lo que va a perder valor, por desgracia, son los perfiles especializados. El mercado llevaba años tendiendo hacia el técnico orquesta, y la IA va a acelerar esa tendencia. Las empresas van a ver que sus perfiles senior pueden asumir más trabajo con ayuda de la IA, y van a dejar de contratar perfiles juniors y especializados.
+
+Los que más van a sufrir esto, especialmente en España, son los diseñadores UI/UX — un perfil que aquí siempre ha estado infravalorado. Herramientas como Lovable, Base44 y similares producen resultados pobres para cualquiera con criterio de diseño, pero a ojos de alguien sin ese criterio parecen suficientemente aceptables. Y eso va a ser devastador para un rol que ya tenía dificultades para que se reconociera su valor.
+
+Es una pena. Porque el diseño de producto hecho bien marca una diferencia enorme en la experiencia del usuario, y esa diferencia va a seguir siendo invisible para quienes nunca la han visto.
