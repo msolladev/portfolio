@@ -116,13 +116,12 @@ export function BlogClient({ allPosts }: Props) {
                     placeholder="Buscar artículos..."
                     value={query}
                     onChange={handleQuery}
-                    className="w-full bg-[var(--surface)] border border-[var(--border)] rounded-[var(--radius)] p-3 text-[var(--text)] font-mono text-sm outline-none transition-colors focus:border-[var(--accent)]"
+                    className="w-full bg-[var(--surface)] border border-[var(--border)] rounded-[var(--radius)] p-3 pr-10 text-[var(--text)] font-mono text-sm outline-none transition-colors focus:border-[var(--accent)]"
                 />
                 {query && (
                     <button
                         onClick={() => setQuery("")}
-                        className="absolute right-4 top-1/3 bg-none border-none text-[var(--accent)] cursor-pointer text-lg text-decoration-none"
-                        style={{ transform: "translateY(calc(calc(1 / 3 * 100%) * -1.5))" }}
+                        className="absolute right-3 inset-y-0 mt-4 h-fit text-[var(--accent)] text-lg leading-none text-decoration-none"
                         aria-label="Clear search"
                     >
                         ✕
