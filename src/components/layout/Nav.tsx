@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
+import { ThemeToggleDesktop, ThemeToggleMobile } from "@/components/ui/ThemeToggle";
 
 const LINKS = [
   { href: "/", label: "inicio" },
@@ -45,44 +46,52 @@ export function Nav() {
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="fixed top-0 left-0 w-full z-[100] border-b bg-[rgba(10,10,10,0.95)] border-[var(--border)]"
+        className="fixed top-0 left-0 w-full z-[100] border-b bg-[var(--bg-nav)] border-[var(--border)]"
       >
         <div className="max-w-[1100px] mx-auto h-[60px] flex items-center justify-between">
           <Link
             href="/"
-            className="text-[0.9rem] tracking-[0.05em] text-[var(--accent)] font-mono"
+            className="text-[0.9rem] tracking-[0.05em] text-[var(--accent)] font-mono ps-4"
           >
             ~/Miguel Solla
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden sm:flex gap-8">
-            {LINKS.map(({ href, label }) => {
-              const active = pathname === href;
-              const isExternal =
-                !href.startsWith(BASE_URL) && href.startsWith("http");
+          <div className="hidden sm:flex items-center gap-6">
+            <nav className="flex gap-8">
+              {LINKS.map(({ href, label }) => {
+                const active = pathname === href;
+                const isExternal =
+                  !href.startsWith(BASE_URL) && href.startsWith("http");
 
-              return (
-                <Link
-                  key={href}
-                  href={href}
-                  className={`text-sm tracking-[0.03em] font-mono transition-colors ${active ? "text-[var(--accent)]" : "text-[var(--text-soft)]"
-                    }`}
-                  {...(isExternal && {
-                    target: "_blank",
-                    rel: "noopener noreferrer",
-                  })}
-                >
-                  {label}
-                </Link>
-              );
-            })}
-          </nav>
+                return (
+                  <Link
+                    key={href}
+                    href={href}
+                    className={`text-sm tracking-[0.03em] font-mono transition-colors ${active ? "text-[var(--accent)]" : "text-[var(--text-soft)]"
+                      }`}
+                    {...(isExternal && {
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                    })}
+                  >
+                    {label}
+                  </Link>
+                );
+              })}
+            </nav>
+            <ThemeToggleDesktop />
+          </div>
         </div>
       </motion.header>
 
       {/* Spacer so content is not hidden under the fixed header */}
       <div className="h-[60px]" aria-hidden="true" />
+
+      {/* Mobile theme toggle — visible when menu is closed */}
+      <div className="sm:hidden fixed top-[14px] right-[58px] z-[200]">
+        <ThemeToggleMobile hidden={open} />
+      </div>
 
       {/* Hamburger button — separate fixed element, above overlay (z-[200] > z-[150]) */}
       <button
@@ -123,7 +132,7 @@ export function Nav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[150] bg-[rgba(10,10,10,0.98)] flex flex-col sm:hidden"
+            className="fixed inset-0 z-[150] bg-[var(--bg-nav-overlay)] flex flex-col sm:hidden"
           >
             {/* Title — top-left, same height as the X button */}
             <div className="h-[60px] flex items-center px-5">
@@ -157,8 +166,8 @@ export function Nav() {
                       href={href}
                       onClick={() => setOpen(false)}
                       className={`text-2xl font-mono tracking-[0.05em] transition-colors ${active
-                          ? "text-[var(--accent)]"
-                          : "text-[var(--text-soft)]"
+                        ? "text-[var(--accent)]"
+                        : "text-[var(--text-soft)]"
                         }`}
                       {...(isExternal && {
                         target: "_blank",

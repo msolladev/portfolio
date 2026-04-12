@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Syne, JetBrains_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import { yearsOfExperience } from "@/lib/yearsOfExperience";
+import { Providers } from "@/components/layout/Providers";
 
 // ─── Fuentes ─────────────────────────────────────────────
 const syne = Syne({
@@ -110,7 +111,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className={`${syne.variable} ${jetbrainsMono.variable}`}>
+    <html lang="es" className={`${syne.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
@@ -120,7 +121,7 @@ export default function RootLayout({
       <body>
         {/* Efecto grain sobre toda la web */}
         <div className="grain" aria-hidden="true" />
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

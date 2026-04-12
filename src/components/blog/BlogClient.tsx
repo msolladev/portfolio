@@ -184,7 +184,7 @@ export function BlogClient({ allPosts }: Props) {
                     {post.tags.map((tag, index) => (
                       <span
                         key={index}
-                        className={`text-[0.8rem] bg-[var(--text-soft)] px-2 py-1 rounded ${query.trim() && tag.toLowerCase().includes(query.toLowerCase()) ? 'text-[var(--accent)]' : 'text-[var(--text-muted)]'}`}
+                        className={`text-[0.8rem] bg-[var(--text-soft)] px-2 py-1 rounded ${query.trim() && tag.toLowerCase().includes(query.toLowerCase()) ? 'text-[var(--accent)]' : 'text-[var(--surface)]'}`}
                         onClick={() => setQuery((prev) => prev.trim() ? `${prev} ${tag}` : tag)}
                         style={{ cursor: "pointer" }}
                       >
