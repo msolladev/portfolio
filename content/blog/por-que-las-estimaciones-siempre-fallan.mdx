@@ -1,0 +1,89 @@
+---
+title: "Por qué las estimaciones siempre fallan y qué hacer al respecto"
+description: "Las estimaciones en desarrollo de software fallan casi siempre. No por incompetencia, sino por razones muy concretas que nadie explica bien."
+date: "2026-04-12"
+tags: ["gestión", "estimaciones", "consultoría", "opinión"]
+slug: "por-que-las-estimaciones-siempre-fallan"
+---
+
+Hay una conversación que se repite en todos los proyectos de software. Alguien pregunta cuánto va a tardar algo. El developer hace sus cálculos, da un número, y ese número se convierte inmediatamente en una promesa, una fecha límite, o el argumento para un presupuesto.
+
+Después, casi siempre, ese número falla.
+
+No por incompetencia. No por mala voluntad. Sino por razones muy concretas que vale la pena entender si quieres gestionarlas mejor.
+
+## El problema de la parte visible
+
+La causa más común de las estimaciones fallidas no es técnica. Es de percepción.
+
+Cuando alguien no técnico pide un cambio — cambiar el color de un botón, mover un elemento de sitio, añadir un campo a un formulario — ve solo la parte visible de la tarea. Lo que no ve es todo lo que hay alrededor: recibir y procesar la petición, verificar si hay bolsa de horas disponible, abrir el entorno de desarrollo, localizar exactamente dónde está ese elemento en el código, hacer el cambio, probarlo, documentarlo, comunicarlo internamente y confirmarlo al cliente.
+
+Las tareas de dos minutos no existen. Lo que existe son tareas cuya parte visible dura dos minutos y cuya parte invisible dura veinte.
+
+Esto no es una queja. Es una realidad que hay que saber comunicar, porque si no se comunica, la desconexión entre lo que el cliente espera y lo que el developer tarda se convierte en una fuente constante de fricción.
+
+## Horas versus fechas
+
+Hay una distinción que parece pequeña pero que marca una diferencia enorme: estimar en horas no es lo mismo que dar una fecha.
+
+Cuánto va a tardar algo y cuándo va a estar son dos preguntas completamente distintas. La primera depende de la complejidad técnica. La segunda depende de cuándo voy a poder dedicarme a eso, cuántos otros proyectos tengo en paralelo, si hay bloqueos, si aparece algo urgente, si el cliente de otro proyecto llama con un problema crítico.
+
+En consultoría esto era una pelea constante. Dabas una estimación en horas y al día siguiente te preguntaban por qué no estaba. Porque dije cuatro horas de trabajo, no que lo tendría mañana. Son cosas diferentes.
+
+Dar fechas concretas es tentador porque es lo que el cliente quiere escuchar. Pero es también la forma más segura de crear una expectativa que no puedes controlar. Hablar en horas de desarrollo, y ser explícito sobre la diferencia entre duración y disponibilidad, es más honesto y a la larga genera menos conflictos.
+
+## La presión por dar el número que el cliente espera
+
+Uno de los problemas más difíciles de gestionar no es técnico sino político.
+
+Hay una presión implícita — y a veces explícita — para dar la estimación que el cliente está dispuesto a aceptar, más que la estimación real. Si el cliente espera que algo tarde dos semanas y tú calculas cuatro, la conversación se complica. Y en algunos contextos, ceder y recortar la estimación para contentar es el camino de menor resistencia.
+
+El problema es que ese camino lleva directamente al retraso. Porque el trabajo no desaparece porque hayas dado un número más bajo. Simplemente llega el momento en que la realidad se impone.
+
+Mi posición siempre ha sido clara: se tarda lo que se tarda. Lo que sí se puede hacer es gestionar la carga de trabajo, priorizar, pedir recursos extra cuando hay presión real de fechas y ser transparente cuando algo no va a llegar. Pero partir de una estimación irreal solo aplaza el problema y lo hace más grande.
+
+## Los requisitos cambian
+
+Hay otra causa de fallos en las estimaciones que a menudo se ignora: los requisitos cambian a mitad del proyecto.
+
+Una estimación es válida para un alcance concreto. Cuando ese alcance cambia — y cambia casi siempre, porque los proyectos evolucionan, los clientes descubren que quieren cosas diferentes a las que pidieron, o el negocio cambia — la estimación original deja de ser válida.
+
+Esto no es un fallo del developer. Es una consecuencia natural del proceso. El problema es que muchas veces el cambio de requisitos se gestiona sin revisar formalmente la estimación, y el developer absorbe el trabajo adicional sin que nadie haga las cuentas de lo que eso supone en tiempo y coste.
+
+## La tolerancia a la desviación
+
+Algo que aprendí con el tiempo es que el fallo de una estimación no es solo una cuestión técnica — es también una cuestión de relación con el cliente.
+
+Internamente, las estimaciones siempre se asumen como aproximaciones. Se confía en que las que se quedan cortas compensen a las que se quedan largas. Es un equilibrio estadístico que funciona razonablemente bien a lo largo de un proyecto.
+
+Con el cliente es diferente. Para algunos, una desviación de un día es inaceptable. Para otros puedes retrasarte un mes y no pasa nada. La misma desviación objetiva tiene consecuencias completamente distintas dependiendo de con quién estés trabajando.
+
+Eso significa que gestionar las expectativas desde el principio — ser claro sobre qué es una estimación, qué factores pueden afectarla, y cómo se gestionarán las desviaciones — es tan importante como la estimación en sí.
+
+## Metodologías ágiles: útiles, pero no para esto
+
+Planning Poker, story points, sprints — las metodologías ágiles tienen virtudes reales. Bien implementadas ayudan a desbloquear tareas rápido, a visibilizar impedimentos, a no dejar a nadie parado.
+
+Pero no resuelven el problema de las estimaciones. Las tareas llevan el tiempo que llevan, independientemente de cómo las hayas categorizado o con qué metodología estés trabajando. Agile puede mejorar el flujo. No puede comprimir el tiempo real que requiere hacer algo bien.
+
+He probado estimar por intuición, por dificultad multiplicada por un factor de horas, por story points. En todos los casos, las estimaciones han tendido a quedarse cortas. Porque hay una tendencia humana universal a subestimar los imprevistos, los contextos que hay que entender, las dependencias que no eran obvias al principio.
+
+## Qué hacer entonces
+
+Para developers, especialmente los que están empezando a dar estimaciones:
+
+Lo primero es multiplicar por tres el tiempo que crees que vas a tardar. No es broma. La intuición inicial casi siempre subestima. El factor tres compensa los imprevistos, el contexto, las interrupciones y todo lo que no estaba en los requisitos pero aparece cuando te pones a trabajar.
+
+Lo segundo es hablar siempre en horas de desarrollo, nunca en fechas concretas. Una fecha concreta implica que controlas tu disponibilidad al cien por cien, y eso casi nunca es verdad.
+
+Lo tercero es ser muy claro cuando te piden fechas imposibles. No para generar conflicto, sino porque prometer algo que no puedes cumplir solo retrasa el problema y lo hace más costoso para todos.
+
+## ¿Deberían existir las estimaciones?
+
+Desde el punto de vista del programador, lo ideal sería no tener que darlas. El trabajo tiene la complejidad que tiene, y encorsetarlo en un número siempre genera distorsiones.
+
+Pero desde el punto de vista del negocio, sin estimación no hay presupuesto. Y sin presupuesto no hay proyecto. Así que las estimaciones son necesarias — no como promesas, sino como la mejor aproximación posible en el momento en que se dan, con toda la información disponible, sujetas a revisión cuando esa información cambie.
+
+La alternativa — el presupuesto cerrado a precio fijo, se tarde lo que se tarde — existe, pero traslada todo el riesgo al programador o a la empresa desarrolladora. Y ese riesgo tiene un coste que alguien tiene que pagar.
+
+No hay una solución perfecta. Hay formas más o menos honestas de gestionar la incertidumbre, y formas más o menos maduras de aceptar que en el desarrollo de software, la certeza absoluta no existe.

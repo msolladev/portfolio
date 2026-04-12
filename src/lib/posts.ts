@@ -18,6 +18,12 @@ export interface Post extends PostMeta {
 
 const POSTS_DIR = path.join(process.cwd(), "content/blog");
 
+function calculateReadTime(content: string): string {
+  const words = content.trim().split(/\s+/).length;
+  const minutes = Math.round(words / 220);
+  return `${Math.max(1, minutes)} min`;
+}
+
 export function getAllPosts(): Post[] {
   if (!fs.existsSync(POSTS_DIR)) return [];
 
@@ -28,7 +34,7 @@ export function getAllPosts(): Post[] {
       const slug    = file.replace(/\.mdx$/, "");
       const raw     = fs.readFileSync(path.join(POSTS_DIR, file), "utf-8");
       const { data, content } = matter(raw);
-      return { slug, content: content || "", ...data } as Post;
+      return { slug, content: content || "", ...data, readTime: calculateReadTime(content || "") } as Post;
     })
     .sort((a, b) => {
       const parseDate = (dateStr: string) => {
@@ -43,5 +49,5 @@ export function getPost(slug: string): Post {
   const filePath = path.join(POSTS_DIR, `${slug}.mdx`);
   const raw      = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(raw);
-  return { slug, content, ...data } as Post;
+  return { slug, content, ...data, readTime: calculateReadTime(content || "") } as Post;
 }

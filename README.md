@@ -58,7 +58,6 @@ title: "Título del post"
 description: "Descripción corta para SEO y listado"
 date: "2026-02-01"
 tags: ["react", "arquitectura"]
-readTime: "5 min"
 ---
 
 Contenido en Markdown...
