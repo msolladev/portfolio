@@ -81,9 +81,9 @@ export function BlogPagination({
 
             {/* Pages */}
             <nav aria-label="Paginación" className="flex flex-wrap items-center gap-[0.6rem]">
-                <button onClick={() => onPageChange(1)}
+                <button onClick={currentPage > 1 ? () => onPageChange(1) : undefined}
                     className={currentPage > 1 ? pg : pgOff} title="Primera">«</button>
-                <button onClick={() => onPageChange(currentPage - 1)}
+                <button onClick={currentPage > 1 ? () => onPageChange(currentPage - 1) : undefined}
                     className={currentPage > 1 ? pg : pgOff}>← ant</button>
 
                 {pages.map((p, i) =>
@@ -96,9 +96,9 @@ export function BlogPagination({
                         </button>
                 )}
 
-                <button onClick={() => onPageChange(currentPage + 1)}
+                <button onClick={currentPage < totalPages ? () => onPageChange(currentPage + 1) : undefined}
                     className={currentPage < totalPages ? pg : pgOff}>sig →</button>
-                <button onClick={() => onPageChange(totalPages)}
+                <button onClick={currentPage < totalPages ? () => onPageChange(totalPages) : undefined}
                     className={currentPage < totalPages ? pg : pgOff} title="Última">»</button>
             </nav>
         </div>
