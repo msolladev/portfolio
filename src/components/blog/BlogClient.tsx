@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { BlogPagination } from "@/components/blog/BlogPagination";
-import type { PostMeta } from "@/lib/posts";
+import type { Post } from "@/lib/posts";
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 
@@ -11,7 +11,7 @@ const PER_PAGE_OPTIONS = [5, 10, 20];
 const DEFAULT_PER_PAGE = 5;
 
 interface Props {
-  allPosts: PostMeta[];
+  allPosts: Post[];
 }
 
 function highlight(text: string, query: string): React.ReactNode {

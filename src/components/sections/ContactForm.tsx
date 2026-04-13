@@ -4,10 +4,11 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 type Status = "idle" | "sending" | "ok" | "error";
+type FormField = "name" | "email" | "message" | "website";
 
 export function ContactForm() {
   const [status, setStatus]     = useState<Status>("idle");
-  const [form, setForm]         = useState({ name: "", email: "", message: "", website: "" });
+  const [form, setForm]         = useState<Record<FormField, string>>({ name: "", email: "", message: "", website: "" });
   const [errorMsg, setErrorMsg] = useState("");
 
   const pathname = usePathname();
@@ -95,9 +96,9 @@ export function ContactForm() {
         <div
           style={{
             padding: "2rem",
-            border: "1px solid #28c840",
+            border: "1px solid var(--color-success)",
             borderRadius: "var(--radius)",
-            color: "#28c840",
+            color: "var(--color-success)",
             fontFamily: "var(--font-mono)",
           }}
         >
@@ -143,7 +144,7 @@ export function ContactForm() {
                 type={type}
                 required
                 placeholder={placeholder}
-                value={form[name as keyof typeof form]}
+                value={form[name as FormField]}
                 onChange={handleChange}
                 style={inputStyle}
                 onFocus={(e) => (e.target.style.borderColor = "var(--accent)")}
@@ -181,7 +182,7 @@ export function ContactForm() {
           </div>
 
           {status === "error" && (
-            <p style={{ color: "#ff5f57", fontFamily: "var(--font-mono)", fontSize: "0.85rem" }}>
+            <p style={{ color: "var(--color-error)", fontFamily: "var(--font-mono)", fontSize: "0.85rem" }}>
               {errorMsg}
             </p>
           )}
