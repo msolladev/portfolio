@@ -17,6 +17,15 @@
   --radius:    6px;
   --transition: 220ms cubic-bezier(0.4, 0, 0.2, 1);
   --grain-opacity: 0.035;
+
+  /* ─── Semantic colors ────────────────────────────────────── */
+  --color-error:    #ff5f57;
+  --color-success:  #28c840;
+
+  /* ─── macOS window buttons ───────────────────────────────── */
+  --mac-close:    #ff5f57;
+  --mac-minimize: #febc2e;
+  --mac-maximize: #28c840;
 }
 
 /* ─── Light mode overrides ───────────────────────────────── */

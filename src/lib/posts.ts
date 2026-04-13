@@ -9,7 +9,6 @@ export interface PostMeta {
   date:        string;
   tags:        string[];
   readTime:    string;
-  content:     string; // Make content required
 }
 
 export interface Post extends PostMeta {

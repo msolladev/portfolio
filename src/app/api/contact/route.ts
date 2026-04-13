@@ -19,7 +19,7 @@ function isRateLimited(ip: string): boolean {
 }
 
 export async function POST(req: NextRequest) {
-  if (!process.env.RESEND_API_KEY) {
+  if (!process.env.RESEND_API_KEY || !process.env.CONTACT_RECIPIENT) {
     console.error("RESEND_API_KEY no configurada");
     return NextResponse.json(
       { error: "Servicio de email no configurado" },
@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
 
     const { data, error } = await resend.emails.send({
       from: "Portfolio <noreply@msolla.dev>",
-      to: "miguelangelss4@gmail.com",
+      to: process.env.CONTACT_RECIPIENT ?? "",
       reply_to: email,
       subject: `[Portfolio] Mensaje de ${name}`,
       text: `Nombre: ${name}\nEmail: ${email}\n\n${message}`,

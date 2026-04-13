@@ -33,18 +33,6 @@ const pg = "font-mono text-[0.85rem] min-w-[1.5rem] text-center p-2 inline-block
 const pgOn = "font-mono text-[0.85rem] min-w-[1.5rem] text-center p-2 inline-block text-[var(--accent)] font-bold";
 const pgOff = "font-mono text-[0.85rem] min-w-[1.5rem] text-center p-2 inline-block text-[var(--muted)]";
 
-// Add a function to extract body fragments containing keywords
-function extractBodyFragments(body: string, keywords: string[]): string[] {
-    const fragments: string[] = [];
-    const regex = new RegExp(`.{0,30}(${keywords.join("|")}).{0,30}`, "gi");
-    let match;
-
-    while ((match = regex.exec(body)) !== null) {
-        fragments.push(match[0]);
-    }
-
-    return fragments;
-}
 
 export function BlogPagination({
     currentPage, totalPages, perPage, perPageOptions, order,
