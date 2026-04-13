@@ -4,6 +4,8 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { BlogPagination } from "@/components/blog/BlogPagination";
 import type { PostMeta } from "@/lib/posts";
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 
 const PER_PAGE_OPTIONS = [5, 10, 20];
 const DEFAULT_PER_PAGE = 5;
@@ -158,7 +160,7 @@ export function BlogClient({ allPosts }: Props) {
               return (
                 <li key={post.slug} className="border-b border-border py-8 last:border-none last:pb-0">
                   <div className="flex gap-4 mb-2 font-mono text-[0.78rem] text-soft">
-                    <time>{post.date}</time>
+                    <time>{format(new Date(post.date), "d 'de' MMMM 'de' yyyy", { locale: es })}</time>
                     <span>·</span>
                     <span>{post.readTime}</span>
                   </div>

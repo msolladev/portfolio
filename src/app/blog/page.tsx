@@ -3,6 +3,8 @@ import { getAllPosts } from "@/lib/posts";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { BlogClient } from "@/components/blog/BlogClient";
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -13,6 +15,11 @@ export const metadata: Metadata = {
 
 export default function BlogPage() {
   const allPosts = getAllPosts();
+
+  const formattedPosts = allPosts.map(post => ({
+    ...post,
+    formattedDate: format(new Date(post.date), "d 'de' MMMM 'de' yyyy", { locale: es })
+  }));
 
   return (
     <>
@@ -42,7 +49,7 @@ export default function BlogPage() {
           Pensamientos en voz alta.
         </h1>
 
-        <BlogClient allPosts={allPosts} />
+        <BlogClient allPosts={formattedPosts} />
       </main>
       <Footer />
     </>

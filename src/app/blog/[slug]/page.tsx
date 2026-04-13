@@ -4,6 +4,8 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { getAllPosts, getPost } from "@/lib/posts";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
+import { format } from 'date-fns';
+import { es } from "date-fns/locale";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -53,7 +55,7 @@ export default async function BlogPostPage({ params }: Props) {
             marginBottom: "1.5rem",
           }}
         >
-          <time>{post.date}</time>
+          <time>{format(new Date(post.date), "d 'de' MMMM 'de' yyyy", { locale: es })}</time>
           <span>·</span>
           <span>{post.readTime}</span>
         </div>
