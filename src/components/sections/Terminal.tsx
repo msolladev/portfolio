@@ -102,17 +102,8 @@ export function Terminal() {
   };
 
   return (
-    <section className="">
-      <p
-        style={{
-          fontFamily: "var(--font-mono)",
-          fontSize: "0.8rem",
-          color: "var(--text-soft)",
-          marginBottom: "1rem",
-          letterSpacing: "0.08em",
-          textTransform: "uppercase",
-        }}
-      >
+    <section style={{ position: "relative" }}>
+      <p className="section-label" style={{ marginBottom: "1.25rem" }}>
         — Terminal interactiva
       </p>
 
@@ -121,23 +112,25 @@ export function Terminal() {
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
         onClick={() => inputRef.current?.focus()}
         style={{
-          background: "var(--surface)",
+          background: "var(--surface-2)",
           border: "1px solid var(--border)",
-          borderRadius: "10px",
+          borderRadius: "12px",
           overflow: "hidden",
           cursor: "text",
           maxHeight: "420px",
           display: "flex",
           flexDirection: "column",
+          boxShadow: "0 4px 32px rgba(0,0,0,0.25)",
         }}
       >
         {/* Window chrome */}
         <div
           style={{
             padding: "0.75rem 1rem",
+            background: "var(--surface)",
             borderBottom: "1px solid var(--border)",
             display: "flex",
             alignItems: "center",
@@ -157,6 +150,7 @@ export function Terminal() {
               fontSize: "0.75rem",
               color: "var(--text-soft)",
               marginLeft: "auto",
+              letterSpacing: "0.04em",
             }}
           >
             bash — portfolio
@@ -172,6 +166,7 @@ export function Terminal() {
             fontFamily: "var(--font-mono)",
             fontSize: "0.875rem",
             lineHeight: 1.7,
+            background: "var(--bg)",
           }}
         >
           <AnimatePresence initial={false}>

@@ -25,25 +25,19 @@ export default function BlogPage() {
     <>
       <Nav />
       <main className="page-content-narrow">
-        <p
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.8rem",
-            color: "var(--accent)",
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-            marginBottom: "1.5rem",
-          }}
-        >
+        <p className="section-label" style={{ color: "var(--accent)", marginBottom: "1.5rem" }}>
           blog
         </p>
 
         <h1
           style={{
-            fontSize: "clamp(1.5rem, 5vw, 3rem)",
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(1.8rem, 5vw, 3rem)",
             fontWeight: 800,
             letterSpacing: "-0.03em",
-            marginBottom: "clamp(1rem, 5vw, 3rem)",
+            lineHeight: 1.1,
+            marginBottom: "clamp(1.5rem, 5vw, 3rem)",
+            color: "var(--text)",
           }}
         >
           Pensamientos en voz alta.

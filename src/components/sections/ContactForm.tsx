@@ -57,36 +57,38 @@ export function ContactForm() {
     fontFamily: "var(--font-sans)",
     fontSize: "1rem",
     outline: "none",
-    transition: "border-color var(--transition)",
+    transition: "border-color var(--transition), box-shadow var(--transition)",
   };
 
   return (
     <>
-      <p
-        style={{
-          fontFamily: "var(--font-mono)",
-          fontSize: "0.8rem",
-          color: "var(--accent)",
-          letterSpacing: "0.1em",
-          textTransform: "uppercase",
-          marginBottom: "1.5rem",
-        }}
-      >
+      <p className="section-label" style={{ color: "var(--accent)", marginBottom: "1.5rem" }}>
         contacto
       </p>
 
       <h1
         style={{
+          fontFamily: "var(--font-display)",
           fontSize: "clamp(2rem, 5vw, 3rem)",
           fontWeight: 800,
           letterSpacing: "-0.03em",
+          lineHeight: 1.1,
           marginBottom: "1rem",
+          color: "var(--text)",
         }}
       >
         Hablemos.
       </h1>
 
-      <p style={{ color: "var(--text-soft)", marginBottom: "3rem", lineHeight: 1.7 }}>
+      <p
+        style={{
+          fontFamily: "var(--font-sans)",
+          color: "var(--text-soft)",
+          marginBottom: "3rem",
+          lineHeight: 1.75,
+          fontSize: "1.05rem",
+        }}
+      >
         Si tienes una oportunidad interesante, quieres hablar sobre tecnología
         o simplemente conectar, estoy al otro lado.
         Respondo lo antes posible.
@@ -147,8 +149,8 @@ export function ContactForm() {
                 value={form[name as FormField]}
                 onChange={handleChange}
                 style={inputStyle}
-                onFocus={(e) => (e.target.style.borderColor = "var(--accent)")}
-                onBlur={(e)  => (e.target.style.borderColor = "var(--border)")}
+                onFocus={(e) => { e.target.style.borderColor = "var(--accent)"; e.target.style.boxShadow = "0 0 0 3px var(--accent-glow)"; }}
+                onBlur={(e)  => { e.target.style.borderColor = "var(--border)"; e.target.style.boxShadow = "none"; }}
               />
             </div>
           ))}
@@ -190,21 +192,13 @@ export function ContactForm() {
           <button
             type="submit"
             disabled={status === "sending"}
+            className="btn-primary"
             style={{
-              padding: "0.9rem 2rem",
-              background: "var(--accent)",
-              color: "var(--bg)",
-              fontWeight: 700,
-              fontSize: "0.95rem",
-              border: "none",
-              borderRadius: "var(--radius)",
-              cursor: status === "sending" ? "not-allowed" : "pointer",
-              opacity: status === "sending" ? 0.7 : 1,
-              transition: "opacity var(--transition)",
               alignSelf: "flex-start",
+              ...(status === "sending" && { opacity: 0.6, cursor: "not-allowed" }),
             }}
           >
-            {status === "sending" ? "Enviando..." : "Enviar mensaje →"}
+            {status === "sending" ? "Enviando..." : <>Enviar mensaje <span className="btn-arrow">→</span></>}
           </button>
         </form>
       )}

@@ -9,74 +9,102 @@ export const metadata: Metadata = {
   keywords: ["Miguel Solla", "sobre mí", "desarrollador fullstack", "experiencia profesional", "PHP", "Laravel", "Alcalá de Henares"],
 };
 
+const SECTIONS = [
+  {
+    title: "Cómo llegué aquí",
+    body: `Con 13 años ya estaba haciendo webs con Frontpage y Dreamweaver. Siempre supe que quería dedicarme al mundo de la informática — la única duda era si acabaría en programación o en sistemas, y eso no lo resolví hasta que vi ambos mundos en primero. Mi primer contacto profesional fue una beca en una escuela de negocios donde hacía de todo: desde picar datos de leads en su sistema hasta diseñar una biblioteca online para gestionar los libros de la biblioteca que reservaban los alumnos. Ahí entendí que me gustaba construir cosas que la gente usara de verdad.`,
+  },
+  {
+    title: "Cómo trabajo",
+    body: `Mis compañeros me describen como responsable y serio, pero cercano y disponible. Creo que un buen developer es, primero, un buen comunicador: pregunto antes de asumir, escribo código que otros pueden mantener, y pienso en producción desde el primer commit. Cuando entro en modo concentración profunda, se me pueden pasar horas sin darme cuenta — y sin escuchar nada de lo que pasa alrededor. No me interesa acumular tecnologías; me interesa resolver el problema correcto. También me gusta entender las decisiones desde la perspectiva del negocio y de la experiencia de usuario, no solo desde el código.`,
+  },
+  {
+    title: "Qué me motiva",
+    body: `Que lo que construyo importe de verdad. Hay proyectos pequeños que te recuerdan por qué empezaste. En algún momento de mi carrera desarrollé algo para un amigo cercano, sin grandes pretensiones, y años después sigue agradeciéndome el impacto que tuvo en su negocio. Ese tipo de feedback vale más que cualquier métrica. Es el tipo de impacto que no siempre valoro en el momento, pero que es el que más me importa. Lo que me haría levantarme con ganas un lunes sería trabajar en algo propio, con una visión clara de hacia dónde va y que aportase algo positivo. No hace falta que sea el próximo Netflix — con que cambie vidas y me dé estabilidad en la mía, es suficiente.`,
+  },
+  {
+    title: "Fuera del código",
+    body: `Leo sobre arquitectura de software y, cada vez más, sobre geopolítica, negocios e inversiones. Empecé a investigar al cambiar mi hipoteca y un tema me fue llevando a otro — acabé entrando en una madriguera de conejo de la que no me arrepiento. Resulta que el mundo es más interesante que una hoja de cálculo, aunque muchas decisiones importantes todavía se toman exactamente así. El Real Madrid y el Age of Empires completan el cuadro — en ese orden.`,
+  },
+];
+
 export default function AboutPage() {
   return (
     <>
       <Nav />
       <main className="page-content-narrow">
-        <p
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.8rem",
-            color: "var(--accent)",
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-            marginBottom: "1.5rem",
-          }}
-        >
+        {/* Eyebrow */}
+        <p className="section-label" style={{ color: "var(--accent)", marginBottom: "1.5rem" }}>
           sobre mí
         </p>
 
+        {/* Page headline */}
         <h1
           style={{
+            fontFamily: "var(--font-display)",
             fontSize: "clamp(2rem, 5vw, 3.5rem)",
             fontWeight: 800,
             lineHeight: 1.1,
             letterSpacing: "-0.03em",
-            marginBottom: "3rem",
+            marginBottom: "3.5rem",
+            color: "var(--text)",
           }}
         >
           El criterio no se aprende en cursos.
         </h1>
 
-        {/* Secciones de narrativa — personaliza con tu historia real */}
-        {[
-          {
-            title: "Cómo llegué aquí",
-            body: `Con 13 años ya estaba haciendo webs con Frontpage y Dreamweaver. Siempre supe que quería dedicarme al mundo de la informática — la única duda era si acabaría en programación o en sistemas, y eso no lo resolví hasta que vi ambos mundos en primero. Mi primer contacto profesional fue una beca en una escuela de negocios donde hacía de todo: desde picar datos de leads en su sistema hasta diseñar una biblioteca online para gestionar los libros de la biblioteca que reservaban los alumnos. Ahí entendí que me gustaba construir cosas que la gente usara de verdad.`,
-          },
-          {
-            title: "Cómo trabajo",
-            body: `Mis compañeros me describen como responsable y serio, pero cercano y disponible. Creo que un buen developer es, primero, un buen comunicador: pregunto antes de asumir, escribo código que otros pueden mantener, y pienso en producción desde el primer commit. Cuando entro en modo concentración profunda, se me pueden pasar horas sin darme cuenta — y sin escuchar nada de lo que pasa alrededor. No me interesa acumular tecnologías; me interesa resolver el problema correcto. También me gusta entender las decisiones desde la perspectiva del negocio y de la experiencia de usuario, no solo desde el código.`,
-          },
-          {
-            title: "Qué me motiva",
-            body: `Que lo que construyo importe de verdad. Hay proyectos pequeños que te recuerdan por qué empezaste. En algún momento de mi carrera desarrollé algo para un amigo cercano, sin grandes pretensiones, y años después sigue agradeciéndome el impacto que tuvo en su negocio. Ese tipo de feedback vale más que cualquier métrica. Es el tipo de impacto que no siempre valoro en el momento, pero que es el que más me importa. Lo que me haría levantarme con ganas un lunes sería trabajar en algo propio, con una visión clara de hacia dónde va y que aportase algo positivo. No hace falta que sea el próximo Netflix — con que cambie vidas y me dé estabilidad en la mía, es suficiente.`,
-          },
-          {
-            title: "Fuera del código",
-            body: `Leo sobre arquitectura de software y, cada vez más, sobre geopolítica, negocios e inversiones. Empecé a investigar al cambiar mi hipoteca y un tema me fue llevando a otro — acabé entrando en una madriguera de conejo de la que no me arrepiento. Resulta que el mundo es más interesante que una hoja de cálculo, aunque muchas decisiones importantes todavía se toman exactamente así. El Real Madrid y el Age of Empires completan el cuadro — en ese orden.`,
-          },
-        ].map(({ title, body }) => (
-          <section key={title} style={{ marginBottom: "2.5rem" }}>
+        {/* Narrative sections */}
+        {SECTIONS.map(({ title, body }) => (
+          <section key={title} style={{ marginBottom: "3rem" }}>
             <h2
               style={{
-                fontSize: "1.1rem",
+                fontFamily: "var(--font-display)",
+                fontStyle: "italic",
+                fontSize: "1.25rem",
                 fontWeight: 700,
-                marginBottom: "0.75rem",
+                marginBottom: "1rem",
                 color: "var(--text)",
+                borderLeft: "3px solid var(--accent)",
+                paddingLeft: "1rem",
               }}
             >
               {title}
             </h2>
-            <p style={{ color: "var(--text-soft)", lineHeight: 1.8 }}>{body}</p>
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "1.05rem",
+                color: "var(--text-soft)",
+                lineHeight: 1.85,
+              }}
+            >
+              {body}
+            </p>
           </section>
         ))}
 
+        {/* Copper breath divider */}
+        <div
+          aria-hidden="true"
+          style={{
+            height: "1px",
+            background: "linear-gradient(90deg, var(--accent), transparent)",
+            opacity: 0.25,
+            margin: "3rem 0",
+          }}
+        />
+
         {/* Disponibilidad actual */}
         <div
-          className="mt-16 sm:!mt-8 p-4 sm:p-6 border border-[var(--border)] rounded-[var(--radius)] bg-[var(--surface)] flex items-center gap-3 sm:gap-4"
-          style={{ marginTop: "calc(var(--spacing) * 8)" }}
+          style={{
+            padding: "1.5rem",
+            border: "1px solid var(--border)",
+            borderRadius: "var(--radius)",
+            background: "var(--surface)",
+            display: "flex",
+            alignItems: "flex-start",
+            gap: "1rem",
+          }}
         >
           <span
             style={{
@@ -85,12 +113,26 @@ export default function AboutPage() {
               borderRadius: "50%",
               background: "#f5c400",
               flexShrink: 0,
-              boxShadow: "0 0 8px #f5c400",
+              marginTop: "0.35rem",
+              boxShadow: "0 0 8px rgba(245, 196, 0, 0.6)",
             }}
           />
-          <p style={{ fontSize: "0.9rem", color: "var(--text-soft)" }}>
-            <strong style={{ color: "var(--text)" }}>Abierto a conversaciones</strong> sobre oportunidades remotas o híbridas cerca de Alcalá de Henares.{" "}
-            <a href="/contacto" style={{ color: "var(--accent)" }}>Hablemos →</a>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.95rem",
+              color: "var(--text-soft)",
+              lineHeight: 1.7,
+            }}
+          >
+            <strong style={{ color: "var(--text)", fontWeight: 600 }}>Abierto a conversaciones</strong>{" "}
+            sobre oportunidades remotas o híbridas cerca de Alcalá de Henares.{" "}
+            <a
+              href="/contacto"
+              style={{ color: "var(--accent)", textDecoration: "underline", textUnderlineOffset: "3px" }}
+            >
+              Hablemos →
+            </a>
           </p>
         </div>
       </main>

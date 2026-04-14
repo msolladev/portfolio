@@ -51,32 +51,53 @@ export default async function BlogPostPage({ params }: Props) {
             gap: "1rem",
             fontFamily: "var(--font-mono)",
             fontSize: "0.78rem",
-            color: "var(--text-soft)",
+            color: "var(--accent)",
             marginBottom: "1.5rem",
+            letterSpacing: "0.04em",
           }}
         >
           <time>{format(new Date(post.date), "d 'de' MMMM 'de' yyyy", { locale: es })}</time>
-          <span>·</span>
-          <span>{post.readTime}</span>
+          <span style={{ color: "var(--border)" }}>·</span>
+          <span style={{ color: "var(--text-soft)" }}>{post.readTime}</span>
         </div>
 
         <h1
           style={{
-            fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(1.8rem, 4vw, 3rem)",
             fontWeight: 800,
             letterSpacing: "-0.03em",
-            lineHeight: 1.15,
-            marginBottom: "1rem",
+            lineHeight: 1.1,
+            marginBottom: "1.25rem",
+            color: "var(--text)",
           }}
         >
           {post.title}
         </h1>
 
-        <p className="text-[1.1rem] text-[var(--text-soft)] mb-12 sm:mb-6 leading-[1.7]">
+        <p
+          style={{
+            fontFamily: "var(--font-display)",
+            fontStyle: "italic",
+            fontSize: "1.1rem",
+            color: "var(--text-soft)",
+            lineHeight: 1.7,
+            marginBottom: "2.5rem",
+          }}
+        >
           {post.description}
         </p>
 
-        <hr className="border-0 border-t border-[var(--border)] mb-12 sm:mb-6" />
+        {/* Copper gradient divider */}
+        <div
+          aria-hidden="true"
+          style={{
+            height: "1px",
+            background: "linear-gradient(90deg, var(--accent) 0%, transparent 60%)",
+            opacity: 0.3,
+            marginBottom: "2.5rem",
+          }}
+        />
 
         {/* MDX content */}
         <article
