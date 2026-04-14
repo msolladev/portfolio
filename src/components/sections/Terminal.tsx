@@ -102,19 +102,8 @@ export function Terminal() {
   };
 
   return (
-    <section className="">
-      <p
-        style={{
-          fontFamily: "var(--font-mono)",
-          fontSize: "0.8rem",
-          color: "var(--text-soft)",
-          marginBottom: "1rem",
-          letterSpacing: "0.08em",
-          textTransform: "uppercase",
-        }}
-      >
-        — Terminal interactiva
-      </p>
+    <section>
+      <p className="section-label mb-4">— Terminal interactiva</p>
 
       <motion.div
         ref={terminalRef}
@@ -123,75 +112,39 @@ export function Terminal() {
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.6 }}
         onClick={() => inputRef.current?.focus()}
-        style={{
-          background: "var(--surface)",
-          border: "1px solid var(--border)",
-          borderRadius: "10px",
-          overflow: "hidden",
-          cursor: "text",
-          maxHeight: "420px",
-          display: "flex",
-          flexDirection: "column",
-        }}
+        className="bg-[var(--surface)] border border-[var(--border)] rounded-[10px] overflow-hidden cursor-text max-h-[420px] flex flex-col"
       >
         {/* Window chrome */}
-        <div
-          style={{
-            padding: "0.75rem 1rem",
-            borderBottom: "1px solid var(--border)",
-            display: "flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            flexShrink: 0,
-          }}
-        >
+        <div className="px-4 py-3 border-b border-[var(--border)] flex items-center gap-2 shrink-0">
           {(["--mac-close", "--mac-minimize", "--mac-maximize"] as const).map((v) => (
             <div
               key={v}
-              style={{ width: 12, height: 12, borderRadius: "50%", background: `var(${v})` }}
+              className="w-3 h-3 rounded-full"
+              style={{ background: `var(${v})` }}
             />
           ))}
-          <span
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.75rem",
-              color: "var(--text-soft)",
-              marginLeft: "auto",
-            }}
-          >
+          <span className="font-mono text-[0.75rem] text-[var(--text-soft)] ml-auto">
             bash — portfolio
           </span>
         </div>
 
         {/* Output */}
-        <div
-          style={{
-            padding: "1.25rem 1.5rem",
-            overflowY: "auto",
-            flex: 1,
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.875rem",
-            lineHeight: 1.7,
-          }}
-        >
+        <div className="px-6 py-5 overflow-y-auto flex-1 font-mono text-[0.875rem] leading-[1.7]">
           <AnimatePresence initial={false}>
             {lines.map((line, i) => (
               <motion.div
                 suppressHydrationWarning
-                className="terminal-line"
+                className={`terminal-line whitespace-pre ${
+                  line.type === "input"
+                    ? "text-[var(--accent)]"
+                    : line.type === "error"
+                    ? "text-[var(--color-error)]"
+                    : "text-[var(--text-soft)]"
+                }`}
                 key={i}
                 initial={{ opacity: 0, x: -6 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.18 }}
-                style={{
-                  color:
-                    line.type === "input"
-                      ? "var(--accent)"
-                      : line.type === "error"
-                        ? "var(--color-error)"
-                        : "var(--text-soft)",
-                  whiteSpace: "pre",
-                }}
               >
                 {renderLine(line.text)}
               </motion.div>
@@ -201,10 +154,8 @@ export function Terminal() {
           <div ref={bottomRef} />
 
           {/* Input row */}
-          <div style={{ display: "flex", alignItems: "center", marginTop: "0.25rem" }}>
-            <span style={{ color: "var(--accent)", marginRight: "0.5rem", flexShrink: 0 }}>
-              {PROMPT}
-            </span>
+          <div className="flex items-center mt-1">
+            <span className="text-[var(--accent)] mr-2 shrink-0">{PROMPT}</span>
             <input
               ref={inputRef}
               value={input}
@@ -213,16 +164,7 @@ export function Terminal() {
               autoComplete="off"
               spellCheck={false}
               aria-label="Terminal input"
-              style={{
-                background: "transparent",
-                border: "none",
-                outline: "none",
-                color: "var(--text)",
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.875rem",
-                flex: 1,
-                caretColor: "var(--accent)",
-              }}
+              className="bg-transparent border-none outline-none text-[var(--text)] font-mono text-[0.875rem] flex-1 caret-[var(--accent)]"
             />
             <span className="terminal-cursor" />
           </div>

@@ -14,32 +14,15 @@ export default function AboutPage() {
     <>
       <Nav />
       <main className="page-content-narrow">
-        <p
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.8rem",
-            color: "var(--accent)",
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-            marginBottom: "1.5rem",
-          }}
-        >
-          sobre mí
-        </p>
+        <p className="eyebrow mb-6">sobre mí</p>
 
         <h1
-          style={{
-            fontSize: "clamp(2rem, 5vw, 3.5rem)",
-            fontWeight: 800,
-            lineHeight: 1.1,
-            letterSpacing: "-0.03em",
-            marginBottom: "3rem",
-          }}
+          className="font-display font-extrabold tracking-[-0.03em] leading-[1.1] mb-12 text-[var(--text)]"
+          style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)" }}
         >
           El criterio no se aprende en cursos.
         </h1>
 
-        {/* Secciones de narrativa — personaliza con tu historia real */}
         {[
           {
             title: "Cómo llegué aquí",
@@ -58,39 +41,21 @@ export default function AboutPage() {
             body: `Leo sobre arquitectura de software y, cada vez más, sobre geopolítica, negocios e inversiones. Empecé a investigar al cambiar mi hipoteca y un tema me fue llevando a otro — acabé entrando en una madriguera de conejo de la que no me arrepiento. Resulta que el mundo es más interesante que una hoja de cálculo, aunque muchas decisiones importantes todavía se toman exactamente así. El Real Madrid y el Age of Empires completan el cuadro — en ese orden.`,
           },
         ].map(({ title, body }) => (
-          <section key={title} style={{ marginBottom: "2.5rem" }}>
-            <h2
-              style={{
-                fontSize: "1.1rem",
-                fontWeight: 700,
-                marginBottom: "0.75rem",
-                color: "var(--text)",
-              }}
-            >
-              {title}
-            </h2>
-            <p style={{ color: "var(--text-soft)", lineHeight: 1.8 }}>{body}</p>
+          <section key={title} className="mb-10">
+            <h2 className="text-[1.1rem] font-bold mb-3 text-[var(--text)]">{title}</h2>
+            <p className="text-[var(--text-soft)] leading-[1.8]">{body}</p>
           </section>
         ))}
 
         {/* Disponibilidad actual */}
-        <div
-          className="mt-16 sm:!mt-8 p-4 sm:p-6 border border-[var(--border)] rounded-[var(--radius)] bg-[var(--surface)] flex items-center gap-3 sm:gap-4"
-          style={{ marginTop: "calc(var(--spacing) * 8)" }}
-        >
+        <div className="mt-16 p-4 sm:p-6 border border-[var(--border)] rounded-[var(--radius)] bg-[var(--surface)] flex items-center gap-3 sm:gap-4">
           <span
-            style={{
-              width: 10,
-              height: 10,
-              borderRadius: "50%",
-              background: "#f5c400",
-              flexShrink: 0,
-              boxShadow: "0 0 8px #f5c400",
-            }}
+            className="w-2.5 h-2.5 rounded-full shrink-0"
+            style={{ background: "#f5c400", boxShadow: "0 0 8px #f5c400" }}
           />
-          <p style={{ fontSize: "0.9rem", color: "var(--text-soft)" }}>
-            <strong style={{ color: "var(--text)" }}>Abierto a conversaciones</strong> sobre oportunidades remotas o híbridas cerca de Alcalá de Henares.{" "}
-            <a href="/contacto" style={{ color: "var(--accent)" }}>Hablemos →</a>
+          <p className="text-[0.9rem] text-[var(--text-soft)]">
+            <strong className="text-[var(--text)]">Abierto a conversaciones</strong> sobre oportunidades remotas o híbridas cerca de Alcalá de Henares.{" "}
+            <a href="/contacto" className="text-[var(--accent)]">Hablemos →</a>
           </p>
         </div>
       </main>

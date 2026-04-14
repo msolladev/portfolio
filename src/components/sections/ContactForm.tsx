@@ -47,65 +47,29 @@ export function ContactForm() {
     }
   };
 
-  const inputStyle: React.CSSProperties = {
-    width: "100%",
-    background: "var(--surface)",
-    border: "1px solid var(--border)",
-    borderRadius: "var(--radius)",
-    padding: "0.85rem 1rem",
-    color: "var(--text)",
-    fontFamily: "var(--font-sans)",
-    fontSize: "1rem",
-    outline: "none",
-    transition: "border-color var(--transition)",
-  };
-
   return (
     <>
-      <p
-        style={{
-          fontFamily: "var(--font-mono)",
-          fontSize: "0.8rem",
-          color: "var(--accent)",
-          letterSpacing: "0.1em",
-          textTransform: "uppercase",
-          marginBottom: "1.5rem",
-        }}
-      >
-        contacto
-      </p>
+      <p className="eyebrow mb-6">contacto</p>
 
       <h1
-        style={{
-          fontSize: "clamp(2rem, 5vw, 3rem)",
-          fontWeight: 800,
-          letterSpacing: "-0.03em",
-          marginBottom: "1rem",
-        }}
+        className="font-display font-extrabold tracking-[-0.03em] leading-[1.1] mb-4 text-[var(--text)]"
+        style={{ fontSize: "clamp(2rem, 5vw, 3rem)" }}
       >
         Hablemos.
       </h1>
 
-      <p style={{ color: "var(--text-soft)", marginBottom: "3rem", lineHeight: 1.7 }}>
+      <p className="text-[var(--text-soft)] mb-12 leading-[1.75] text-[1.05rem]">
         Si tienes una oportunidad interesante, quieres hablar sobre tecnología
         o simplemente conectar, estoy al otro lado.
         Respondo lo antes posible.
       </p>
 
       {status === "ok" ? (
-        <div
-          style={{
-            padding: "2rem",
-            border: "1px solid var(--color-success)",
-            borderRadius: "var(--radius)",
-            color: "var(--color-success)",
-            fontFamily: "var(--font-mono)",
-          }}
-        >
+        <div className="p-8 border border-[var(--color-success)] rounded-[var(--radius)] text-[var(--color-success)] font-mono">
           ✓ Mensaje enviado. Te respondo pronto.
         </div>
       ) : (
-        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
 
           {/* Honeypot */}
           <input
@@ -114,7 +78,7 @@ export function ContactForm() {
             autoComplete="off"
             tabIndex={-1}
             aria-hidden="true"
-            style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }}
+            className="absolute left-[-9999px] opacity-0 pointer-events-none"
             value={form.website}
             onChange={handleChange}
           />
@@ -124,20 +88,7 @@ export function ContactForm() {
             { name: "email", label: "Email",  type: "email", placeholder: "tu@email.com" },
           ].map(({ name, label, type, placeholder }) => (
             <div key={name}>
-              <label
-                htmlFor={name}
-                style={{
-                  display: "block",
-                  fontSize: "0.8rem",
-                  fontFamily: "var(--font-mono)",
-                  color: "var(--text-soft)",
-                  marginBottom: "0.4rem",
-                  letterSpacing: "0.06em",
-                  cursor: "pointer",
-                }}
-              >
-                {label}
-              </label>
+              <label htmlFor={name} className="form-label">{label}</label>
               <input
                 id={name}
                 name={name}
@@ -146,27 +97,13 @@ export function ContactForm() {
                 placeholder={placeholder}
                 value={form[name as FormField]}
                 onChange={handleChange}
-                style={inputStyle}
-                onFocus={(e) => (e.target.style.borderColor = "var(--accent)")}
-                onBlur={(e)  => (e.target.style.borderColor = "var(--border)")}
+                className="form-input"
               />
             </div>
           ))}
 
           <div>
-            <label
-              htmlFor="message"
-              style={{
-                display: "block",
-                fontSize: "0.8rem",
-                fontFamily: "var(--font-mono)",
-                color: "var(--text-soft)",
-                marginBottom: "0.4rem",
-                letterSpacing: "0.06em",
-              }}
-            >
-              Mensaje
-            </label>
+            <label htmlFor="message" className="form-label">Mensaje</label>
             <textarea
               id="message"
               name="message"
@@ -175,36 +112,21 @@ export function ContactForm() {
               placeholder="En qué puedo ayudarte..."
               value={form.message}
               onChange={handleChange}
-              style={{ ...inputStyle, resize: "vertical" }}
-              onFocus={(e) => (e.target.style.borderColor = "var(--accent)")}
-              onBlur={(e)  => (e.target.style.borderColor = "var(--border)")}
+              className="form-input resize-y"
             />
           </div>
 
           {status === "error" && (
-            <p style={{ color: "var(--color-error)", fontFamily: "var(--font-mono)", fontSize: "0.85rem" }}>
-              {errorMsg}
-            </p>
+            <p className="text-[var(--color-error)] font-mono text-[0.85rem]">{errorMsg}</p>
           )}
 
           <button
             type="submit"
             disabled={status === "sending"}
-            style={{
-              padding: "0.9rem 2rem",
-              background: "var(--accent)",
-              color: "var(--bg)",
-              fontWeight: 700,
-              fontSize: "0.95rem",
-              border: "none",
-              borderRadius: "var(--radius)",
-              cursor: status === "sending" ? "not-allowed" : "pointer",
-              opacity: status === "sending" ? 0.7 : 1,
-              transition: "opacity var(--transition)",
-              alignSelf: "flex-start",
-            }}
+            className="btn-primary self-start"
+            style={status === "sending" ? { opacity: 0.6, cursor: "not-allowed" } : undefined}
           >
-            {status === "sending" ? "Enviando..." : "Enviar mensaje →"}
+            {status === "sending" ? "Enviando..." : <>Enviar mensaje <span className="btn-arrow">→</span></>}
           </button>
         </form>
       )}
