@@ -136,11 +136,10 @@ export function BlogClient({ allPosts }: Props) {
         {query && (
           <button
             onClick={() => setQuery("")}
-            aria-label="Clear search"
+            aria-label="Limpiar búsqueda"
             style={{
               position: "absolute",
               right: "0.875rem",
-              top: "50%",
               transform: "translateY(-50%)",
               background: "none",
               border: "none",
@@ -149,6 +148,7 @@ export function BlogClient({ allPosts }: Props) {
               cursor: "pointer",
               lineHeight: 1,
               padding: 0,
+              paddingTop: "55px",
             }}
           >
             ✕

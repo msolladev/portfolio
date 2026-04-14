@@ -110,7 +110,7 @@ export function Hero() {
           />
         </div>
         <span className="font-mono text-[0.7rem] tracking-[0.12em] uppercase text-[var(--text-soft)] opacity-50 text-center">
-          2012 — 2026
+          {yearsOfExperience}+ años en activo
         </span>
       </motion.div>
     </section>
