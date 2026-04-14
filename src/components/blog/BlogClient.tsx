@@ -137,7 +137,7 @@ export function BlogClient({ allPosts }: Props) {
       </div>
 
       {filtered.length === 0 ? (
-        <p style={{ color: "var(--text-soft)", fontFamily: "var(--font-mono)" }}>
+        <p className="text-[var(--text-soft)] font-mono">
           No hay artículos que coincidan con &ldquo;{query}&rdquo;.
         </p>
       ) : (
@@ -153,7 +153,7 @@ export function BlogClient({ allPosts }: Props) {
             onOrderChange={handleOrder}
           />
 
-          <ol style={{ listStyle: "none", padding: 0, margin: 0 }}>
+          <ol className="list-none p-0 m-0">
             {posts.map((post) => {
               const bodyFragments = extractBodyFragments(post.content, query);
 

@@ -2,21 +2,24 @@
 
 /* ─── Design tokens ─────────────────────────────────────── */
 :root {
-  --bg:            #0a0a0a;
-  --surface:       #111111;
-  --border:        #1f1f1f;
-  --muted:         #444444;
-  --text:          #e8e8e8;
-  --text-soft:     #888888;
-  --accent:        #e8ff00;
-  --accent-dim:    #b8cc00;
-  --bg-nav:        rgba(10, 10, 10, 0.95);
-  --bg-nav-overlay:rgba(10, 10, 10, 0.98);
-  --font-sans: "Syne", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
-  --radius:    6px;
-  --transition: 220ms cubic-bezier(0.4, 0, 0.2, 1);
-  --grain-opacity: 0.035;
+  --bg:              #0c0f1a;
+  --surface:         #131829;
+  --surface-2:       #1a2035;
+  --border:          #252d45;
+  --muted:           #3a4560;
+  --text:            #e8e4d8;
+  --text-soft:       #8a8fa8;
+  --accent:          #c9924a;
+  --accent-dim:      #a3723a;
+  --accent-glow:     rgba(201, 146, 74, 0.12);
+  --bg-nav:          rgba(12, 15, 26, 0.92);
+  --bg-nav-overlay:  rgba(12, 15, 26, 0.98);
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-sans:    "DM Sans", system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", monospace;
+  --radius:    8px;
+  --transition: 240ms cubic-bezier(0.4, 0, 0.2, 1);
+  --grain-opacity: 0.04;
 
   /* ─── Semantic colors ────────────────────────────────────── */
   --color-error:    #ff5f57;
@@ -30,17 +33,19 @@
 
 /* ─── Light mode overrides ───────────────────────────────── */
 .light {
-  --bg:            #eee;
-  --surface:       #eaeae4;
-  --border:        #d0d0c8;
-  --muted:         #aaaaaa;
-  --text:          #1c1c1c;
-  --text-soft:     #5e5e5e;
-  --accent:        #f8bc09;
-  --accent-dim:    #af8505;
-  --bg-nav:        rgba(238, 238, 238, 0.97);
-  --bg-nav-overlay:rgba(238, 238, 238, 0.99);
-  --grain-opacity: 0.115;
+  --bg:              #f5f0e8;
+  --surface:         #ece6da;
+  --surface-2:       #e2dccf;
+  --border:          #d0c8b8;
+  --muted:           #b0a898;
+  --text:            #1a1614;
+  --text-soft:       #5c5650;
+  --accent:          #9b6f35;
+  --accent-dim:      #7a5528;
+  --accent-glow:     rgba(155, 111, 53, 0.10);
+  --bg-nav:          rgba(245, 240, 232, 0.95);
+  --bg-nav-overlay:  rgba(245, 240, 232, 0.99);
+  --grain-opacity:   0.06;
 }
 
 /* ─── Base ───────────────────────────────────────────────── */
@@ -68,12 +73,12 @@ body {
 .page-content-narrow {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 5rem 0 8rem;
+  padding: 5rem 2rem 8rem;
 }
 
 .page-content-narrow {
   max-width: 720px;
-  padding: 2rem 0;
+  padding: 2rem 2rem;
 }
 
 @media (max-width: 768px) {
@@ -112,13 +117,19 @@ body {
 /* ─── Typography ────────────────────────────────────────── */
 h1,
 h2,
-h3,
+h3 {
+  font-family: var(--font-display);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
 h4,
 h5,
 h6 {
-  line-height: 1.15;
+  font-family: var(--font-sans);
+  line-height: 1.2;
   font-weight: 700;
-  letter-spacing: -0.02em;
 }
 
 a {
@@ -139,7 +150,112 @@ pre {
   overflow-x: auto;
 }
 
-/* ─── Extras ────────────────────────────────────────────── */
+/* ─── Font utilities ────────────────────────────────────── */
+.font-display { font-family: var(--font-display); }
+.font-mono    { font-family: var(--font-mono); }
+
+/* ─── Section label utility ─────────────────────────────── */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-soft);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ─── Eyebrow label ─────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ─── Nav link ──────────────────────────────────────────── */
+.nav-link {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
+  color: var(--text-soft);
+  font-weight: 400;
+  text-decoration: none;
+  transition: color var(--transition);
+}
+.nav-link:hover {
+  color: var(--text);
+  text-decoration: none;
+}
+.nav-link[data-active="true"] {
+  color: var(--accent);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 4px;
+}
+.nav-link[data-active="true"]:hover {
+  color: var(--accent);
+}
+
+/* ─── Card surface ──────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+/* ─── Form input ────────────────────────────────────────── */
+.form-input {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.85rem 1rem;
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.form-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+.form-input::placeholder {
+  color: var(--text-soft);
+  opacity: 0.6;
+}
+
+/* ─── Form label ────────────────────────────────────────── */
+.form-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-soft);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+  cursor: pointer;
+}
+
+/* ─── Copper gradient rule ──────────────────────────────── */
+.copper-rule {
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: 0.25;
+  border: none;
+}
+
+/* ─── Stack card hover ──────────────────────────────────── */
+.stack-card {
+  transition: border-color 140ms ease, box-shadow 140ms ease;
+}
+.stack-card:hover {
+  border-color: var(--accent);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+/* ─── Grain overlay ─────────────────────────────────────── */
 .grain {
   position: fixed;
   inset: -50%;
@@ -154,40 +270,198 @@ pre {
 
 @keyframes grain {
   0%, 100% { transform: translate(0, 0); }
-  25%      { transform: translate(-2%, 2%); }
-  50%      { transform: translate(2%, -1%); }
-  75%      { transform: translate(-1%, 3%); }
+  25%       { transform: translate(-2%, 2%); }
+  50%       { transform: translate(2%, -1%); }
+  75%       { transform: translate(-1%, 3%); }
 }
 
-button:hover, a:hover{
-  text-decoration: underline;
+/* ─── Terminal cursor ───────────────────────────────────── */
+.terminal-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  background: var(--accent);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ─── Interactive states ────────────────────────────────── */
+a:hover {
   cursor: pointer;
 }
-button.active{
+
+/* Plain text links (not buttons or nav) */
+.prose a:hover,
+.link-underline:hover {
+  text-decoration: underline;
+}
+
+button {
+  cursor: pointer;
+}
+
+button.active {
   color: var(--accent) !important;
 }
 
-.prose{
-  h1, h2, h3, h4, h5, h6{
+/* ─── Focus-visible (accesibilidad teclado) ─────────────── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Button system ─────────────────────────────────────── */
+.btn-primary {
+  display: inline-block;
+  padding: 0.8rem 1.75rem;
+  background: var(--accent);
+  color: #0c0f1a;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: var(--radius);
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition: opacity var(--transition);
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  opacity: 0.88;
+  text-decoration: none;
+}
+
+.btn-primary .btn-arrow,
+.btn-secondary .btn-arrow {
+  display: inline-block;
+  transition: transform 200ms ease;
+}
+
+.btn-primary:hover .btn-arrow,
+.btn-secondary:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+.btn-secondary {
+  display: inline-block;
+  padding: 0.8rem 1.75rem;
+  background: transparent;
+  color: var(--text-soft);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition: border-color var(--transition), color var(--transition);
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  border-color: var(--muted);
+  color: var(--text);
+  text-decoration: none;
+}
+
+/* ─── Prose (blog posts) ────────────────────────────────── */
+.prose {
+  h1, h2, h3, h4, h5, h6 {
     color: var(--text);
     padding-top: 1rem;
   }
 
-  p{
+  h2 {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 700;
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+    margin-top: 2rem;
+  }
+
+  h3 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 4px;
+  }
+
+  p {
+    font-size: 1.05rem;
+    line-height: 1.85;
     padding-bottom: 0.4rem;
+  }
+
+  code {
+    background: var(--surface-2);
+    color: var(--accent);
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
+    font-size: 0.875em;
+  }
+
+  pre {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    overflow-x: auto;
+  }
+
+  pre code {
+    background: transparent;
+    color: var(--text);
+    padding: 0;
+  }
+
+  blockquote {
+    border-left: 4px solid var(--accent);
+    padding-left: 1.5rem;
+    margin-left: 0;
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--text-soft);
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  ul, ol {
+    padding-left: 1.5rem;
+  }
+
+  li {
+    margin-bottom: 0.35rem;
   }
 }
 
+/* ─── Mark (search highlight) ───────────────────────────── */
 mark {
   background: var(--accent);
   color: var(--bg);
   border-radius: 2px;
   padding: 0 2px;
 }
-.light mark {
-  color: var(--text-soft);          /* variable B en modo claro */
-}
 
+/* ─── Utilities ─────────────────────────────────────────── */
 .text-soft {
   color: var(--text-soft);
 }

@@ -3,35 +3,14 @@ import Link from "next/link";
 export function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer
-      style={{
-        borderTop: "1px solid var(--border)",
-        padding: "2rem 1.5rem",
-        maxWidth: "1100px",
-        margin: "0 auto",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        fontSize: "0.8rem",
-        color: "var(--text-soft)",
-        fontFamily: "var(--font-mono)",
-      }}
-    >
+    <footer className="border-t border-[var(--border)] py-8 px-6 max-w-[1100px] mx-auto flex justify-between items-center text-[0.8rem] text-[var(--text-soft)] font-mono">
       <span>© {year} Miguel Solla</span>
-      <div style={{ display: "flex", gap: "1.5rem" }}>
-        {/* <Link
-          href="https://github.com/msolladev"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ color: "var(--text-soft)", transition: "color var(--transition)" }}
-        >
-          Github
-        </Link> */}
+      <div className="flex gap-6">
         <Link
           href="https://www.linkedin.com/in/miguel-solla/"
           target="_blank"
           rel="noopener noreferrer"
-          style={{ color: "var(--text-soft)", transition: "color var(--transition)" }}
+          className="text-[var(--text-soft)] transition-colors hover:text-[var(--accent)]"
         >
           LinkedIn
         </Link>

@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { Terminal } from "@/components/sections/Terminal";
 import { Hero } from "@/components/sections/Hero";
+import { StatStrip } from "@/components/sections/StatStrip";
 import { Stack } from "@/components/sections/Stack";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
@@ -15,6 +16,7 @@ export default function HomePage() {
       <Nav />
       <main className="page-content">
         <Hero />
+        <StatStrip />
         <Terminal />
         <Stack />
       </main>

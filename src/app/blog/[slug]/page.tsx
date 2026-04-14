@@ -45,29 +45,15 @@ export default async function BlogPostPage({ params }: Props) {
       <Nav />
       <main className="page-content-narrow">
         {/* Meta */}
-        <div
-          style={{
-            display: "flex",
-            gap: "1rem",
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.78rem",
-            color: "var(--text-soft)",
-            marginBottom: "1.5rem",
-          }}
-        >
+        <div className="flex gap-4 font-mono text-[0.78rem] text-[var(--text-soft)] mb-6">
           <time>{format(new Date(post.date), "d 'de' MMMM 'de' yyyy", { locale: es })}</time>
           <span>·</span>
           <span>{post.readTime}</span>
         </div>
 
         <h1
-          style={{
-            fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
-            fontWeight: 800,
-            letterSpacing: "-0.03em",
-            lineHeight: 1.15,
-            marginBottom: "1rem",
-          }}
+          className="font-display font-extrabold tracking-[-0.03em] leading-[1.15] mb-4 text-[var(--text)]"
+          style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}
         >
           {post.title}
         </h1>
@@ -79,14 +65,7 @@ export default async function BlogPostPage({ params }: Props) {
         <hr className="border-0 border-t border-[var(--border)] mb-12 sm:mb-6" />
 
         {/* MDX content */}
-        <article
-          className="prose"
-          style={{
-            color: "var(--text-soft)",
-            lineHeight: 1.8,
-            fontSize: "1rem",
-          }}
-        >
+        <article className="prose text-[var(--text-soft)] leading-[1.8]">
           <MDXRemote source={post.content} />
         </article>
       </main>
