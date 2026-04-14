@@ -7,6 +7,30 @@ import Image from "next/image";
 
 const WORDS = ["escalan.", "perduran.", "importan."];
 const ease = [0.25, 0.1, 0.25, 1] as const;
+function RotatingWord({ words }: { words: string[] }) {
+  return (
+    <span className="relative inline-block">
+      {words.map((word, i) => (
+        <motion.span
+          key={word}
+          className="font-display text-[var(--accent)] block"
+          style={{ position: i === 0 ? "relative" : "absolute", left: 0, top: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: [0, 1, 1, 0], y: [20, 0, 0, -20] }}
+          transition={{
+            duration: 3,
+            delay: i * 3,
+            repeat: Infinity,
+            repeatDelay: (words.length - 1) * 3,
+            times: [0, 0.15, 0.85, 1],
+          }}
+        >
+          {word}
+        </motion.span>
+      ))}
+    </span>
+  );
+}
 
 export function Hero() {
   return (
@@ -110,35 +134,10 @@ export function Hero() {
           />
         </div>
         <span className="font-mono text-[0.7rem] tracking-[0.12em] uppercase text-[var(--text-soft)] opacity-50 text-center">
-          2012 — 2026
+          {yearsOfExperience}+ años en activo
         </span>
       </motion.div>
     </section>
   );
 }
 
-/* ─── Rotating word ─────────────────────────────────────── */
-function RotatingWord({ words }: { words: string[] }) {
-  return (
-    <span className="relative inline-block">
-      {words.map((word, i) => (
-        <motion.span
-          key={word}
-          className="font-display text-[var(--accent)] block"
-          style={{ position: i === 0 ? "relative" : "absolute", left: 0, top: 0 }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: [0, 1, 1, 0], y: [20, 0, 0, -20] }}
-          transition={{
-            duration: 3,
-            delay: i * 3,
-            repeat: Infinity,
-            repeatDelay: (words.length - 1) * 3,
-            times: [0, 0.15, 0.85, 1],
-          }}
-        >
-          {word}
-        </motion.span>
-      ))}
-    </span>
-  );
-}

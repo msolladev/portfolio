@@ -45,20 +45,48 @@ export function Nav() {
       <motion.header
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="fixed top-0 left-0 w-full z-[100] border-b bg-[var(--bg-nav)] border-[var(--border)]"
+        transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          zIndex: 100,
+          borderBottom: "1px solid var(--border)",
+          backgroundColor: "var(--bg-nav)",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+        }}
       >
-        <div className="max-w-[1100px] mx-auto h-[60px] flex items-center justify-between">
+        <div
+          style={{
+            maxWidth: "1100px",
+            margin: "0 auto",
+            height: "60px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "0 2rem",
+          }}
+        >
+          {/* Logo */}
           <Link
             href="/"
-            className="text-[0.9rem] tracking-[0.05em] text-[var(--accent)] font-mono sm:ps-0 ps-4"
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.9rem",
+              letterSpacing: "0.05em",
+              color: "var(--accent)",
+              textDecoration: "none",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "none")}
           >
             ~/Miguel Solla
           </Link>
 
           {/* Desktop nav */}
           <div className="hidden sm:flex items-center gap-6">
-            <nav className="flex gap-8">
+            <nav style={{ display: "flex", gap: "2rem" }}>
               {LINKS.map(({ href, label }) => {
                 const active = pathname === href;
                 const isExternal =
@@ -68,8 +96,24 @@ export function Nav() {
                   <Link
                     key={href}
                     href={href}
-                    className={`text-sm tracking-[0.03em] font-mono transition-colors ${active ? "text-[var(--accent)]" : "text-[var(--text-soft)]"
-                      }`}
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "0.875rem",
+                      letterSpacing: "0.03em",
+                      color: active ? "var(--accent)" : "var(--text-soft)",
+                      textDecoration: active ? "underline" : "none",
+                      textDecorationColor: "var(--accent)",
+                      textUnderlineOffset: "4px",
+                      transition: "color var(--transition)",
+                      fontWeight: active ? "500" : "400",
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!active) e.currentTarget.style.color = "var(--text)";
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!active) e.currentTarget.style.color = "var(--text-soft)";
+                      e.currentTarget.style.textDecoration = active ? "underline" : "none";
+                    }}
                     {...(isExternal && {
                       target: "_blank",
                       rel: "noopener noreferrer",
@@ -80,50 +124,72 @@ export function Nav() {
                 );
               })}
             </nav>
+            {/* ThemeToggleDesktop */}
             <ThemeToggleDesktop />
           </div>
         </div>
       </motion.header>
 
-      {/* Spacer so content is not hidden under the fixed header */}
-      <div className="h-[60px]" aria-hidden="true" />
+      {/* Spacer */}
+      <div style={{ height: "60px" }} aria-hidden="true" />
 
       {/* Mobile theme toggle — visible when menu is closed */}
       <div className="sm:hidden fixed top-[14px] right-[58px] z-[200]">
         <ThemeToggleMobile hidden={open} />
       </div>
 
-      {/* Hamburger button — separate fixed element, above overlay (z-[200] > z-[150]) */}
+      {/* Hamburger button */}
       <button
         onClick={() => setOpen((o) => !o)}
         aria-label={open ? "Cerrar menú" : "Abrir menú"}
         aria-expanded={open}
         className="sm:hidden fixed top-[14px] right-5 z-[200] w-8 h-8 flex items-center justify-center"
+        style={{
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          padding: 0,
+        }}
       >
-        {/* Line 1 */}
         <motion.span
           animate={open ? { rotate: 45, y: 0 } : { rotate: 0, y: -6 }}
           initial={false}
           transition={{ duration: 0.25, ease: "easeInOut" }}
-          className="absolute w-6 h-[2px] bg-[var(--text)] origin-center"
+          style={{
+            position: "absolute",
+            width: "24px",
+            height: "2px",
+            background: "var(--text)",
+            transformOrigin: "center",
+          }}
         />
-        {/* Line 2 */}
         <motion.span
           animate={open ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
           initial={false}
           transition={{ duration: 0.2, ease: "easeInOut" }}
-          className="absolute w-6 h-[2px] bg-[var(--text)] origin-center"
+          style={{
+            position: "absolute",
+            width: "24px",
+            height: "2px",
+            background: "var(--text)",
+            transformOrigin: "center",
+          }}
         />
-        {/* Line 3 */}
         <motion.span
           animate={open ? { rotate: -45, y: 0 } : { rotate: 0, y: 6 }}
           initial={false}
           transition={{ duration: 0.25, ease: "easeInOut" }}
-          className="absolute w-6 h-[2px] bg-[var(--text)] origin-center"
+          style={{
+            position: "absolute",
+            width: "24px",
+            height: "2px",
+            background: "var(--text)",
+            transformOrigin: "center",
+          }}
         />
       </button>
 
-      {/* Mobile full-screen overlay — z-[150]: above header (z-100), below button (z-200) */}
+      {/* Mobile full-screen overlay */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -132,23 +198,55 @@ export function Nav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[150] bg-[var(--bg-nav-overlay)] flex flex-col sm:hidden"
+            className="sm:hidden"
+            style={{
+              position: "fixed",
+              inset: 0,
+              zIndex: 150,
+              backgroundColor: "var(--bg-nav-overlay)",
+              display: "flex",
+              flexDirection: "column",
+            }}
           >
-            {/* Title — top-left, same height as the X button */}
-            <div className="h-[60px] flex items-center px-5">
+            {/* Overlay header row */}
+            <div
+              style={{
+                height: "60px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                padding: "0 1.25rem",
+                borderBottom: "1px solid var(--border)",
+              }}
+            >
               <motion.span
                 initial={{ opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -8 }}
                 transition={{ duration: 0.25 }}
-                className="text-[var(--accent)] font-mono text-xl tracking-[0.04em]"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "0.9rem",
+                  letterSpacing: "0.05em",
+                  color: "var(--accent)",
+                }}
               >
                 ~/Miguel Solla
               </motion.span>
+              {/* ThemeToggleMobile placeholder in overlay */}
             </div>
 
-            {/* Links — vertically and horizontally centered in remaining space */}
-            <nav className="flex-1 flex flex-col items-center justify-center gap-10">
+            {/* Centered links */}
+            <nav
+              style={{
+                flex: 1,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "2.5rem",
+              }}
+            >
               {LINKS.map(({ href, label }, i) => {
                 const active = pathname === href;
                 const isExternal =
@@ -157,18 +255,30 @@ export function Nav() {
                 return (
                   <motion.div
                     key={href}
-                    initial={{ opacity: 0, y: 12 }}
+                    initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 8 }}
-                    transition={{ delay: i * 0.06, duration: 0.25 }}
+                    transition={{ delay: i * 0.06, duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
                   >
                     <Link
                       href={href}
                       onClick={() => setOpen(false)}
-                      className={`text-2xl font-mono tracking-[0.05em] transition-colors ${active
-                        ? "text-[var(--accent)]"
-                        : "text-[var(--text-soft)]"
-                        }`}
+                      style={{
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "1.75rem",
+                        fontWeight: "500",
+                        letterSpacing: "0.01em",
+                        color: active ? "var(--accent)" : "var(--text-soft)",
+                        textDecoration: "none",
+                        transition: "color var(--transition)",
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!active) e.currentTarget.style.color = "var(--text)";
+                        e.currentTarget.style.textDecoration = "none";
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!active) e.currentTarget.style.color = "var(--text-soft)";
+                      }}
                       {...(isExternal && {
                         target: "_blank",
                         rel: "noopener noreferrer",
@@ -180,6 +290,17 @@ export function Nav() {
                 );
               })}
             </nav>
+
+            {/* Decorative bottom rule */}
+            <div
+              style={{
+                height: "1px",
+                margin: "2rem",
+                background: "linear-gradient(90deg, transparent, var(--accent), transparent)",
+                opacity: 0.3,
+              }}
+              aria-hidden="true"
+            />
           </motion.div>
         )}
       </AnimatePresence>

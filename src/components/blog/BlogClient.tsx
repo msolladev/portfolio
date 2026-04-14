@@ -112,25 +112,57 @@ export function BlogClient({ allPosts }: Props) {
   return (
     <>
       {/* Buscador */}
-      <div className="relative mb-8" style={{ marginBottom: "calc(var(--spacing) * 1)" }}    >
+      <div style={{ position: "relative", marginBottom: "2.5rem" }}>
         <input
           type="text"
           placeholder="Buscar artículos..."
           value={query}
           onChange={handleQuery}
-          className="w-full bg-[var(--surface)] border border-[var(--border)] rounded-[var(--radius)] p-3 pr-10 text-[var(--text)] font-mono text-sm outline-none transition-colors focus:border-[var(--accent)]"
+          style={{
+            width: "100%",
+            background: "var(--surface)",
+            border: "1px solid var(--border)",
+            borderRadius: "var(--radius)",
+            padding: "0.85rem 2.5rem 0.85rem 1rem",
+            color: "var(--text)",
+            fontFamily: "var(--font-mono)",
+            fontSize: "0.9rem",
+            outline: "none",
+            transition: "border-color var(--transition), box-shadow var(--transition)",
+          }}
+          onFocus={(e) => { e.target.style.borderColor = "var(--accent)"; e.target.style.boxShadow = "0 0 0 3px var(--accent-glow)"; }}
+          onBlur={(e) => { e.target.style.borderColor = "var(--border)"; e.target.style.boxShadow = "none"; }}
         />
         {query && (
           <button
             onClick={() => setQuery("")}
-            className="absolute right-3 inset-y-0 mt-4 h-fit text-[var(--accent)] text-lg leading-none text-decoration-none"
-            aria-label="Clear search"
+            aria-label="Limpiar búsqueda"
+            style={{
+              position: "absolute",
+              right: "0.875rem",
+              transform: "translateY(-50%)",
+              background: "none",
+              border: "none",
+              color: "var(--accent)",
+              fontSize: "1rem",
+              cursor: "pointer",
+              lineHeight: 1,
+              padding: 0,
+              paddingTop: "55px",
+            }}
           >
             ✕
           </button>
         )}
         {query && (
-          <p className="mt-2 text-[0.85rem] text-[var(--text-soft)] font-mono">
+          <p
+            style={{
+              marginTop: "0.5rem",
+              fontSize: "0.8rem",
+              color: "var(--text-soft)",
+              fontFamily: "var(--font-mono)",
+            }}
+          >
             Buscando resultados para &ldquo;{query}&rdquo; ({filtered.length} resultado{filtered.length !== 1 ? "s" : ""})
           </p>
         )}
@@ -158,41 +190,109 @@ export function BlogClient({ allPosts }: Props) {
               const bodyFragments = extractBodyFragments(post.content, query);
 
               return (
-                <li key={post.slug} className="border-b border-border py-8 last:border-none last:pb-0">
-                  <div className="flex gap-4 mb-2 font-mono text-[0.78rem] text-soft">
+                <li
+                  key={post.slug}
+                  style={{
+                    borderBottom: "1px solid rgba(201, 146, 74, 0.12)",
+                    padding: "2rem 0",
+                  }}
+                >
+                  {/* Date + read time */}
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "0.75rem",
+                      marginBottom: "0.6rem",
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "0.78rem",
+                      color: "var(--text-soft)",
+                    }}
+                  >
                     <time>{format(new Date(post.date), "d 'de' MMMM 'de' yyyy", { locale: es })}</time>
-                    <span>·</span>
+                    <span style={{ color: "var(--border)" }}>·</span>
                     <span>{post.readTime}</span>
                   </div>
-                  <Link href={`/blog/${post.slug}`} className="block">
-                    <h2 className="post-title text-[1.3rem] font-bold mb-2">
+
+                  {/* Title */}
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    style={{ display: "block", textDecoration: "none" }}
+                    onMouseEnter={(e) => { (e.currentTarget.querySelector("h2") as HTMLElement).style.color = "var(--accent)"; e.currentTarget.style.textDecoration = "none"; }}
+                    onMouseLeave={(e) => { (e.currentTarget.querySelector("h2") as HTMLElement).style.color = "var(--text)"; }}
+                  >
+                    <h2
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontSize: "1.35rem",
+                        fontWeight: 700,
+                        marginBottom: "0.5rem",
+                        color: "var(--text)",
+                        lineHeight: 1.2,
+                        transition: "color var(--transition)",
+                      }}
+                    >
                       {highlight(post.title, query)}
                     </h2>
                   </Link>
-                  <p className="text-[0.95rem] leading-[1.6] text-soft">
+
+                  {/* Description */}
+                  <p
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "0.95rem",
+                      lineHeight: 1.65,
+                      color: "var(--text-soft)",
+                      marginBottom: "0.75rem",
+                    }}
+                  >
                     {highlight(post.description, query)}
                   </p>
+
+                  {/* Body fragments */}
                   {bodyFragments.length > 0 && (
-                    <p className="mt-4 text-[0.9rem] leading-[1.5] text-soft">
-                      ... {bodyFragments.map((fragment, index) => (
+                    <p
+                      style={{
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "0.875rem",
+                        lineHeight: 1.6,
+                        color: "var(--text-soft)",
+                        marginBottom: "0.75rem",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      ...{bodyFragments.map((fragment, index) => (
                         <span key={index}>
                           {highlight(fragment, query)}
                           {index < bodyFragments.length - 1 && " ... "}
                         </span>
-                      ))} ...
+                      ))}...
                     </p>
                   )}
-                  <div className="flex flex-wrap gap-2 mt-2 items-center">
-                    {post.tags.map((tag, index) => (
-                      <span
-                        key={index}
-                        className={`text-[0.8rem] bg-[var(--text-soft)] px-2 py-1 rounded ${query.trim() && tag.toLowerCase().includes(query.toLowerCase()) ? 'text-[var(--accent)]' : 'text-[var(--surface)]'}`}
-                        onClick={() => setQuery((prev) => prev.trim() ? `${prev} ${tag}` : tag)}
-                        style={{ cursor: "pointer" }}
-                      >
-                        {highlight(tag, query)}
-                      </span>
-                    ))}
+
+                  {/* Tags */}
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginTop: "0.5rem" }}>
+                    {post.tags.map((tag, index) => {
+                      const isActive = query.trim() && tag.toLowerCase().includes(query.toLowerCase());
+                      return (
+                        <span
+                          key={index}
+                          onClick={() => setQuery((prev) => prev.trim() ? `${prev} ${tag}` : tag)}
+                          style={{
+                            cursor: "pointer",
+                            fontFamily: "var(--font-mono)",
+                            fontSize: "0.75rem",
+                            padding: "0.2rem 0.6rem",
+                            borderRadius: "4px",
+                            background: "var(--surface-2)",
+                            color: isActive ? "var(--accent)" : "var(--text-soft)",
+                            border: "1px solid var(--border)",
+                            transition: "color var(--transition), border-color var(--transition)",
+                          }}
+                        >
+                          {highlight(tag, query)}
+                        </span>
+                      );
+                    })}
                   </div>
                 </li>
               );

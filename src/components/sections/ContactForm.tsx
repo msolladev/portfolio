@@ -47,6 +47,19 @@ export function ContactForm() {
     }
   };
 
+  const inputStyle: React.CSSProperties = {
+    width: "100%",
+    background: "var(--surface)",
+    border: "1px solid var(--border)",
+    borderRadius: "var(--radius)",
+    padding: "0.85rem 1rem",
+    color: "var(--text)",
+    fontFamily: "var(--font-sans)",
+    fontSize: "1rem",
+    outline: "none",
+    transition: "border-color var(--transition), box-shadow var(--transition)",
+  };
+
   return (
     <>
       <p className="eyebrow mb-6">contacto</p>

@@ -47,8 +47,8 @@ export default async function BlogPostPage({ params }: Props) {
         {/* Meta */}
         <div className="flex gap-4 font-mono text-[0.78rem] text-[var(--text-soft)] mb-6">
           <time>{format(new Date(post.date), "d 'de' MMMM 'de' yyyy", { locale: es })}</time>
-          <span>·</span>
-          <span>{post.readTime}</span>
+          <span style={{ color: "var(--border)" }}>·</span>
+          <span style={{ color: "var(--text-soft)" }}>{post.readTime}</span>
         </div>
 
         <h1
@@ -58,11 +58,29 @@ export default async function BlogPostPage({ params }: Props) {
           {post.title}
         </h1>
 
-        <p className="text-[1.1rem] text-[var(--text-soft)] mb-12 sm:mb-6 leading-[1.7]">
+        <p
+          style={{
+            fontFamily: "var(--font-display)",
+            fontStyle: "italic",
+            fontSize: "1.1rem",
+            color: "var(--text-soft)",
+            lineHeight: 1.7,
+            marginBottom: "2.5rem",
+          }}
+        >
           {post.description}
         </p>
 
-        <hr className="border-0 border-t border-[var(--border)] mb-12 sm:mb-6" />
+        {/* Copper gradient divider */}
+        <div
+          aria-hidden="true"
+          style={{
+            height: "1px",
+            background: "linear-gradient(90deg, var(--accent) 0%, transparent 60%)",
+            opacity: 0.3,
+            marginBottom: "2.5rem",
+          }}
+        />
 
         {/* MDX content */}
         <article className="prose text-[var(--text-soft)] leading-[1.8]">
