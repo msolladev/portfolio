@@ -1,0 +1,91 @@
+---
+title: "Mi relación amor-odio con la inteligencia artificial"
+description: "La IA es la herramienta más potente que he tenido en mis manos. También es una de las más frustrantes, más opacas y más peligrosamente mal vendidas de la historia reciente."
+date: "2026-04-19"
+tags: ["ia", "herramientas", "opinión", "industria", "conflicto social"]
+slug: "relacion-amor-odio-con-la-ia"
+---
+
+Llevo usando inteligencia artificial de forma intensiva en mi trabajo desde que empezó a ser realmente útil. Claude, GitHub Copilot, ChatGPT — las tengo integradas en mi flujo de trabajo y han cambiado genuinamente la forma en que produzco. Hay días en que me parece magia. Hay otros en que me dan ganas de tirar el ordenador por la ventana.
+
+Esta es mi relación real con la IA. Sin el entusiasmo acrítico de los evangelistas ni el rechazo visceral de los escépticos. Desde las trincheras.
+
+## Lo que funciona de verdad
+
+Empiezo por lo bueno, porque lo hay y es real.
+
+La IA es un multiplicador. Cuando la usa alguien con criterio técnico, experiencia y capacidad de evaluar sus respuestas, el resultado puede ser espectacular. Tareas que llevarían horas se hacen en minutos. Código repetitivo, documentación, análisis, primeras versiones de cualquier cosa — todo se acelera. Por el precio actual de una suscripción el tiempo que ahorra es casi ridículo.
+
+El problema es que esa frase tiene una condición que mucha gente ignora: *cuando la usa alguien con criterio*. Volveré a esto.
+
+## El bucle de las dos soluciones incorrectas
+
+Quien use IA con frecuencia para tareas de código reconocerá esto inmediatamente.
+
+Le planteas un problema. La IA propone una solución. No funciona. Le dices que no funciona y por qué. Propone otra solución diferente. Tampoco funciona. Le dices que tampoco. Y entonces, con total naturalidad, vuelve a proponer la primera solución. Como si nunca hubiera ocurrido nada.
+
+Es desesperante. Puedes decirle explícitamente "te prohíbo sugerir X e Y porque ya hemos visto que no funcionan" y a veces funciona, pero otras muchas hay que abrir una conversación nueva, reformular el problema desde cero o directamente descartar sus últimos cambios y volver al código inicial.
+
+Esto no es un comportamiento marginal o anecdótico. Ocurre con suficiente frecuencia como para que cualquier programador que use IA a diario lo haya vivido múltiples veces. Es una limitación real del modelo, no un fallo puntual.
+
+## El código que parece funcionar
+
+El error más peligroso que puede cometer la IA no es el que se ve a simple vista. Es el que no se ve.
+
+La IA genera código que funciona suficientemente bien. Hace las cosas que se le piden, pasa las pruebas básicas, parece correcto. Y entonces, semanas después, aparece un memory leak extraño, un bug intermitente difícil de reproducir, o un antipatrón que va contaminando el código a medida que el proyecto crece.
+
+Uno de los más habituales y sencillos de entender es la violación del principio DRY — Don't Repeat Yourself. La IA tiende a duplicar lógica con pequeñas variaciones que en muchos casos son puramente cosméticas: un comentario diferente, un espacio en blanco, un nombre de variable ligeramente distinto. Código que hace lo mismo en tres sitios distintos, haciendo el mantenimiento progresivamente más costoso.
+
+Para alguien sin criterio técnico suficiente para detectar estas cosas, el código de la IA puede parecer excelente. Y eso es exactamente lo que lo hace peligroso.
+
+## El estilo que no cambia
+
+He intentado generar diseños web completamente diferentes con conceptos radicalmente distintos: la IA me devuelve el mismo layout. Con esquemas de color parecidos, eligiendo siempre las mismas tipografías, con la misma estructura de secciones. Incluye variaciones superficiales, sí — pero el esqueleto es siempre el mismo.
+
+Lo mismo ocurre con el texto. En cuanto has leído suficiente contenido generado por IA, empiezas a reconocer sus patrones con una facilidad que resulta casi cómica. Hay una cadencia, una forma de estructurar los párrafos, una tendencia a ciertas transiciones y ciertas conclusiones que se repiten independientemente del tema.
+
+Esto debería tener solución. La forma en que funcionan estos modelos estadísticamente permite en teoría generar resultados mucho más diversos. Que sean tan predecibles en estilo me sorprende, y creo que refleja algo sobre cómo están siendo entrenados — optimizando para respuestas que parecen correctas y satisfactorias en lugar de respuestas genuinamente diversas.
+
+## El pricing opaco como negocio
+
+Aquí es donde el amor empieza a ceder terreno al odio de forma más estructural.
+
+El sistema de tokens es la única forma técnicamente razonable de contabilizar el uso de los modelos de lenguaje — lo entiendo. Pero la forma en que se implementa y se comunica es una capa de opacidad sobre otra.
+
+He tenido esta conversación con varios directivos. La pregunta siempre es la misma: ¿cómo es posible que no pueda saber cuánto me va a costar algo antes de pedirlo? La explicación que mejor funciona es decirles que los tokens son el sistema que usa el modelo para traducir nuestro lenguaje humano a algo que puede procesar — trocea el texto en fragmentos que llama tokens. Y entonces empieza la opacidad real: cada modelo trocea de forma diferente y ninguno publica los criterios de ese troceo. El coste no es solo lo que envías, sino lo que devuelve la IA, más el contexto acumulado de la conversación, más los preprompts que añaden las empresas de forma invisible. Y la respuesta nunca es predecible, porque el mismo prompt puede generar respuestas de longitud muy diferente en distintos intentos.
+
+El resultado es que estás contratando a ciegas. Sabes aproximadamente lo que pagas por mes, pero no tienes forma real de anticipar qué uso corresponde a qué coste.
+
+Y esto va a empeorar. Los precios actuales son artificialmente bajos — las empresas de IA están perdiendo dinero y es obvio que habrá subidas sustanciales. Mi predicción es que en menos de un año no existirán suscripciones por debajo de cien dólares, y que en tres años los modelos de uso profesional real no bajarán de dos mil. A esos precios, la ecuación productividad-coste cambia radicalmente. Lo que hoy parece casi regalado dejará de serlo.
+
+## La IA no es magia, es un multiplicador
+
+Y aquí está el problema más grave de todo el ecosistema actual.
+
+La IA no crea nada. Multiplica lo que ya hay. Si quien la usa tiene criterio, experiencia y capacidad de evaluar sus respuestas el resultado puede ser extraordinario. Si quien la usa no tiene esas cosas, el resultado es un proyecto cutre pero funcional convertido en un infierno de bugs.
+
+Lo veo en distintos entornos donde se está intentando incorporar la IA en procesos de trabajo reales. El espectro de reacciones es siempre parecido: desde el escéptico que desconfía de entrada y le cuesta darle una oportunidad real, hasta el que espera un botón mágico que, sin ningún input, resuelva todo su trabajo semanal en un segundo. Lo que escasea en todos los casos es la expectativa realista del término medio.
+
+Lo que intento explicarles siempre es que esto ahora mismo es como tener un becario inteligente pero poco experimentado. Te puede ayudar mucho, pero solo si le pides las cosas de forma muy concreta y muy bien explicada. No funciona un "actúa como profesional de XXX y haz todo mi trabajo con este PDF". Necesita dirección, criterio y supervisión constante.
+
+## Los despidos que no van a funcionar
+
+Veo cómo internet se llena de noticias de empresas que han despedido entre el diez y el quince por ciento de su plantilla, algunas en varias rondas consecutivas, argumentando que la IA cubre esa capacidad. Y unas semanas o meses después, el servicio empieza a degradarse. Algunas ya han vuelto a recontratar al mismo número de personas despedidas, o a un porcentaje superior al 80%.
+
+Lo veo como usuario. Windows ha empeorado notablemente desde que Microsoft puso todo el foco en Copilot. El servicio de atención al cliente de múltiples empresas siendo sustituido por chatbots que no resuelven nada absolutamente nunca (especial mención a la degradación de este canal en Hostinger). AWS ha tenido fallos rarísimos, y ya han anunciado que van a limitar el uso de IA para desarrolladores junior porque los resultados no son los esperados.
+
+Mi miedo real no es el de ciencia ficción. Es este: que la IA acabe con miles de puestos de trabajo sin que haya un retorno real para la sociedad. El producto que hacía el humano empeora, los usuarios del servicio se enfadan porque la calidad cae (y el precio sube bajo una promesa de aplicación tecnológica de vanguardia), la sociedad donde ocurren esos despidos sufre por la pérdida de ingresos fiscales, y todo por una herramienta que está a muchos años de ser lo que sus proveedores prometen pero donde los directivos y CEOs han comprado sus promesas porque es cómodo pensar que puedes reducir plantilla con algo muy barato — que en el fondo acabará costando lo que un empleado o más — que no enferma, no descansa y no pide vacaciones.
+
+La diferencia con la Revolución Industrial es importante. Aquella también destruyó empleos, pero creó otros nuevos y mejoró genuinamente la productividad y la calidad de vida de forma medible. La IA está destruyendo empleos, pero el producto que queda es peor, no mejor. No es sustitución — es degradación disfrazada de eficiencia.
+
+## El ciclo del entusiasmo y el desengaño
+
+Mi relación con la IA sigue un patrón que se repite con cada nuevo modelo importante.
+
+Llega el anuncio. Las demostraciones son impresionantes. Las primeras semanas de uso confirman ese entusiasmo — parece que todo es posible, que esta vez sí. Y entonces, gradualmente, empieza el proceso de encontrar los límites. Los bucles de soluciones incorrectas, las alucinaciones. el estilo homogéneo, las limitaciones que no se veían al principio porque no habías llegado todavía a los casos donde fallan.
+
+Con Claude Sonnet y Opus di el salto más significativo que he dado en mucho tiempo. La mejora fue real y notable. Y aun así, el ciclo se repitió.
+
+Cada vez voy más al lado del odio al entorno, al ecosistema y a las consecuencias que se están creando. La herramienta en sí, en su mejor versión, sigue siendo valiosa. Pero el mundo que está construyendo a su alrededor — los precios opacos, las promesas infumables, los despidos masivos, la degradación de servicios, el entusiasmo acrítico de quienes toman decisiones sin entender qué están comprando — ese mundo me gusta cada vez menos.
+
+La IA es real. Su potencial es real. Y precisamente por eso merece algo que rara vez recibe: honestidad sobre lo que es ahora mismo y lo que todavía no es.
