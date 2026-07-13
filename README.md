@@ -2,18 +2,39 @@
 
 Stack: **Next.js 15 · TypeScript · Tailwind v4 · Framer Motion · Docker · Nginx**
 
+> ⚠️ Este proyecto usa **pnpm** como gestor de paquetes obligatorio (fijado vía `preinstall: only-allow pnpm`). No uses `npm install` ni `yarn install`: fallarán a propósito.
+
 ---
 
 ## Desarrollo local
 
 ```bash
+# Si no tienes pnpm instalado:
+npm i -g pnpm
+
 cp .env.example .env.local
 # edita .env.local con tus valores
 
-npm install
-npm run dev
+pnpm install
+```
+
+La primera vez, pnpm puede bloquear los scripts de build de dependencias nativas (por seguridad). Si ves un aviso `ERR_PNPM_IGNORED_BUILDS`:
+
+```bash
+pnpm approve-builds
+# selecciona con <espacio> los paquetes (p. ej. sharp, unrs-resolver) y confirma con <enter>
+pnpm install
+```
+
+```bash
+pnpm dev
 # → http://localhost:3000
 ```
+
+> 🪟 **Windows:** si PowerShell da error `UnauthorizedAccess` / `execution of scripts is disabled` al ejecutar `npm`/`pnpm`, habilita scripts locales una vez con:
+> ```powershell
+> Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+> ```
 
 ---
 
