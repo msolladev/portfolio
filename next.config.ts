@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Self-hosted: output standalone para Docker optimizado
   output: "standalone",
-
+  allowedDevOrigins: ["portfolio.test"],
   // Headers de seguridad
   async headers() {
     return [

@@ -12,7 +12,7 @@ const LINKS = [
   { href: "/blog", label: "blog" },
   { href: "/contacto", label: "contacto" },
   {
-    href: "https://rxresume.msolla.dev/miguelangelss4/miguel-solla",
+    href: "https://rxresume.msolla.dev/miguelangelss4/miguel-solla-2026",
     label: "currículum",
   },
 ];
