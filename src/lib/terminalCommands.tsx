@@ -1,5 +1,3 @@
-import { yearsOfExperience } from "@/lib/yearsOfExperience";
-
 // ─── Command definitions ──────────────────────────────────
 export const COMMANDS: Record<string, string[]> = {
   help: [
@@ -13,42 +11,35 @@ export const COMMANDS: Record<string, string[]> = {
     "  now         → qué estoy haciendo ahora",
   ],
   whoami: [
-    "Miguel Solla — Fullstack Developer",
-    `${yearsOfExperience} años construyendo productos reales.`,
-    "Backend sólido en PHP y Laravel, con experiencia en Android y .NET Core.",
-    "Actualmente explorando el ecosistema Node.js.",
+    "Miguel Solla — Senior Backend Developer PHP/Laravel",
+    "LLMs y desarrollo con agentes de IA (Claude Code).",
     "Me interesa tanto la arquitectura como el impacto real del software.",
   ],
   skills: [
-    "Backend:    PHP · Laravel · Symfony · CakePHP · .NET Core",
-    "CMS/Ecomm: WordPress · PrestaShop · WooCommerce",
-    "Frontend:   Bootstrap · jQuery · HTML5 · CSS3",
-    "Mobile:     Android (Java + Kotlin)",
-    "Infra:      Git · Docker · Linux · Nginx",
-    "Aprendiendo: Node.js · NestJS · React · Next.js · Vue · PostgreSQL",
+    "Backend:  PHP · Laravel · Symfony · CakePHP",
+    "Datos:    MariaDB · MySQL · optimización SQL",
+    "IA:       Claude Code · LLMs · ingeniería de prompts",
+    "Infra:    Git · Docker · GitHub Actions (CI/CD) · Linux · Nginx",
   ],
   experience: [
-    "2012 → hoy   Extra Software — Senior Developer",
-    "             WordPress, PrestaShop, Laravel, Android, .NET Core",
-    "             Consultoría y proyectos para múltiples clientes",
+    "2023 → hoy    Dubois Group (antes HW International) — Senior Backend Developer PHP · IA aplicada",
+    "              Plataforma de gestión del sector seguros en evolución hacia un ERP",
+    "              LLMs para extracción de datos y flujo de desarrollo con Claude Code",
     "",
-    "2023 → hoy   HWI Group — Senior Developer",
-    "             Arquitectura e implantación de plataforma web",
-    "             ERP para correduría de seguros",
+    "2012 → 2023   Extra Software — Senior Developer",
+    "              Consultoría: proyectos PHP, Laravel y Symfony para múltiples clientes",
   ],
   education: [
     "2012  CFGS Desarrollo de Aplicaciones Informáticas — IES Teide IV",
     "2009  CFGM Explotación de Sistemas Informáticos — IES Teide IV",
     "2018  Máster Executive Diseño y Programación Web 3.0 — U. Nebrija",
-    "2016  Desarrollo Apps Web, Android e iOS — INEM",
-    "2013  Desarrollo de Aplicaciones Android — Teide IV / INEM",
   ],
   now: [
     "Estado actual:",
     "",
-    "  Trabajando en:  Plataforma ERP para correduría de seguros",
-    "  Aprendiendo:    Node.js · NestJS · React · Next.js",
-    "  Abierto a:      Posición fullstack en remoto o híbrido (Alcalá de Henares)",
+    "  Trabajando en:  plataforma de gestión del sector seguros (PHP, IA aplicada)",
+    "  Explorando:     specs, ADRs y hooks con Claude Code en un proyecto personal en Laravel",
+    "  Abierto a:      puesto senior backend con IA, en remoto o híbrido cerca de Alcalá de Henares",
     "",
     "  → msolla.dev/contacto",
   ],

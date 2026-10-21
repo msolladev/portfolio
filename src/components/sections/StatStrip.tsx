@@ -7,8 +7,8 @@ const ease = [0.25, 0.1, 0.25, 1] as const;
 
 const STATS = [
   { number: `${yearsOfExperience}+`, label: "años de experiencia", hydrate: true },
-  { number: "100+",                  label: "proyectos entregados", hydrate: false },
-  { number: "5",                     label: "stacks dominados",     hydrate: false },
+  { number: "+15 h",                 label: "de trabajo manual al día liberadas con LLMs", hydrate: false },
+  { number: "×5",                    label: "más rápido entregando funcionalidades",       hydrate: false },
 ];
 
 export function StatStrip() {

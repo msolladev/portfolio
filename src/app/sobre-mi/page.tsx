@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
   keywords: ["Miguel Solla", "sobre mí", "desarrollador fullstack", "experiencia profesional", "PHP", "Laravel", "Alcalá de Henares"],
 };
 
-const SECTIONS = [
+const SECTIONS: { title: string; body: React.ReactNode }[] = [
   {
     title: "Cómo llegué aquí",
     body: `Con 13 años ya estaba haciendo webs con Frontpage y Dreamweaver. Siempre supe que quería dedicarme al mundo de la informática — la única duda era si acabaría en programación o en sistemas, y eso no lo resolví hasta que vi ambos mundos en primero. Mi primer contacto profesional fue una beca en una escuela de negocios donde hacía de todo: desde picar datos de leads en su sistema hasta diseñar una biblioteca online para gestionar los libros de la biblioteca que reservaban los alumnos. Ahí entendí que me gustaba construir cosas que la gente usara de verdad.`,
@@ -19,12 +20,21 @@ const SECTIONS = [
     body: `Mis compañeros me describen como responsable y serio, pero cercano y disponible. Creo que un buen developer es, primero, un buen comunicador: pregunto antes de asumir, escribo código que otros pueden mantener, y pienso en producción desde el primer commit. Cuando entro en modo concentración profunda, se me pueden pasar horas sin darme cuenta — y sin escuchar nada de lo que pasa alrededor. No me interesa acumular tecnologías; me interesa resolver el problema correcto. También me gusta entender las decisiones desde la perspectiva del negocio y de la experiencia de usuario, no solo desde el código.`,
   },
   {
+    title: "Cómo trabajo con IA",
+    body: (
+      <>
+        Desde 2025 desarrollo con agentes de IA. Junto a un compañero diseñé el flujo con Claude Code que hoy usa todo mi departamento: contexto por proyecto, skills propias, un modelo para planificar y otro para ejecutar, y subagentes que revisan cada cambio. La IA ejecuta; el plan, la revisión y la responsabilidad del código siguen siendo míos. Lo cuento con detalle en{" "}
+        <Link href="/blog/como-desarrollo-con-claude" className="text-[var(--accent)]">este artículo</Link>.
+      </>
+    ),
+  },
+  {
     title: "Qué me motiva",
-    body: `Que lo que construyo importe de verdad. Hay proyectos pequeños que te recuerdan por qué empezaste. En algún momento de mi carrera desarrollé algo para un amigo cercano, sin grandes pretensiones, y años después sigue agradeciéndome el impacto que tuvo en su negocio. Ese tipo de feedback vale más que cualquier métrica. Es el tipo de impacto que no siempre valoro en el momento, pero que es el que más me importa. Lo que me haría levantarme con ganas un lunes sería trabajar en algo propio, con una visión clara de hacia dónde va y que aportase algo positivo. No hace falta que sea el próximo Netflix — con que cambie vidas y me dé estabilidad en la mía, es suficiente.`,
+    body: `Que lo que construyo importe de verdad. Hay proyectos pequeños que te recuerdan por qué empezaste. En algún momento de mi carrera desarrollé algo para un amigo cercano, sin grandes pretensiones, y años después sigue agradeciéndome el impacto que tuvo en su negocio. Ese tipo de feedback vale más que cualquier métrica. Es el tipo de impacto que no siempre valoro en el momento, pero que es el que más me importa. Lo que me hace levantarme con ganas un lunes es un producto con una dirección clara, donde la técnica importe y donde pueda crecer hacia el liderazgo técnico de un equipo.`,
   },
   {
     title: "Fuera del código",
-    body: `Leo sobre arquitectura de software y, cada vez más, sobre geopolítica, negocios e inversiones. Empecé a investigar al cambiar mi hipoteca y un tema me fue llevando a otro — acabé entrando en una madriguera de conejo de la que no me arrepiento. Resulta que el mundo es más interesante que una hoja de cálculo, aunque muchas decisiones importantes todavía se toman exactamente así. El Real Madrid y el Age of Empires completan el cuadro — en ese orden.`,
+    body: `Leo sobre arquitectura de software y, cada vez más, sobre geopolítica, negocios e inversiones. Un tema me fue llevando a otro y acabé entrando en una madriguera de conejo de la que no me arrepiento. Resulta que el mundo es más interesante que una hoja de cálculo, aunque muchas decisiones importantes todavía se toman exactamente así. El Real Madrid y el Age of Empires completan el cuadro — en ese orden.`,
   },
 ];
 

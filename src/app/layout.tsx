@@ -30,8 +30,8 @@ const jetbrainsMono = JetBrains_Mono({
 // TODO: reemplaza con tus datos reales
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://msolla.dev";
 const FULL_NAME = "Miguel Solla";
-const TITLE = `${FULL_NAME} — Fullstack Developer`;
-const DESC = `Desarrollador web fullstack con más de ${yearsOfExperience} años de experiencia profesional. Especializado en PHP, Laravel y WordPress, con experiencia en Android y .NET Core. Actualmente explorando el ecosistema Node.js. Construyo software que funciona, escala y es fácil de mantener.`;
+const TITLE = `${FULL_NAME} — Senior Backend Developer PHP/Laravel · IA`;
+const DESC = `Desarrollador backend senior con más de ${yearsOfExperience} años de experiencia en PHP y Laravel. Integro IA generativa en sistemas reales (extracción y clasificación de datos con LLMs) y en mi forma de desarrollar, con un flujo de agentes con Claude Code. Rendimiento, arquitectura mantenible y CI/CD.`;
 
 
 export const metadata: Metadata = {

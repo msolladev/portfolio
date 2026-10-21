@@ -47,7 +47,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6, ease }}
         >
-          Fullstack Developer · {yearsOfExperience} años de experiencia
+          Senior Backend Developer · {yearsOfExperience} años de experiencia
         </motion.p>
 
         {/* Headline */}
@@ -70,8 +70,8 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35, duration: 0.6, ease }}
         >
-          PHP · Laravel · WordPress y ecosistema frontend clásico.{" "}
-          {yearsOfExperience} años construyendo productos reales. Transicionando hacia Node.js.
+          Backend en PHP y Laravel desde 2012. Integro IA generativa en sistemas reales y
+          desarrollo con agentes de IA (Claude Code), siempre bajo mi supervisión.
         </motion.p>
 
         {/* Typographic breath mark */}
