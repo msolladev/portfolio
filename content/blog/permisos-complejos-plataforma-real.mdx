@@ -39,11 +39,11 @@ Pero el problema de rendimiento tenía solución con optimización de queries e 
 
 ## Lo que aprendí
 
-**Los permisos son lógica de negocio, no infraestructura.** El error más común es tratarlos como un problema técnico genérico que se resuelve con una librería o un patrón estándar. En cuanto el modelo de negocio tiene matices — y siempre los tiene — necesitas un diseño a medida que refleje exactamente esas reglas, no una abstracción genérica que las approxime.
+**Los permisos son lógica de negocio, no infraestructura.** El error más común es tratarlos como un problema técnico genérico que se resuelve con una librería o un patrón estándar. En cuanto el modelo de negocio tiene matices — y siempre los tiene — necesitas un diseño a medida que refleje exactamente esas reglas, no una abstracción genérica que las aproxime.
 
 **La herencia de permisos hay que documentarla desde el día uno.** Las reglas bidireccionales que parecen obvias cuando las diseñas se vuelven opacas seis meses después cuando alguien tiene que añadir un caso nuevo. Sin documentación explícita de cada regla y su justificación de negocio, cada cambio es una caja negra.
 
-**El rendimiento de las consultas de permisos importa más de lo que parece.** Los permisos se comprueban constantemente — en cada request, en cada carga de interfaz, en cada acción del usuario. Una consulta que tarda 200ms puede parecer irrelevante hasta que se ejecuta veinte veces por página.
+**El rendimiento de las consultas de permisos importa más de lo que parece.** Los permisos se comprueban constantemente — en cada request, en cada carga de interfaz, en cada acción del usuario. Una consulta que tarda 200 ms puede parecer irrelevante hasta que se ejecuta veinte veces por página.
 
 **La interfaz de gestión de permisos es un producto en sí mismo.** No es un panel de administración secundario. Es la herramienta que determina si los usuarios con privilegios pueden hacer su trabajo o no. Merece el mismo nivel de atención de diseño que el resto de la aplicación.
 

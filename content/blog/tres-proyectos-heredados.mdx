@@ -19,11 +19,11 @@ Abrir ese proyecto por primera vez fue desconcertante. No había una lógica cla
 
 ## La plataforma de la productora audiovisual
 
-Este fue el más interesante de los tres, tanto por la complejidad del dominio como por cómo estaba construido. Una plataforma en AWS donde distintas compañías subían contenido de producciones audiovisuales — contratos, fotografías en RAW, brutos de grabación de capítulos completos que podían superar los cien gigabytes — con un sistema de permisos que controlaba qué empresa veía qué. Colas de mensajería para gestionar los estados de las subidas, chunks para permitir subir ficheros de varios cientos de gigabytes sin problemas, ...
+Este fue el más interesante de los tres, tanto por la complejidad del dominio como por cómo estaba construido. Una plataforma en AWS donde distintas compañías subían contenido de producciones audiovisuales — contratos, fotografías en RAW, brutos de grabación de capítulos completos que podían superar los cien gigabytes — con un sistema de permisos que controlaba qué empresa veía qué. Colas de mensajería para gestionar los estados de las subidas, chunks para permitir subir ficheros de varios cientos de gigabytes sin problemas.
 
 No había documentación. Pero tuvimos algo que en los otros dos proyectos no tuvimos: un par de llamadas de una hora con los desarrolladores originales, que nos explicaron por encima la arquitectura y las decisiones que habían tomado. Una hora no es mucho para un sistema de esa complejidad, pero es infinitamente mejor que nada. Esas dos llamadas nos ahorraron semanas de exploración a ciegas.
 
-A nivel arquitectura, Terraform y Ansible configuraban un sistema donde había 2 máquinas ECS sirviendo el front y una el back y un balanceador de carga decidía a dónde iba el tráfico, o si había que levantar y bajar máquinas adicionales en momentos puntuales. Estaba montado excepcionalmente bien, pero no teníamos capacidad para gestionar toda esa arquitectura que no usabamos, además con un framework y CMS que desconocíamos.
+A nivel de arquitectura, Terraform y Ansible configuraban un sistema con dos máquinas ECS sirviendo el front y una sirviendo el back. Un balanceador de carga repartía el tráfico entre ellas y levantaba o bajaba máquinas adicionales en momentos puntuales. Estaba montado excepcionalmente bien, pero no teníamos capacidad para gestionar toda esa arquitectura que no usábamos, además con un framework y CMS que desconocíamos.
 
 ## La escuela digital
 
@@ -31,7 +31,7 @@ El tercero era un ecosistema de varias piezas conectadas: un WordPress donde los
 
 La complejidad aquí no era el código en sí, sino la cantidad de sistemas que tenían que hablar entre sí y la cantidad de casos límite que esa comunicación generaba. Sin documentación de cómo estaban conectados, entender qué pasaba cuando algo fallaba requería seguir el hilo a través de tres sistemas distintos.
 
-Además, este era uno de los casos done el cliente era especialmente complejo, con expectativas poco realistas.
+Además, este era uno de los casos donde el cliente era especialmente complejo, con expectativas poco realistas.
 
 ## La regla que aprendimos
 

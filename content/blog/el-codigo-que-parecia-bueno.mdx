@@ -15,7 +15,7 @@ Mi respuesta fue que sí, que se podía trabajar con él. Luego empezaron a sali
 
 El problema no era la estructura en el papel. Era lo que había dentro de esa estructura.
 
-El sistema hacía un uso intensivo de heredocs dinámicas — bloques de texto literal con interpolación de variables incrustada, generados en tiempo de ejecución para construir partes de la interfaz. Funcionaba. Era incluso ingenioso para la época en que se escribió. Pero seguir el flujo de un cambio cualquiera requería rastrear qué se estaba generando, dónde, con qué datos y bajo qué condiciones, sin que hubiera una forma clara de hacerlo sin leer todo el bloque.
+El sistema hacía un uso intensivo de heredocs dinámicos — bloques de texto literal con interpolación de variables incrustada, generados en tiempo de ejecución para construir partes de la interfaz. Funcionaba. Era incluso ingenioso para la época en que se escribió. Pero seguir el flujo de un cambio cualquiera requería rastrear qué se estaba generando, dónde, con qué datos y bajo qué condiciones, sin que hubiera una forma clara de hacerlo sin leer todo el bloque.
 
 Modificar el comportamiento en un punto concreto significaba entender primero todo lo que ese heredoc estaba construyendo. Y si querías cambiar algo que afectaba a varios sitios, tenías que encontrarlos todos — porque no había forma de buscarlos sistemáticamente.
 
@@ -49,7 +49,7 @@ Antes de dar una respuesta sobre si un sistema es viable, haría un spike explí
 
 Si ese cambio pequeño y acotado es difícil de seguir, difícil de ejecutar o produce incertidumbre sobre qué más puede haberse roto, eso ya es información definitiva. No hace falta evaluar el sistema entero — con ver cómo responde a una modificación controlada es suficiente para saber lo que hay.
 
-También preguntaría por el historial real de cambios antes de decidir. ¿Cuántas veces se ha modificado este sistema en el último año? ¿Qué tardaron esas modificaciones? ¿Hay algo que se intentó y se descartó por dificultad? Esas respuestas dicen más sobre la maleabilidad real que cualquier revisión del código en frío.
+También preguntaría por el historial real de cambios antes de decidir. ¿Cuántas veces se ha modificado este sistema en el último año? ¿Cuánto tardaron esas modificaciones? ¿Hay algo que se intentó y se descartó por dificultad? Esas respuestas dicen más sobre la maleabilidad real que cualquier revisión del código en frío.
 
 ## Una nota sobre el código "adelantado a su tiempo"
 

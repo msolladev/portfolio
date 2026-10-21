@@ -28,7 +28,7 @@ El segundo es la depuración. En un monolito, seguir el rastro de un error es re
 
 El tercero es la consistencia de datos. Antes, lo que en un monolito era un simple JOIN entre dos tablas, en microservicios con bases de datos independientes se convierte en un problema de sincronización. Hay técnicas para gestionarlo — el patrón Saga para transacciones distribuidas, o la sincronización mediante eventos con herramientas como Kafka o RabbitMQ — pero añaden capas de complejidad que hay que entender y mantener.
 
-El cuarto, y quizás el más subestimado, es la resiliencia parcial. Se vende como ventaja: si un microservicio cae, el resto sigue funcionando. Eso es cierto. Pero si todos tus microservicios apuntan a la misma base de datos — lo que sería un error arquitectónico grave, pero en la práctica pasa — y es esa la que falla cae todo igualmente. La resiliencia real requiere un diseño cuidadoso en cada capa, no solo en la arquitectura de servicios.
+El cuarto, y quizás el más subestimado, es la resiliencia parcial. Se vende como ventaja: si un microservicio cae, el resto sigue funcionando. Eso es cierto. Pero si todos tus microservicios apuntan a la misma base de datos — lo que sería un error arquitectónico grave, pero en la práctica pasa — y es esa la que falla, cae todo igualmente. La resiliencia real requiere un diseño cuidadoso en cada capa, no solo en la arquitectura de servicios.
 
 ## Cuándo tiene sentido dar el paso
 

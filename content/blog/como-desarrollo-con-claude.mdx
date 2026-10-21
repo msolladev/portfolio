@@ -1,0 +1,130 @@
+---
+title: "Cómo desarrollo con Claude Code: el flujo que hemos construido en mi departamento"
+description: "Contexto por proyecto, skills propias, un modelo para planificar y otro para ejecutar, subagentes revisores y verificación con el navegador. Qué hace cada pieza, dónde intervengo yo y qué no funcionó por el camino."
+date: "2026-10-21"
+tags: ["ia", "claude code", "agentes", "flujo de trabajo", "php"]
+---
+
+En mi proyecto, una funcionalidad que antes me llevaba entre una y dos semanas ahora llega a producción en uno o dos días. Es una estimación mía, no una medición: no tenemos un antes y un después cronometrado. Pero la diferencia es lo bastante grande como para que nadie en el departamento la discuta.
+
+Ese cambio viene de un flujo de trabajo con Claude Code que hemos ido construyendo desde 2025. En este artículo cuento cómo está montado, qué hace cada pieza, en qué puntos intervengo yo y qué probamos y descartamos por el camino.
+
+## El punto de partida
+
+Desde 2024 soy el único desarrollador de mi proyecto: una plataforma de gestión que sustituye procesos basados en Excel, PDF y correo, y que poco a poco se ha convertido en un ERP. Está hecha en PHP sin framework, con MariaDB y Docker. Lo menciono porque el flujo no depende de Laravel ni de ningún framework concreto. Lo que el agente necesita es contexto, no convenciones de un framework.
+
+Mi relación con la IA en el trabajo pasó por las etapas habituales. Primero, nada. Después, autocompletado y un chat al que preguntar dudas y del que copiar fragmentos. Más tarde, un agente en la terminal, pero sin ninguna estructura: cada sesión empezaba de cero, había que explicarle el proyecto una y otra vez y el resultado dependía demasiado de lo bien que yo redactara la petición de ese día.
+
+El flujo actual nació de ahí. Un compañero del departamento y yo empezamos a ordenar lo que nos funcionaba por iniciativa propia, sin que nadie nos lo encargara. Hoy somos cuatro desarrolladores y lo usamos los cuatro.
+
+## Las piezas
+
+### Contexto que el agente lee antes de empezar
+
+Cada proyecto tiene ficheros de contexto que el agente carga al arrancar una sesión. Contienen la arquitectura, las convenciones, los comandos para levantar y operar el proyecto, las reglas de negocio que hay que respetar y dos listas que resultaron ser las más útiles: lo que es obligatorio hacer siempre y lo que está prohibido.
+
+Muchas de esas reglas nacieron de errores que el agente repetía. Cuando un fallo aparece una y otra vez, no basta con corregirlo en cada revisión: se convierte en regla, y la regla lleva un ejemplo de cómo no hacerlo y de cómo sí. Un caso típico son las consultas SQL. Este es un ejemplo simplificado del tipo de regla que usamos:
+
+````markdown
+## Consultas SQL (obligatorio)
+
+- Nunca `SELECT *`: selecciona solo las columnas que se usan.
+- Nunca concatenes valores en una consulta: usa siempre parámetros.
+
+Mal:
+```php
+$sql = "SELECT * FROM contracts WHERE customer_id = " . $customerId;
+```
+
+Bien:
+```php
+$sql  = "SELECT id, status, start_date FROM contracts WHERE customer_id = :customerId";
+$stmt = $pdo->prepare($sql);
+$stmt->execute(['customerId' => $customerId]);
+```
+````
+
+Con el ejemplo delante, el agente deja de cometer ese error de forma consistente. Sin él, la regla se cumple a ratos.
+
+### Skills y comandos para lo que se repite
+
+Las tareas que hacemos a menudo están empaquetadas como skills y comandos, de forma que se ejecutan siempre igual, con las mismas comprobaciones. Algunas de las que más uso:
+
+- **Nueva operación de la API**, siguiendo la estructura y las validaciones del proyecto.
+- **Descarga y restauración de la base de datos** para trabajar en local con datos actualizados.
+- **Activación y desactivación de feature flags.**
+- **Subida de cambios**: commit, push, pull request, resolución de conflictos si los hay, fusión y seguimiento del pipeline. Cada paso tiene sus comprobaciones, y si uno falla, el proceso se detiene.
+
+La última es la que más tiempo mecánico me ahorra, y la que más me costó afinar: un proceso que toca el repositorio compartido tiene que fallar de forma predecible, no improvisar.
+
+### Un modelo para planificar y otro para ejecutar
+
+No todas las fases necesitan el mismo modelo. El plan lo hace Opus, con esfuerzo alto o máximo según la complejidad de la funcionalidad. La implementación y la revisión las hace Sonnet. Para cambios muy sencillos se puede usar un modelo más ligero.
+
+El reparto responde a dos cosas: planificar es donde un error sale más caro, y ejecutar un plan bien definido no necesita el modelo más potente. Usar Opus para todo cuesta más sin mejorar de forma apreciable la implementación.
+
+### Subagentes: revisión y trabajo en paralelo
+
+Dentro de una tarea, el agente principal reparte el trabajo entre subagentes que trabajan en paralelo sobre partes independientes y le devuelven el resultado. Algunos de esos subagentes son revisores con un foco concreto: seguridad, SQL y rendimiento, y lógica de negocio. Revisan los cambios antes de darlos por buenos, y sus informes los leo yo para decidir qué se corrige.
+
+### Verificación funcional con el navegador
+
+Cuando una funcionalidad está implementada, lanzo un agente que maneja el navegador (Claude in Chrome o Playwright) y recorre la aplicación para comprobar que hace lo que debe. Lo lanzo a mano, cuando lo necesito. No es una suite de pruebas automatizada que se ejecute en cada cambio, y no conviene confundirlo con eso.
+
+## Una funcionalidad de principio a fin
+
+Un ejemplo reciente: la cancelación de contratos. Sobre el papel parece un botón. En la práctica implica decidir dónde se cancela, quién puede hacerlo, qué pasa con los contratos vinculados, qué ocurre con los cobros según estén pagados o pendientes, qué cambia si el contrato ya se había renovado y cómo se deshace una cancelación hecha por error.
+
+El proceso fue este:
+
+1. **Definición.** Fui iterando la lógica de negocio en una conversación con Claude, paso a paso, hasta llegar a un punto en el que ni el modelo ni yo encontrábamos huecos. Las dudas que no eran técnicas las resolvía el PM.
+2. **Plan.** Con la definición cerrada, Opus escribe el plan de implementación. Lo leo y lo corrijo antes de que se escriba una sola línea de código.
+3. **Implementación.** Sonnet ejecuta el plan, con los subagentes revisando seguridad, consultas y reglas de negocio.
+4. **Revisión.** Leo el diff completo.
+5. **Pruebas.** Pruebo la funcionalidad yo mismo y lanzo el agente de navegador para recorrer los distintos caminos.
+6. **Subida.** La skill de subida se encarga del resto, hasta el pipeline.
+
+La mayor parte de mi tiempo está ahora en el primer paso. Antes estaba en el tercero y el quinto.
+
+## Dónde intervengo yo
+
+Todo lo que hace el agente pasa por mí. En la práctica, eso significa tres controles: apruebo el plan antes de que se implemente, leo el diff entero y pruebo la funcionalidad yo mismo, además de la verificación con el navegador.
+
+Hay decisiones que no delego nunca: las reglas de negocio, que se cierran con el PM; la arquitectura; cualquier cambio en seguridad o permisos; y todo lo que toque producción o datos reales sin mi confirmación. El agente acelera la ejecución. La responsabilidad sobre el código que llega a producción sigue siendo mía.
+
+## De dónde salen los días
+
+La ganancia se concentra en dos fases: la implementación y las pruebas manuales. Escribir el código y recorrer a mano cada caso eran lo que se comía la mayor parte de esas una o dos semanas. Ahora el código sale de un plan revisado y la primera pasada de pruebas la hace un agente.
+
+También llegan menos incidencias. No lo he medido con rigor, pero se nota en los tickets: entran menos errores después de cada entrega. Mi explicación es que la definición previa obliga a pensar los casos límite antes de programar, y que los revisores detectan problemas que antes llegaban a producción.
+
+## El coste también se diseña
+
+Trabajamos con suscripción, no con la API, así que el control del coste pasa por no malgastar uso. Además de elegir modelo y esfuerzo según la tarea, auditamos los tokens que consume cada funcionalidad y revisamos el contexto antes de empezar cada conversación.
+
+Esa revisión nos llevó a adelgazar los ficheros de contexto grandes y a trocearlos, de forma que cada funcionalidad cargue solo lo que necesita. En los proyectos que empezamos ahora iremos un paso más allá: cada funcionalidad tendrá su propio registro de decisiones (ADR) y su trozo de contexto.
+
+## Lo que no funcionó
+
+Antes de llegar aquí probamos varias cosas que descartamos:
+
+- **Un contexto gigante con todo.** Consumía muchos tokens y el agente seguía peor las reglas importantes, perdidas entre todo lo demás.
+- **Conversaciones interminables.** Arrastrar todo el historial en una misma sesión degrada las respuestas. Es mejor empezar limpio con el contexto justo.
+- **Implementar sin plan.** Pedir directamente el código, al estilo del *vibe coding*, producía huecos en la lógica que había que rehacer después.
+- **Usar la IA solo para atascos puntuales.** Ayudaba, pero no cambiaba la forma de trabajar. La ganancia de verdad llegó al estructurar el ciclo completo.
+
+## Un flujo de equipo
+
+El flujo lo diseñamos y lo iteramos entre dos, y lo usamos los cuatro desarrolladores del departamento. Las skills, los comandos y los ficheros de contexto viven en un repositorio común, y las mejoras se proponen y se revisan como cualquier otro cambio de código. Otras se comentan sin más formalidad.
+
+La adopción no encontró resistencia, y creo que tiene que ver con cómo se hizo: no fue una norma impuesta, sino algo que funcionaba y que los demás podían usar desde el primer día. El compañero que se incorporó hace poco ya trabaja con el flujo, y lo lógico es que pronto empiece también a mejorarlo.
+
+La ventaja de un flujo compartido es que cada mejora la aprovechan todos. Una regla nueva en el contexto evita un error en los proyectos de los cuatro.
+
+## Lo que falta y hacia dónde va
+
+Mi proyecto no tiene una suite de pruebas automatizadas. La verificación con el navegador cubre parte de ese hueco, pero es funcional y a demanda, no una red de seguridad que se ejecute en cada cambio. Es la siguiente pieza que falta.
+
+En paralelo, en un proyecto personal en Laravel estoy probando lo que todavía no uso en el trabajo: especificaciones por funcionalidad, ADRs y hooks de Claude Code. Me sirve para comprobar qué aporta cada pieza antes de proponerla al resto del departamento. Lo que funcione ahí es candidato a la siguiente iteración del flujo.
+
+Si algo tengo claro después de este año, es que la diferencia no la marca el modelo que uses, sino el contexto que le das, el plan que apruebas y lo que revisas antes de dar un cambio por bueno.
